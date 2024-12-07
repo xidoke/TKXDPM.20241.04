@@ -1,6 +1,7 @@
 package com.example.aims.product.models;
 
 public class Product {
+    private String id;
     private String title;
     private String category;
     private double value;
@@ -12,7 +13,8 @@ public class Product {
     private String dimensions;
     private double weight;
 
-    public Product(String title, String category, double value, double price, String description, int quantity, String barcode, String condition, String dimensions, double weight) {
+    public Product(String id, String title, String category, double value, double price, String description, int quantity, String barcode, String condition, String dimensions, double weight) {
+        this.id = id;
         this.title = title;
         this.category = category;
         this.value = value;
