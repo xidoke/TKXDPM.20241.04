@@ -12,9 +12,14 @@ namespace AIMS.Views.Product
 {
     public partial class ProductDetailsView : UserControl
     {
-        public ProductDetailsView()
+        public ProductDetailsView(int productID)
         {
             InitializeComponent();
+        }
+
+        private void ProductDetailsView_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

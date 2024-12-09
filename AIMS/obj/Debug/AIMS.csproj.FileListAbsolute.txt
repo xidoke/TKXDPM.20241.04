@@ -9,3 +9,4 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.GenerateRes
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.CoreCompileInputs.cache
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.exe
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.pdb
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Cart.CartView.resources
