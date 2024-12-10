@@ -2,6 +2,7 @@
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AIMS.Services
 {
@@ -9,38 +10,23 @@ namespace AIMS.Services
     {
         private DatabaseConnect dbConnect = DatabaseConnect.gI();
 
-        public List<Media> GetAllMedia()
+        public async Task<List<Media>> GetAllMediaAsync()
         {
-            return dbConnect.SelectData("Media", MapDataReaderToMedia);
+            return await dbConnect.SelectDataAsync<Media>("Media", MapDataReaderToMedia);
         }
-        public Media GetMediaById(int mediaId)
+
+        public async Task<Media> GetMediaByIdAsync(int mediaId)
         {
             string where = "id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "id", mediaId }
             };
-            List<Media> mediaList = dbConnect.SelectData("Media", MapDataReaderToMedia, where, parameters);
+            List<Media> mediaList = await dbConnect.SelectDataAsync<Media>("Media", MapDataReaderToMedia, where, parameters);
             return mediaList.Count > 0 ? mediaList[0] : null;
         }
-        /*
-         * 
-         * Hướng dẫn sử dụng Update 
-        MediaService mediaService = new MediaService();
-        int mediaIdToUpdate = 2;
-        Media mediaToUpdate = mediaService.GetMediaById(mediaIdToUpdate); 
 
-        if (mediaToUpdate != null)
-        {
-            mediaToUpdate.price = 120;
-            mediaToUpdate.quantity = 50;
-            mediaService.UpdateMedia(mediaToUpdate);
-        }
-        else
-        {
-            Console.WriteLine($"Media with ID {mediaIdToUpdate} not found.");
-        }*/
-        public void UpdateMedia(Media media)
+        public async Task UpdateMediaAsync(Media media)
         {
             Dictionary<string, object> setValues = new Dictionary<string, object>
             {
@@ -57,18 +43,20 @@ namespace AIMS.Services
             {
                 { "id", media.id }
             };
-            dbConnect.UpdateData("Media", setValues, where, parameters);
+            await dbConnect.UpdateDataAsync("Media", setValues, where, parameters);
         }
-        public void DeleteMedia(int mediaId)
+
+        public async Task DeleteMediaAsync(int mediaId)
         {
             string where = "id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "id", mediaId }
             };
-            dbConnect.DeleteData("Media", where, parameters);
+            await dbConnect.DeleteDataAsync("Media", where, parameters);
         }
-        public void AddMedia(Media media)
+
+        public async Task AddMediaAsync(Media media)
         {
             Dictionary<string, object> values = new Dictionary<string, object>
             {
@@ -80,34 +68,39 @@ namespace AIMS.Services
                 { "imgURL", media.imgURL },
                 { "rush_support", media.rush_support }
             };
-            dbConnect.InsertData("Media", values);
+            await dbConnect.InsertDataAsync("Media", values);
         }
-        public List<Media> GetMediaOrderedByTitle(bool ascending)
+
+        public async Task<List<Media>> GetMediaOrderedByTitleAsync(bool ascending)
         {
-            return dbConnect.SelectData("Media", MapDataReaderToMedia, orderBy: "title", ascending: ascending);
+            return await dbConnect.SelectDataAsync<Media>("Media", MapDataReaderToMedia, orderBy: "title", ascending: ascending);
         }
-        public int GetMediaCountByCategory(string category)
-        {
-            string where = "category = @category";
-            Dictionary<string, object> parameters = new Dictionary<string, object>
-            {
-                { "category", category }
-            };
-            return dbConnect.SelectCount("Media", where, parameters);
-        }
-        public List<Media> GetMediaByCategoryOrderedByPrice(string category, bool ascending)
+
+        public async Task<int> GetMediaCountByCategoryAsync(string category)
         {
             string where = "category = @category";
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "category", category }
             };
-            return dbConnect.SelectData("Media", MapDataReaderToMedia, where, parameters, "price", ascending);
+            return await dbConnect.SelectCountAsync("Media", where, parameters);
         }
-        public List<Media> GetMedias(string where, Dictionary<string, object> parameters = null, string orderBy = null, bool ascending = true)
+
+        public async Task<List<Media>> GetMediaByCategoryOrderedByPriceAsync(string category, bool ascending)
         {
-            return dbConnect.SelectData("Media", MapDataReaderToMedia, where, parameters, orderBy, ascending);
+            string where = "category = @category";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "category", category }
+            };
+            return await dbConnect.SelectDataAsync<Media>("Media", MapDataReaderToMedia, where, parameters, "price", ascending);
         }
+
+        public async Task<List<Media>> GetMediasAsync(string where, Dictionary<string, object> parameters = null, string orderBy = null, bool ascending = true)
+        {
+            return await dbConnect.SelectDataAsync<Media>("Media", MapDataReaderToMedia, where, parameters, orderBy, ascending);
+        }
+
         private Media MapDataReaderToMedia(NpgsqlDataReader reader)
         {
             return new Media

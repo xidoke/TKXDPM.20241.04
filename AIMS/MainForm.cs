@@ -76,8 +76,6 @@ namespace AIMS
             mainFormPanel.Controls.Add(cartView);
             cartView.Dock = DockStyle.Fill;
             cartView.Show();
-            MediaService mediaService = new MediaService();
-            mediaService.DeleteMedia(4);
         }
         public void PrintDataTableToFile(DataTable dataTable, string filePath)
         {

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AIMS
 {
@@ -15,21 +16,21 @@ namespace AIMS
             return _Instance == null ? _Instance = new DatabaseConnect() : _Instance;
         }
 
-        public string ConnectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1vsmClOd;Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Pooling=true;";
+        public string ConnectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1vsmClOd;Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Pooling=true;Timeout=60;CommandTimeout=60;Connection Lifetime=60;KeepAlive=30;Multiplexing=false";
         public NpgsqlConnection vConnection;
 
-        public void Connect()
+        public async Task ConnectAsync()
         {
             vConnection = new NpgsqlConnection(ConnectionString);
             if (vConnection.State == ConnectionState.Closed)
             {
-                vConnection.Open();
+                await vConnection.OpenAsync();
             }
         }
 
-        public List<T> SelectData<T>(string table, Func<NpgsqlDataReader, T> mapFunction, string where = null, Dictionary<string, object> parameters = null, string orderBy = null, bool ascending = true)
+        public async Task<List<T>> SelectDataAsync<T>(string table, Func<NpgsqlDataReader, T> mapFunction, string where = null, Dictionary<string, object> parameters = null, string orderBy = null, bool ascending = true)
         {
-            Connect();
+            await ConnectAsync(); 
             List<T> resultList = new List<T>();
 
             string sql = $"SELECT * FROM {table}";
@@ -45,23 +46,24 @@ namespace AIMS
 
             using (NpgsqlCommand command = new NpgsqlCommand(sql, vConnection))
             {
+                command.CommandTimeout = 60;
                 AddParametersToCommand(command, parameters);
 
-                using (NpgsqlDataReader reader = command.ExecuteReader())
+                using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         resultList.Add(mapFunction(reader));
                     }
                 }
             }
-            vConnection.Close();
+            await CloseConnectionAsync();
             return resultList;
         }
 
-        public int SelectCount(string table, string where = null, Dictionary<string, object> parameters = null)
+        public async Task<int> SelectCountAsync(string table, string where = null, Dictionary<string, object> parameters = null)
         {
-            Connect();
+            await ConnectAsync();
             int count = 0;
 
             string sql = $"SELECT COUNT(*) FROM {table}";
@@ -72,11 +74,12 @@ namespace AIMS
 
             using (NpgsqlCommand command = new NpgsqlCommand(sql, vConnection))
             {
+                command.CommandTimeout = 60; 
                 AddParametersToCommand(command, parameters);
 
                 try
                 {
-                    object result = command.ExecuteScalar();
+                    object result = await command.ExecuteScalarAsync(); 
                     if (result != null && result != DBNull.Value)
                     {
                         count = Convert.ToInt32(result);
@@ -87,13 +90,13 @@ namespace AIMS
                     Console.WriteLine($"Error executing COUNT query: {ex.Message}");
                 }
             }
-            vConnection.Close();
+            await CloseConnectionAsync();
             return count;
         }
 
-        public int UpdateData(string table, Dictionary<string, object> setValues, string where = null, Dictionary<string, object> parameters = null)
+        public async Task<int> UpdateDataAsync(string table, Dictionary<string, object> setValues, string where = null, Dictionary<string, object> parameters = null)
         {
-            Connect();
+            await ConnectAsync();
             int rowsAffected = 0;
 
             string sql = $"UPDATE {table} SET ";
@@ -117,23 +120,25 @@ namespace AIMS
 
             using (NpgsqlCommand command = new NpgsqlCommand(sql, vConnection))
             {
+                command.CommandTimeout = 60; 
                 AddParametersToCommand(command, parameters);
 
                 try
                 {
-                    rowsAffected = command.ExecuteNonQuery();
+                    rowsAffected = await command.ExecuteNonQueryAsync();
                 }
                 catch (NpgsqlException ex)
                 {
                     Console.WriteLine($"Error updating data: {ex.Message}");
                 }
             }
-            vConnection.Close();
+            await CloseConnectionAsync();
             return rowsAffected;
         }
-        public int DeleteData(string table, string where = null, Dictionary<string, object> parameters = null)
+
+        public async Task<int> DeleteDataAsync(string table, string where = null, Dictionary<string, object> parameters = null)
         {
-            Connect();
+            await ConnectAsync();
             int rowsAffected = 0;
 
             string sql = $"DELETE FROM {table}";
@@ -144,24 +149,25 @@ namespace AIMS
 
             using (NpgsqlCommand command = new NpgsqlCommand(sql, vConnection))
             {
+                command.CommandTimeout = 60;
                 AddParametersToCommand(command, parameters);
 
                 try
                 {
-                    rowsAffected = command.ExecuteNonQuery();
+                    rowsAffected = await command.ExecuteNonQueryAsync();
                 }
                 catch (NpgsqlException ex)
                 {
                     Console.WriteLine($"Error deleting data: {ex.Message}");
                 }
             }
-            vConnection.Close();
+            await CloseConnectionAsync();
             return rowsAffected;
         }
 
-        public int InsertData(string table, Dictionary<string, object> values)
+        public async Task<int> InsertDataAsync(string table, Dictionary<string, object> values)
         {
-            Connect();
+            await ConnectAsync();
             int rowsAffected = 0;
 
             string columns = string.Join(", ", values.Keys);
@@ -171,22 +177,22 @@ namespace AIMS
 
             using (NpgsqlCommand command = new NpgsqlCommand(sql, vConnection))
             {
+                command.CommandTimeout = 60; 
                 AddParametersToCommand(command, values);
 
                 try
                 {
-                    rowsAffected = command.ExecuteNonQuery();
+                    rowsAffected = await command.ExecuteNonQueryAsync(); 
                 }
                 catch (NpgsqlException ex)
                 {
                     Console.WriteLine($"Error inserting data: {ex.Message}");
                 }
             }
-            vConnection.Close();
+            await CloseConnectionAsync();
             return rowsAffected;
         }
 
-        // Helper function to add parameters to a command
         private void AddParametersToCommand(NpgsqlCommand command, Dictionary<string, object> parameters)
         {
             if (parameters != null)
@@ -195,6 +201,13 @@ namespace AIMS
                 {
                     command.Parameters.AddWithValue(parameter.Key, parameter.Value ?? DBNull.Value);
                 }
+            }
+        }
+        private async Task CloseConnectionAsync()
+        {
+            if (vConnection != null && vConnection.State == ConnectionState.Open)
+            {
+                await vConnection.CloseAsync();
             }
         }
     }

@@ -33,6 +33,7 @@
             this.searchBox = new System.Windows.Forms.TextBox();
             this.sortByPrice = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flpDVD_Product
@@ -58,7 +59,6 @@
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(171, 20);
             this.searchBox.TabIndex = 2;
-            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
             // 
             // sortByPrice
             // 
@@ -66,7 +66,7 @@
             this.sortByPrice.Items.AddRange(new object[] {
             "Thấp đến cao",
             "Cao đến thấp"});
-            this.sortByPrice.Location = new System.Drawing.Point(311, 75);
+            this.sortByPrice.Location = new System.Drawing.Point(363, 75);
             this.sortByPrice.Name = "sortByPrice";
             this.sortByPrice.Size = new System.Drawing.Size(121, 21);
             this.sortByPrice.TabIndex = 3;
@@ -76,16 +76,27 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(270, 76);
+            this.label2.Location = new System.Drawing.Point(322, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "Giá:";
             // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(257, 76);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(59, 23);
+            this.buttonSearch.TabIndex = 5;
+            this.buttonSearch.Text = "Tìm kiếm";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // DVDProductView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.sortByPrice);
             this.Controls.Add(this.searchBox);
@@ -106,5 +117,6 @@
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.ComboBox sortByPrice;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }
