@@ -15,8 +15,7 @@ namespace AIMS
         {
             return _Instance == null ? _Instance = new DatabaseConnect() : _Instance;
         }
-
-        public string ConnectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1vsmClOd;Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Pooling=true;Timeout=60;CommandTimeout=60;Connection Lifetime=60;KeepAlive=30;Multiplexing=false";
+        public string ConnectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1vsmClOd;Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Pooling=true;Timeout=60;CommandTimeout=60;Connection Lifetime=60;Multiplexing=true";
         public NpgsqlConnection vConnection;
 
         public async Task ConnectAsync()
@@ -27,7 +26,6 @@ namespace AIMS
                 await vConnection.OpenAsync();
             }
         }
-
         public async Task<List<T>> SelectDataAsync<T>(string table, Func<NpgsqlDataReader, T> mapFunction, string where = null, Dictionary<string, object> parameters = null, string orderBy = null, bool ascending = true)
         {
             await ConnectAsync(); 

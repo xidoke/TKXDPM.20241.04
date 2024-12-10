@@ -55,7 +55,36 @@ namespace AIMS.Services
             };
             await dbConnect.DeleteDataAsync("Media", where, parameters);
         }
-
+        public async Task<List<Media>> getListDVD()
+        {
+            string categoryToSearch = "DVD";
+            string whereClause = "category = @category";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                 { "category", categoryToSearch }
+            };
+            return await GetMediasAsync(whereClause, parameters);
+        }
+        public async Task<List<Media>> getListCD()
+        {
+            string categoryToSearch = "CD";
+            string whereClause = "category = @category";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                 { "category", categoryToSearch }
+            };
+            return await GetMediasAsync(whereClause, parameters);
+        }
+        public async Task<List<Media>> getListBook()
+        {
+            string categoryToSearch = "Book";
+            string whereClause = "category = @category";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                 { "category", categoryToSearch }
+            };
+            return await GetMediasAsync(whereClause, parameters);
+        }
         public async Task AddMediaAsync(Media media)
         {
             Dictionary<string, object> values = new Dictionary<string, object>

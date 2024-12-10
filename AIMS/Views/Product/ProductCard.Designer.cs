@@ -32,6 +32,7 @@
             this.productPrice = new System.Windows.Forms.Label();
             this.productTitle = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnViewDetails = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -39,6 +40,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnViewDetails);
             this.panel1.Controls.Add(this.productPrice);
             this.panel1.Controls.Add(this.productTitle);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -54,7 +56,7 @@
             this.productPrice.AutoSize = true;
             this.productPrice.BackColor = System.Drawing.Color.Transparent;
             this.productPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.productPrice.Location = new System.Drawing.Point(13, 187);
+            this.productPrice.Location = new System.Drawing.Point(3, 166);
             this.productPrice.Name = "productPrice";
             this.productPrice.Size = new System.Drawing.Size(30, 17);
             this.productPrice.TabIndex = 2;
@@ -64,7 +66,7 @@
             // 
             this.productTitle.BackColor = System.Drawing.Color.Transparent;
             this.productTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.productTitle.Location = new System.Drawing.Point(13, 157);
+            this.productTitle.Location = new System.Drawing.Point(3, 145);
             this.productTitle.Name = "productTitle";
             this.productTitle.Size = new System.Drawing.Size(93, 17);
             this.productTitle.TabIndex = 1;
@@ -72,12 +74,24 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(16, 15);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(138, 139);
+            this.pictureBox1.Size = new System.Drawing.Size(164, 139);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // btnViewDetails
+            // 
+            this.btnViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnViewDetails.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewDetails.Location = new System.Drawing.Point(3, 203);
+            this.btnViewDetails.Name = "btnViewDetails";
+            this.btnViewDetails.Size = new System.Drawing.Size(165, 23);
+            this.btnViewDetails.TabIndex = 3;
+            this.btnViewDetails.Text = "button1";
+            this.btnViewDetails.UseVisualStyleBackColor = true;
+            this.btnViewDetails.Click += new System.EventHandler(this.btnViewDetails_Click);
             // 
             // ProductCard
             // 
@@ -101,5 +115,6 @@
         private System.Windows.Forms.Label productPrice;
         private System.Windows.Forms.Label productTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnViewDetails;
     }
 }

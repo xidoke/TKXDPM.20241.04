@@ -135,6 +135,12 @@
     <Compile Include="Views\HomeView.Designer.cs">
       <DependentUpon>HomeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Product\CDProductView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\CDProductView.Designer.cs">
+      <DependentUpon>CDProductView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Product\DVDProductView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\CDProductView.resx">
+      <DependentUpon>CDProductView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Product\DVDProductView.resx">
       <DependentUpon>DVDProductView.cs</DependentUpon>

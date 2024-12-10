@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.flpDVD = new System.Windows.Forms.FlowLayoutPanel();
             this.flpCD = new System.Windows.Forms.FlowLayoutPanel();
             this.flpBook = new System.Windows.Forms.FlowLayoutPanel();
@@ -37,6 +38,7 @@
             this.lblViewMoreDVD = new System.Windows.Forms.Label();
             this.lblViewMoreCD = new System.Windows.Forms.Label();
             this.lblViewMoreBOOK = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // flpDVD
@@ -126,6 +128,11 @@
             this.lblViewMoreBOOK.Text = "Xem thêm";
             this.lblViewMoreBOOK.Click += new System.EventHandler(this.lblViewMoreBOOK_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // HomeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,5 +166,6 @@
         private System.Windows.Forms.Label lblViewMoreDVD;
         private System.Windows.Forms.Label lblViewMoreCD;
         private System.Windows.Forms.Label lblViewMoreBOOK;
+        private System.Windows.Forms.Timer timer1;
     }
 }

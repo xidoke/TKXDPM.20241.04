@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -49,6 +51,38 @@ namespace AIMS.Views.Product
         {
             currentProduct = product;
             this.productTitle.Text = currentProduct.title;
+            if (!string.IsNullOrEmpty(product.imgURL))
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    try
+                    {
+                        byte[] data = webClient.DownloadData(product.imgURL);
+                        using (MemoryStream mem = new MemoryStream(data))
+                        {
+                            if (Image.FromStream(mem) != null)
+                            {
+                                pictureBox1.Image = Image.FromStream(mem);
+                            }
+                        }
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Response is HttpWebResponse response && response.StatusCode == HttpStatusCode.NotFound)
+                        {
+                            Console.WriteLine($"Image not found: {product.imgURL}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Error downloading image: {ex.Message}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error loading image: {ex.Message}");
+                    }
+                }
+            }
         }
         private string TruncateText(string text, int maxWidth)
         {
@@ -101,6 +135,11 @@ namespace AIMS.Views.Product
             path.AddLine(bounds.Left, bounds.Bottom - radius, bounds.Left, bounds.Top + radius);
             path.CloseFigure();
             return path;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
