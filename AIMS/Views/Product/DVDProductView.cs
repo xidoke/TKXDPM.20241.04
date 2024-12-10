@@ -27,15 +27,15 @@ namespace AIMS.Views.Product
         {
             dvdList = new List<AIMS.Models.Entities.Media>
             {
-                new AIMS.Models.Entities.Media { id = 1, title = "DVD 1", price = 10, type = "DVD", productDescription = "Mô tả DVD 1" },
-                new AIMS.Models.Entities.Media { id = 2, title = "DVD 2", price = 12, type = "DVD", productDescription = "Mô tả DVD 2" },
-                new AIMS.Models.Entities.Media { id = 3, title = "DVD 3", price = 15, type = "DVD", productDescription = "Mô tả DVD 3" },
-                new AIMS.Models.Entities.Media { id = 4, title = "DVD 4", price = 9, type = "DVD", productDescription = "Mô tả DVD 4" },
-                new AIMS.Models.Entities.Media { id = 5, title = "DVD 5", price = 11, type = "DVD", productDescription = "Mô tả DVD 5" },
-                new AIMS.Models.Entities.Media { id = 6, title = "Another DVD", price = 13, type = "DVD", productDescription = "Mô tả DVD khác" },
-                new AIMS.Models.Entities.Media { id = 7, title = "DVD Movie", price = 17, type = "DVD", productDescription = "Mô tả phim DVD" },
-                new AIMS.Models.Entities.Media { id = 8, title = "DVD 8", price = 14, type = "DVD", productDescription = "Mô tả DVD 8" },
-                new AIMS.Models.Entities.Media { id = 9, title = "DVD 9", price = 16, type = "DVD", productDescription = "Mô tả DVD 9" },
+                new AIMS.Models.Entities.Media { id = 1, title = "DVD 1", price = 10, type = "DVD" },
+                new AIMS.Models.Entities.Media { id = 2, title = "DVD 2", price = 12, type = "DVD"},
+                new AIMS.Models.Entities.Media { id = 3, title = "DVD 3", price = 15, type = "DVD"},
+                new AIMS.Models.Entities.Media { id = 4, title = "DVD 4", price = 9, type = "DVD" },
+                new AIMS.Models.Entities.Media { id = 5, title = "DVD 5", price = 11, type = "DVD" },
+                new AIMS.Models.Entities.Media { id = 6, title = "Another DVD", price = 13, type = "DVD" },
+                new AIMS.Models.Entities.Media { id = 7, title = "DVD Movie", price = 17, type = "DVD" },
+                new AIMS.Models.Entities.Media { id = 8, title = "DVD 8", price = 14, type = "DVD" },
+                new AIMS.Models.Entities.Media { id = 9, title = "DVD 9", price = 16, type = "DVD" },
             };
             dvdList = dvdList.Where(p => p.type == "DVD").ToList();
 
@@ -71,8 +71,7 @@ namespace AIMS.Views.Product
             else
             {
                 filteredList = dvdList.Where(p =>
-                    p.title.ToLower().Contains(searchText) ||
-                    (p.productDescription != null && p.productDescription.ToLower().Contains(searchText))
+                    p.title.ToLower().Contains(searchText)
                 ).ToList();
             }
 
