@@ -1,4 +1,5 @@
-﻿using AIMS.Views.Cart;
+﻿using AIMS.Views;
+using AIMS.Views.Cart;
 using AIMS.Views.Product;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,10 @@ namespace AIMS
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+            HomeView homeViewUC = new HomeView();
+            mainFormPanel.Controls.Add(homeViewUC);
+            homeViewUC.Visible = true;
+            homeViewUC.BringToFront();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -40,12 +44,10 @@ namespace AIMS
         private void button1_Click(object sender, EventArgs e)
         {
             CartView cartView = new CartView();
-            ProductDetailsView productDetailsView = new ProductDetailsView(12);
+            mainFormPanel.Controls.Clear(); // Clear any existing controls
             mainFormPanel.Controls.Add(cartView);
-            mainFormPanel.Controls.Add(productDetailsView);
-            cartView.Visible = true;
-            productDetailsView.Visible = false;
-            cartView.BringToFront();
+            cartView.Dock = DockStyle.Fill; // Make CartView fill the panel
+            cartView.Show();
         }
     }
 }

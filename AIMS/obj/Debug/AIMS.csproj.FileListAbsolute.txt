@@ -10,3 +10,12 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.CoreCompile
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.exe
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.pdb
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Cart.CartView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.ProductCard.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.HomeView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.ProductMiniCard.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.DVDProductView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\EntityFramework.dll
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\EntityFramework.xml
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.Up2Date
