@@ -142,8 +142,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.BackgroundImage = global::AIMS.Properties.Resources.cinema_wallpaper_social_media_message_background_vector;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.lblViewMoreBOOK);
             this.Controls.Add(this.lblViewMoreCD);
             this.Controls.Add(this.lblViewMoreDVD);

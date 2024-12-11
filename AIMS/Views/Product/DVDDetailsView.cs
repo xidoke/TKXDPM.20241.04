@@ -12,12 +12,7 @@ namespace AIMS.Views.Product
 {
     public partial class DVDDetailsView : UserControl
     {
-<<<<<<< Updated upstream
-        public DVDDetailsView(int productID)
-=======
-
         public DVDDetailsView(int mediaID)
->>>>>>> Stashed changes
         {
             InitializeComponent();
         }

@@ -228,9 +228,6 @@ namespace AIMS.Views.Product
         }
         private void btnViewDetails_Click(object sender, EventArgs e)
         {
-<<<<<<< Updated upstream
-            // Change to ProductDetailsView
-=======
             if (currentProduct.category == "DVD")
             {
                 DVDDetailsView dvdDetailsView = new DVDDetailsView(currentProduct.id);
@@ -238,8 +235,6 @@ namespace AIMS.Views.Product
                 MainForm.Instance.mainFormPanel.Controls.Add(dvdDetailsView);
                 dvdDetailsView.Show();
             }
-
->>>>>>> Stashed changes
         }
     }
 }

@@ -34,6 +34,8 @@
             // 
             // mainFormPanel
             // 
+            this.mainFormPanel.BackgroundImage = global::AIMS.Properties.Resources.images__3_;
+            this.mainFormPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.mainFormPanel.Location = new System.Drawing.Point(1, 1);
             this.mainFormPanel.Name = "mainFormPanel";
             this.mainFormPanel.Size = new System.Drawing.Size(1007, 604);

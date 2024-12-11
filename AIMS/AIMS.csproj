@@ -266,6 +266,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="add-to-cart.ico" />
+    <None Include="Resources\images %283%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
