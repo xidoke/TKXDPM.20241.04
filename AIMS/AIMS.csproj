@@ -135,6 +135,36 @@
     <Compile Include="Views\HomeView.Designer.cs">
       <DependentUpon>HomeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Order\PlaceOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Order\PlaceOrderView.Designer.cs">
+      <DependentUpon>PlaceOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentResultView.Designer.cs">
+      <DependentUpon>PaymentResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentView.Designer.cs">
+      <DependentUpon>PaymentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\BookDetailsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\BookDetailsView.Designer.cs">
+      <DependentUpon>BookDetailsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\CDDetailsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\CDDetailsView.Designer.cs">
+      <DependentUpon>CDDetailsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Product\CDProductView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -153,11 +183,11 @@
     <Compile Include="Views\Product\ProductCard.Designer.cs">
       <DependentUpon>ProductCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Product\ProductDetailsView.cs">
+    <Compile Include="Views\Product\DVDDetailsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\Product\ProductDetailsView.Designer.cs">
-      <DependentUpon>ProductDetailsView.cs</DependentUpon>
+    <Compile Include="Views\Product\DVDDetailsView.Designer.cs">
+      <DependentUpon>DVDDetailsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Product\ProductMiniCard.cs">
       <SubType>UserControl</SubType>
@@ -193,8 +223,8 @@
     <EmbeddedResource Include="Views\Product\ProductCard.resx">
       <DependentUpon>ProductCard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Product\ProductDetailsView.resx">
-      <DependentUpon>ProductDetailsView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Product\DVDDetailsView.resx">
+      <DependentUpon>DVDDetailsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Product\ProductMiniCard.resx">
       <DependentUpon>ProductMiniCard.cs</DependentUpon>

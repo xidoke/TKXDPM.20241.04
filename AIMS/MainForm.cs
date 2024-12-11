@@ -61,7 +61,7 @@ namespace AIMS
         private void button2_Click(object sender, EventArgs e)
         {
             CartView cartView = new CartView();
-            ProductDetailsView productDetailsView = new ProductDetailsView(12);
+            DVDDetailsView productDetailsView = new DVDDetailsView(12);
             mainFormPanel.Controls.Add(cartView);
             mainFormPanel.Controls.Add(productDetailsView);
             cartView.Visible = false;

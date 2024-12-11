@@ -4,7 +4,6 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\AIMS.pdb
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.AssemblyReference.cache
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.MainForm.resources
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Properties.Resources.resources
-C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.ProductDetailsView.resources
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.GenerateResource.cache
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.CoreCompileInputs.cache
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.exe
@@ -52,3 +51,4 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Collections.Immu
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Threading.Channels.xml
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.CDProductView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.DVDDetailsView.resources

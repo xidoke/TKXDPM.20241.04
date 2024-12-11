@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AIMS.Views.Product
+namespace AIMS.Views.Payment
 {
-    public partial class ProductDetailsView : UserControl
+    public partial class PaymentView : UserControl
     {
-        public ProductDetailsView(int productID)
+        public PaymentView()
         {
             InitializeComponent();
-        }
-
-        private void ProductDetailsView_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

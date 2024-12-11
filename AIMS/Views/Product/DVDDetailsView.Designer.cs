@@ -1,6 +1,6 @@
 ﻿namespace AIMS.Views.Product
 {
-    partial class ProductDetailsView
+    partial class DVDDetailsView
     {
         /// <summary> 
         /// Required designer variable.
