@@ -66,8 +66,85 @@
     <Compile Include="Views\Product\ProductDetailsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+<<<<<<< Updated upstream
     <Compile Include="Views\Product\ProductDetailsView.Designer.cs">
       <DependentUpon>ProductDetailsView.cs</DependentUpon>
+=======
+    <Compile Include="Views\HomeView.Designer.cs">
+      <DependentUpon>HomeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NavBar.Designer.cs">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\PlaceOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Order\PlaceOrderView.Designer.cs">
+      <DependentUpon>PlaceOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentResultView.Designer.cs">
+      <DependentUpon>PaymentResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Payment\PaymentView.Designer.cs">
+      <DependentUpon>PaymentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\BookDetailsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\BookDetailsView.Designer.cs">
+      <DependentUpon>BookDetailsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\BookProductView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\BookProductView.Designer.cs">
+      <DependentUpon>BookProductView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\CDDetailsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\CDDetailsView.Designer.cs">
+      <DependentUpon>CDDetailsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\CDProductView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\CDProductView.Designer.cs">
+      <DependentUpon>CDProductView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\DVDProductView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\DVDProductView.Designer.cs">
+      <DependentUpon>DVDProductView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\ProductCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\ProductCard.Designer.cs">
+      <DependentUpon>ProductCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\DVDDetailsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\DVDDetailsView.Designer.cs">
+      <DependentUpon>DVDDetailsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\ProductMiniCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\ProductMiniCard.Designer.cs">
+      <DependentUpon>ProductMiniCard.cs</DependentUpon>
+>>>>>>> Stashed changes
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -87,6 +164,31 @@
     <EmbeddedResource Include="Views\Product\ProductDetailsView.resx">
       <DependentUpon>ProductDetailsView.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< Updated upstream
+=======
+    <EmbeddedResource Include="Views\NavBar.resx">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\BookProductView.resx">
+      <DependentUpon>BookProductView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\CDProductView.resx">
+      <DependentUpon>CDProductView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\DVDProductView.resx">
+      <DependentUpon>DVDProductView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\ProductCard.resx">
+      <DependentUpon>ProductCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\DVDDetailsView.resx">
+      <DependentUpon>DVDDetailsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\ProductMiniCard.resx">
+      <DependentUpon>ProductMiniCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+>>>>>>> Stashed changes
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,7 +204,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Repositories\" />
+<<<<<<< Updated upstream
     <Folder Include="Services\" />
+=======
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cinema-wallpaper-social-media-message-background-vector.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="add-to-cart.ico" />
+    <None Include="Resources\images %283%29.jpg" />
+    <None Include="Resources\images %282%29.jpg" />
+    <None Include="Resources\glass.png" />
+    <None Include="Resources\enter1.png" />
+    <None Include="Resources\enter.png" />
+    <None Include="Resources\shop.png" />
+    <None Include="Resources\round1.png" />
+    <None Include="Resources\round.png" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
