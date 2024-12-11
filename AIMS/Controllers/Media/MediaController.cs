@@ -90,6 +90,38 @@ namespace AIMS.Controllers.Product
                     break;
             }
         }
+        public async Task FilterAndSortProductsAsync(FlowLayoutPanel flp, string category, string cardType, string title = "", int sortOrder = 0)
+        {
+            title = string.IsNullOrEmpty(title) ? "" : title.Trim().ToLower();
+            List<Media> baseList;
+            switch (category)
+            {
+                case "DVD":
+                    baseList = dvd_list;
+                    break;
+                case "CD":
+                    baseList = cd_list;
+                    break;
+                case "Book":
+                    baseList = book_list;
+                    break;
+                default:
+                    return;
+            }
+            IEnumerable<Media> filteredList = baseList; 
+            if (!string.IsNullOrEmpty(title))
+                filteredList = baseList.Where(m => m.title.ToLower().Contains(title));
+            List<Media> sortedList;
+            if (sortOrder != 0)
+            {
+                sortedList = sortOrder == 1
+                    ? filteredList.OrderByDescending(p => p.price).ToList()
+                    : filteredList.OrderBy(p => p.price).ToList();
+            }
+            else
+                sortedList = filteredList.ToList(); 
+            LoadProductCards(flp, sortedList, cardType);
+        }
         public async Task SearchProductByTitleAsync(string title, FlowLayoutPanel flp, string category, string cardType)
         {
             title = string.IsNullOrEmpty(title) ? "" : title.Trim().ToLower();

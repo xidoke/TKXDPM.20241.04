@@ -28,14 +28,13 @@ namespace AIMS.Views.Product
         private async void buttonSearch_Click(object sender, EventArgs e)
         {
             string searchText = searchBox.Text.ToLower();
-            await mediaController.SearchProductByTitleAsync(searchText, flpBook, "DVD", "productCard");
+            await mediaController.FilterAndSortProductsAsync(flpBook, "Book", "productCard", searchBox.Text, sortByPrice.SelectedIndex);
         }
 
         private async void sortByPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(sortByPrice.Text))
-                await mediaController.SortByPrice(flpBook, "DVD", sortByPrice.SelectedIndex, "productCard");
-
+                await mediaController.FilterAndSortProductsAsync(flpBook, "Book", "productCard", searchBox.Text, sortByPrice.SelectedIndex);
         }
     }
 }

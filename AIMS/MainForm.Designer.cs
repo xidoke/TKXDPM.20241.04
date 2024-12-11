@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainFormPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -44,8 +45,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 606);
             this.Controls.Add(this.mainFormPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "AIMS";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 

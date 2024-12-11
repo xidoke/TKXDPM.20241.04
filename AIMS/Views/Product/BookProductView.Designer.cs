@@ -34,6 +34,7 @@
             this.searchBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.flpBook = new System.Windows.Forms.FlowLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonSearch
@@ -92,10 +93,21 @@
             this.flpBook.Size = new System.Drawing.Size(1007, 486);
             this.flpBook.TabIndex = 11;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(177, 25);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "DANH MỤC SÁCH";
+            // 
             // BookProductView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.sortByPrice);
@@ -118,5 +130,6 @@
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flpBook;
+        private System.Windows.Forms.Label label3;
     }
 }

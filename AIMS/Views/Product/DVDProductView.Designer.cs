@@ -34,6 +34,7 @@
             this.sortByPrice = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // flpDVD_Product
@@ -92,10 +93,21 @@
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(166, 25);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "DANH MỤC DVD";
+            // 
             // DVDProductView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.sortByPrice);
@@ -118,5 +130,6 @@
         private System.Windows.Forms.ComboBox sortByPrice;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Label label3;
     }
 }

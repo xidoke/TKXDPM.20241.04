@@ -11,17 +11,19 @@ namespace AIMS.Views
     public partial class HomeView : UserControl
     {
         private MediaController mediaController;
+        public static HomeView Instance;
         public HomeView()
         {
             InitializeComponent();
             mediaController = new MediaController();
+            Instance = this;
         }
 
         private async void HomeView_Load(object sender, EventArgs e)
         {
-            await mediaController.LoadMediaListbyCategory(flpDVD, "DVD", "productMiniCard");
-            await mediaController.LoadMediaListbyCategory(flpCD, "CD", "productMiniCard");
-            await mediaController.LoadMediaListbyCategory(flpBook, "Book", "productMiniCard");
+            await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpDVD, "DVD", "productMiniCard");
+            await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpCD, "CD", "productMiniCard");
+            await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpBook, "Book", "productMiniCard");
         }
 
         private void LoadProductCards(FlowLayoutPanel flp, List<AIMS.Models.Entities.Media> products)

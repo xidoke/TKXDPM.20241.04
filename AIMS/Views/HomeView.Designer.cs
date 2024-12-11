@@ -162,15 +162,14 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.FlowLayoutPanel flpDVD;
-        private System.Windows.Forms.FlowLayoutPanel flpCD;
-        private System.Windows.Forms.FlowLayoutPanel flpBook;
         private System.Windows.Forms.Label lblDVD;
         private System.Windows.Forms.Label lblCD;
         private System.Windows.Forms.Label lblBOOK;
         private System.Windows.Forms.Label lblViewMoreDVD;
         private System.Windows.Forms.Label lblViewMoreCD;
         private System.Windows.Forms.Label lblViewMoreBOOK;
+        public System.Windows.Forms.FlowLayoutPanel flpDVD;
+        public System.Windows.Forms.FlowLayoutPanel flpCD;
+        public System.Windows.Forms.FlowLayoutPanel flpBook;
     }
 }

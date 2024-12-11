@@ -1,4 +1,5 @@
-﻿using AIMS.Models.Entities;
+﻿using AIMS.Controllers.Product;
+using AIMS.Models.Entities;
 using AIMS.Services;
 using AIMS.Views;
 using AIMS.Views.Cart;
@@ -25,30 +26,6 @@ namespace AIMS
         {
             InitializeComponent();
             Instance = this;
-        }
-        string connectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1vsmClOd;Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Pooling=true;";
-
-        NpgsqlConnection vCon;
-        NpgsqlCommand vCmd;
-        private void connection()
-        {
-            vCon = new NpgsqlConnection();
-            vCon.ConnectionString = connectionString;
-            if (vCon.State == ConnectionState.Closed)
-            {
-                vCon.Open();
-            }
-        }
-        public DataTable getdata(string sql)
-        {
-            DataTable dt = new DataTable();
-            connection();
-            vCmd = new NpgsqlCommand();
-            vCmd.Connection = vCon;
-            vCmd.CommandText = sql;
-            NpgsqlDataReader dataReader = vCmd.ExecuteReader();
-            dt.Load(dataReader);
-            return dt;
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
