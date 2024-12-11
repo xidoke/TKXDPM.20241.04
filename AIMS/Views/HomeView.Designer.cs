@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.flpDVD = new System.Windows.Forms.FlowLayoutPanel();
             this.flpCD = new System.Windows.Forms.FlowLayoutPanel();
             this.flpBook = new System.Windows.Forms.FlowLayoutPanel();
@@ -38,7 +37,6 @@
             this.lblViewMoreDVD = new System.Windows.Forms.Label();
             this.lblViewMoreCD = new System.Windows.Forms.Label();
             this.lblViewMoreBOOK = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // flpDVD
@@ -68,7 +66,9 @@
             // lblDVD
             // 
             this.lblDVD.AutoSize = true;
+            this.lblDVD.BackColor = System.Drawing.Color.Transparent;
             this.lblDVD.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDVD.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lblDVD.Location = new System.Drawing.Point(4, 94);
             this.lblDVD.Name = "lblDVD";
             this.lblDVD.Size = new System.Drawing.Size(41, 20);
@@ -78,7 +78,9 @@
             // lblCD
             // 
             this.lblCD.AutoSize = true;
+            this.lblCD.BackColor = System.Drawing.Color.Transparent;
             this.lblCD.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCD.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lblCD.Location = new System.Drawing.Point(4, 251);
             this.lblCD.Name = "lblCD";
             this.lblCD.Size = new System.Drawing.Size(29, 20);
@@ -88,7 +90,9 @@
             // lblBOOK
             // 
             this.lblBOOK.AutoSize = true;
+            this.lblBOOK.BackColor = System.Drawing.Color.Transparent;
             this.lblBOOK.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBOOK.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lblBOOK.Location = new System.Drawing.Point(4, 407);
             this.lblBOOK.Name = "lblBOOK";
             this.lblBOOK.Size = new System.Drawing.Size(49, 20);
@@ -98,7 +102,9 @@
             // lblViewMoreDVD
             // 
             this.lblViewMoreDVD.AutoSize = true;
+            this.lblViewMoreDVD.BackColor = System.Drawing.Color.Transparent;
             this.lblViewMoreDVD.Font = new System.Drawing.Font("Segoe UI", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblViewMoreDVD.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblViewMoreDVD.Location = new System.Drawing.Point(932, 97);
             this.lblViewMoreDVD.Name = "lblViewMoreDVD";
             this.lblViewMoreDVD.Size = new System.Drawing.Size(72, 17);
@@ -109,7 +115,9 @@
             // lblViewMoreCD
             // 
             this.lblViewMoreCD.AutoSize = true;
+            this.lblViewMoreCD.BackColor = System.Drawing.Color.Transparent;
             this.lblViewMoreCD.Font = new System.Drawing.Font("Segoe UI", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblViewMoreCD.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblViewMoreCD.Location = new System.Drawing.Point(932, 254);
             this.lblViewMoreCD.Name = "lblViewMoreCD";
             this.lblViewMoreCD.Size = new System.Drawing.Size(72, 17);
@@ -120,7 +128,9 @@
             // lblViewMoreBOOK
             // 
             this.lblViewMoreBOOK.AutoSize = true;
+            this.lblViewMoreBOOK.BackColor = System.Drawing.Color.Transparent;
             this.lblViewMoreBOOK.Font = new System.Drawing.Font("Segoe UI", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblViewMoreBOOK.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblViewMoreBOOK.Location = new System.Drawing.Point(932, 410);
             this.lblViewMoreBOOK.Name = "lblViewMoreBOOK";
             this.lblViewMoreBOOK.Size = new System.Drawing.Size(72, 17);
@@ -128,16 +138,12 @@
             this.lblViewMoreBOOK.Text = "Xem thêm";
             this.lblViewMoreBOOK.Click += new System.EventHandler(this.lblViewMoreBOOK_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // HomeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackgroundImage = global::AIMS.Properties.Resources.cinema_wallpaper_social_media_message_background_vector;
             this.Controls.Add(this.lblViewMoreBOOK);
             this.Controls.Add(this.lblViewMoreCD);
             this.Controls.Add(this.lblViewMoreDVD);
@@ -148,7 +154,7 @@
             this.Controls.Add(this.flpCD);
             this.Controls.Add(this.flpDVD);
             this.Name = "HomeView";
-            this.Size = new System.Drawing.Size(1007, 574);
+            this.Size = new System.Drawing.Size(1007, 604);
             this.Load += new System.EventHandler(this.HomeView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -166,6 +172,5 @@
         private System.Windows.Forms.Label lblViewMoreDVD;
         private System.Windows.Forms.Label lblViewMoreCD;
         private System.Windows.Forms.Label lblViewMoreBOOK;
-        private System.Windows.Forms.Timer timer1;
     }
 }

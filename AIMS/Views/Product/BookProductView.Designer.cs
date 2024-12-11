@@ -1,6 +1,6 @@
 ﻿namespace AIMS.Views.Product
 {
-    partial class CDProductView
+    partial class BookProductView
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,27 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.flpCD = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.sortByPrice = new System.Windows.Forms.ComboBox();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.flpBook = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
-            // 
-            // flpCD
-            // 
-            this.flpCD.Location = new System.Drawing.Point(0, 118);
-            this.flpCD.Name = "flpCD";
-            this.flpCD.Size = new System.Drawing.Size(1007, 486);
-            this.flpCD.TabIndex = 0;
             // 
             // buttonSearch
             // 
             this.buttonSearch.Location = new System.Drawing.Point(257, 76);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(59, 23);
-            this.buttonSearch.TabIndex = 10;
+            this.buttonSearch.TabIndex = 16;
             this.buttonSearch.Text = "Tìm kiếm";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
@@ -60,7 +53,7 @@
             this.label2.Location = new System.Drawing.Point(322, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 20);
-            this.label2.TabIndex = 9;
+            this.label2.TabIndex = 15;
             this.label2.Text = "Giá:";
             // 
             // sortByPrice
@@ -72,7 +65,7 @@
             this.sortByPrice.Location = new System.Drawing.Point(363, 75);
             this.sortByPrice.Name = "sortByPrice";
             this.sortByPrice.Size = new System.Drawing.Size(121, 21);
-            this.sortByPrice.TabIndex = 8;
+            this.sortByPrice.TabIndex = 14;
             this.sortByPrice.SelectedIndexChanged += new System.EventHandler(this.sortByPrice_SelectedIndexChanged);
             // 
             // searchBox
@@ -80,7 +73,7 @@
             this.searchBox.Location = new System.Drawing.Point(80, 76);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(171, 20);
-            this.searchBox.TabIndex = 7;
+            this.searchBox.TabIndex = 13;
             // 
             // label1
             // 
@@ -89,10 +82,17 @@
             this.label1.Location = new System.Drawing.Point(3, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 20);
-            this.label1.TabIndex = 6;
+            this.label1.TabIndex = 12;
             this.label1.Text = "Tìm kiếm";
             // 
-            // CDProductView
+            // flpBook
+            // 
+            this.flpBook.Location = new System.Drawing.Point(0, 118);
+            this.flpBook.Name = "flpBook";
+            this.flpBook.Size = new System.Drawing.Size(1007, 486);
+            this.flpBook.TabIndex = 11;
+            // 
+            // BookProductView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,10 +101,10 @@
             this.Controls.Add(this.sortByPrice);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.flpCD);
-            this.Name = "CDProductView";
+            this.Controls.Add(this.flpBook);
+            this.Name = "BookProductView";
             this.Size = new System.Drawing.Size(1007, 604);
-            this.Load += new System.EventHandler(this.CDProductView_Load);
+            this.Load += new System.EventHandler(this.BookProductView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,11 +112,11 @@
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flpCD;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox sortByPrice;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FlowLayoutPanel flpBook;
     }
 }

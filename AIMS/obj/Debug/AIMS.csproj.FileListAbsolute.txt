@@ -52,3 +52,4 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Diagnostics.Diag
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Threading.Channels.xml
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.CDProductView.resources
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.DVDDetailsView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.BookProductView.resources

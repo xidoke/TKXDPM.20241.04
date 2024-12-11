@@ -35,14 +35,14 @@
             // 
             this.mainFormPanel.Location = new System.Drawing.Point(1, 1);
             this.mainFormPanel.Name = "mainFormPanel";
-            this.mainFormPanel.Size = new System.Drawing.Size(1007, 574);
+            this.mainFormPanel.Size = new System.Drawing.Size(1007, 604);
             this.mainFormPanel.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 576);
+            this.ClientSize = new System.Drawing.Size(1009, 606);
             this.Controls.Add(this.mainFormPanel);
             this.Name = "MainForm";
             this.Text = "MainForm";

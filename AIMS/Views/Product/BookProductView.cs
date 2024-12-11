@@ -1,6 +1,4 @@
 ﻿using AIMS.Controllers.Product;
-using AIMS.Models.Entities;
-using AIMS.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,30 +11,31 @@ using System.Windows.Forms;
 
 namespace AIMS.Views.Product
 {
-    public partial class CDProductView : UserControl
+    public partial class BookProductView : UserControl
     {
         private MediaController mediaController;
-        public CDProductView()
+        public BookProductView()
         {
             mediaController = new MediaController();
             InitializeComponent();
         }
 
+        private async void BookProductView_Load(object sender, EventArgs e)
+        {
+            await mediaController.LoadMediaListbyCategory(flpBook, "Book", "productCard");
+        }
+
         private async void buttonSearch_Click(object sender, EventArgs e)
         {
             string searchText = searchBox.Text.ToLower();
-            await mediaController.SearchProductByTitleAsync(searchText, flpCD, "CD", "productCard");
+            await mediaController.SearchProductByTitleAsync(searchText, flpBook, "DVD", "productCard");
         }
 
-        private async void CDProductView_Load(object sender, EventArgs e)
-        {
-            await mediaController.LoadMediaListbyCategory(flpCD, "CD", "productCard");
-        }
-     
         private async void sortByPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(sortByPrice.Text))
-                await mediaController.SortByPrice(flpCD, "CD", sortByPrice.SelectedIndex, "productCard");
+                await mediaController.SortByPrice(flpBook, "DVD", sortByPrice.SelectedIndex, "productCard");
+
         }
     }
 }

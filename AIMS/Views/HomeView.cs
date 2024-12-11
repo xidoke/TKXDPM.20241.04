@@ -1,4 +1,5 @@
-﻿using AIMS.Services;
+﻿using AIMS.Controllers.Product;
+using AIMS.Services;
 using AIMS.Views.Product;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,18 @@ namespace AIMS.Views
 {
     public partial class HomeView : UserControl
     {
-        private List<AIMS.Models.Entities.Media> dvdList = new List<Models.Entities.Media>();
-        private List<AIMS.Models.Entities.Media> cdList = new List<Models.Entities.Media>();
-        private List<AIMS.Models.Entities.Media> bookList = new List<Models.Entities.Media>();
-        private MediaService mediaService = new MediaService();
+        private MediaController mediaController;
         public HomeView()
         {
             InitializeComponent();
+            mediaController = new MediaController();
         }
 
-        private void HomeView_Load(object sender, EventArgs e)
+        private async void HomeView_Load(object sender, EventArgs e)
         {
-
+            await mediaController.LoadMediaListbyCategory(flpDVD, "DVD", "productMiniCard");
+            await mediaController.LoadMediaListbyCategory(flpCD, "CD", "productMiniCard");
+            await mediaController.LoadMediaListbyCategory(flpBook, "Book", "productMiniCard");
         }
 
         private void LoadProductCards(FlowLayoutPanel flp, List<AIMS.Models.Entities.Media> products)
@@ -46,45 +47,17 @@ namespace AIMS.Views
 
         private void lblViewMoreDVD_Click(object sender, EventArgs e)
         {
-            DVDProductView dvdProductView = new DVDProductView();
-            MainForm.Instance.mainFormPanel.Controls.Clear();
-            MainForm.Instance.mainFormPanel.Controls.Add(dvdProductView);
-            dvdProductView.Show();
+            mediaController.ViewCategoryList("DVD");
         }
 
         private void lblViewMoreCD_Click(object sender, EventArgs e)
         {
-            CDProductView cDProductView = new CDProductView();
-            MainForm.Instance.mainFormPanel.Controls.Clear();
-            MainForm.Instance.mainFormPanel.Controls.Add(cDProductView);
-            cDProductView.Show();
+            mediaController.ViewCategoryList("CD");
         }
 
         private void lblViewMoreBOOK_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private async void timer1_Tick(object sender, EventArgs e)
-        {
-            if (dvdList.Count <= 0)
-            {
-                dvdList = await mediaService.getListDVD();
-                LoadProductCards(flpDVD, dvdList);
-                return;
-            }
-            if (cdList.Count <= 0)
-            {
-                cdList = await mediaService.getListCD();
-                LoadProductCards(flpCD, cdList);
-                return;
-            }
-            if (bookList.Count <= 0)
-            {
-                bookList = await mediaService.getListBook();
-                LoadProductCards(flpBook, bookList);
-                return;
-            }
+            mediaController.ViewCategoryList("Book");
         }
     }
 }

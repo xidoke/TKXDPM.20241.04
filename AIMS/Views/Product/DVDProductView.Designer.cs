@@ -40,7 +40,7 @@
             // 
             this.flpDVD_Product.Location = new System.Drawing.Point(0, 118);
             this.flpDVD_Product.Name = "flpDVD_Product";
-            this.flpDVD_Product.Size = new System.Drawing.Size(1007, 456);
+            this.flpDVD_Product.Size = new System.Drawing.Size(1007, 486);
             this.flpDVD_Product.TabIndex = 0;
             // 
             // label1
@@ -103,7 +103,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.flpDVD_Product);
             this.Name = "DVDProductView";
-            this.Size = new System.Drawing.Size(1007, 574);
+            this.Size = new System.Drawing.Size(1007, 604);
             this.Load += new System.EventHandler(this.DVDProductView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -112,7 +112,7 @@
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flpDVD_Product;
+        public System.Windows.Forms.FlowLayoutPanel flpDVD_Product;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.ComboBox sortByPrice;

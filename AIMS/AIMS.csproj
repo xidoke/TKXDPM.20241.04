@@ -105,7 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Cart\CartController.cs" />
-    <Compile Include="Controllers\Product\ProductController.cs" />
+    <Compile Include="Controllers\Media\MediaController.cs" />
     <Compile Include="DatabaseConnect.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -158,6 +158,12 @@
     </Compile>
     <Compile Include="Views\Product\BookDetailsView.Designer.cs">
       <DependentUpon>BookDetailsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\BookProductView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Product\BookProductView.Designer.cs">
+      <DependentUpon>BookProductView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Product\CDDetailsView.cs">
       <SubType>UserControl</SubType>
@@ -214,6 +220,9 @@
     <EmbeddedResource Include="Views\HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\BookProductView.resx">
+      <DependentUpon>BookProductView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Product\CDProductView.resx">
       <DependentUpon>CDProductView.cs</DependentUpon>
     </EmbeddedResource>
@@ -248,6 +257,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cinema-wallpaper-social-media-message-background-vector.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
