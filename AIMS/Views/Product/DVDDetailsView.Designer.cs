@@ -40,12 +40,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "PRODUCT DETAILS VIEW";
             // 
-            // ProductDetailsView
+            // DVDDetailsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label1);
-            this.Name = "ProductDetailsView";
+            this.Name = "DVDDetailsView";
             this.Size = new System.Drawing.Size(601, 346);
             this.Load += new System.EventHandler(this.ProductDetailsView_Load);
             this.ResumeLayout(false);
