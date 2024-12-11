@@ -1,0 +1,4 @@
+id,category,type,price,quantity,title,imgurl,rush_support
+1,Book,Fiction,150,10,The Great Gatsby,https://example.com/gatsby.jpg,True
+2,DVD,Action,200,5,Avengers: Endgame,https://example.com/avengers.jpg,False
+3,CD,Music,100,20,Thriller - Michael Jackson,https://example.com/thriller.jpg,True
