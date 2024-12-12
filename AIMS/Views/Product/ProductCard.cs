@@ -78,8 +78,8 @@ namespace AIMS.Views.Product
         }
         private void ProductCard_Load(object sender, EventArgs e)
         {
-            this.productTitle.Text = TruncateText(currentProduct.title, productTitle.Width);
-            this.productPrice.Text = $"Giá: {currentProduct.price}";
+            this.productTitle.Text = TruncateText(currentProduct.title, 200);
+            this.productPrice.Text = $"Giá: {currentProduct.getPrice()} VNĐ";
             productTitle.AutoEllipsis = true;
             productTitle.UseMnemonic = false;
             UpdateViewDetailsButtonPosition();
@@ -87,26 +87,10 @@ namespace AIMS.Views.Product
         private string TruncateText(string text, int maxWidth)
         {
             if (string.IsNullOrEmpty(text)) return "";
-            using (Graphics g = productTitle.CreateGraphics())
-            {
-                SizeF textSize = g.MeasureString(text, productTitle.Font);
-                if (textSize.Width <= maxWidth)
-                    return text;
-            }
             string ellipsis = "...";
-            int charactersToKeep = text.Length;
-            while (charactersToKeep > 0)
-            {
-                string truncatedText = text.Substring(0, charactersToKeep) + ellipsis;
-                using (Graphics g = productTitle.CreateGraphics())
-                {
-                    SizeF textSize = g.MeasureString(truncatedText, productTitle.Font);
-                    if (textSize.Width <= maxWidth)
-                        return truncatedText;
-                }
-                charactersToKeep--;
-            }
-            return ellipsis;
+            if (text.Length > maxWidth)
+            return text.Substring(0, maxWidth) + ellipsis;
+            return text;
         }
         private void PanelContainer_Paint(object sender, PaintEventArgs e)
         {

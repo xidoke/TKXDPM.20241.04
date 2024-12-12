@@ -162,29 +162,11 @@
     <Compile Include="Views\Product\BookDetailsView.Designer.cs">
       <DependentUpon>BookDetailsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Product\BookProductView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Product\BookProductView.Designer.cs">
-      <DependentUpon>BookProductView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Product\CDDetailsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\Product\CDDetailsView.Designer.cs">
       <DependentUpon>CDDetailsView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Product\CDProductView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Product\CDProductView.Designer.cs">
-      <DependentUpon>CDProductView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Product\DVDProductView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Product\DVDProductView.Designer.cs">
-      <DependentUpon>DVDProductView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Product\ProductCard.cs">
       <SubType>UserControl</SubType>
@@ -203,6 +185,12 @@
     </Compile>
     <Compile Include="Views\Product\ProductMiniCard.Designer.cs">
       <DependentUpon>ProductMiniCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchMediaResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SearchMediaResultView.Designer.cs">
+      <DependentUpon>SearchMediaResultView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -223,15 +211,6 @@
     <EmbeddedResource Include="Views\HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Product\BookProductView.resx">
-      <DependentUpon>BookProductView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Product\CDProductView.resx">
-      <DependentUpon>CDProductView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Product\DVDProductView.resx">
-      <DependentUpon>DVDProductView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Product\ProductCard.resx">
       <DependentUpon>ProductCard.cs</DependentUpon>
     </EmbeddedResource>
@@ -240,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Product\ProductMiniCard.resx">
       <DependentUpon>ProductMiniCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SearchMediaResultView.resx">
+      <DependentUpon>SearchMediaResultView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

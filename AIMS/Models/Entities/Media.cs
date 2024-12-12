@@ -32,5 +32,9 @@ namespace AIMS.Models.Entities
 
         [Required]
         public bool rush_support { get; set; } // Đổi tên thuộc tính
+        public string getPrice()
+        {
+            return string.Format("{0:N0}", price);
+        }
     }
 }

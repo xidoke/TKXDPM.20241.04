@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnViewDetails = new System.Windows.Forms.Button();
             this.productPrice = new System.Windows.Forms.Label();
             this.productTitle = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnViewDetails = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -51,6 +51,18 @@
             this.panel1.MouseEnter += new System.EventHandler(this.panel1_MouseEnter);
             this.panel1.MouseLeave += new System.EventHandler(this.panel1_MouseLeave);
             // 
+            // btnViewDetails
+            // 
+            this.btnViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnViewDetails.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewDetails.Location = new System.Drawing.Point(3, 203);
+            this.btnViewDetails.Name = "btnViewDetails";
+            this.btnViewDetails.Size = new System.Drawing.Size(165, 23);
+            this.btnViewDetails.TabIndex = 3;
+            this.btnViewDetails.Text = "button1";
+            this.btnViewDetails.UseVisualStyleBackColor = true;
+            this.btnViewDetails.Click += new System.EventHandler(this.btnViewDetails_Click);
+            // 
             // productPrice
             // 
             this.productPrice.AutoSize = true;
@@ -67,8 +79,9 @@
             this.productTitle.BackColor = System.Drawing.Color.Transparent;
             this.productTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productTitle.Location = new System.Drawing.Point(3, 145);
+            this.productTitle.MaximumSize = new System.Drawing.Size(200, 21);
             this.productTitle.Name = "productTitle";
-            this.productTitle.Size = new System.Drawing.Size(93, 17);
+            this.productTitle.Size = new System.Drawing.Size(164, 21);
             this.productTitle.TabIndex = 1;
             this.productTitle.Text = "Lâu đài tình ái";
             // 
@@ -80,18 +93,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnViewDetails
-            // 
-            this.btnViewDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnViewDetails.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewDetails.Location = new System.Drawing.Point(3, 203);
-            this.btnViewDetails.Name = "btnViewDetails";
-            this.btnViewDetails.Size = new System.Drawing.Size(165, 23);
-            this.btnViewDetails.TabIndex = 3;
-            this.btnViewDetails.Text = "button1";
-            this.btnViewDetails.UseVisualStyleBackColor = true;
-            this.btnViewDetails.Click += new System.EventHandler(this.btnViewDetails_Click);
             // 
             // ProductCard
             // 

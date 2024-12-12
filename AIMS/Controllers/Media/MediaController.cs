@@ -1,5 +1,6 @@
 ﻿using AIMS.Models.Entities;
 using AIMS.Services;
+using AIMS.Views;
 using AIMS.Views.Cart;
 using AIMS.Views.Product;
 using System;
@@ -25,27 +26,10 @@ namespace AIMS.Controllers.Product
         }
         public void ViewCategoryList(string category)
         {
-            switch (category)
-            {
-                case "DVD":
-                    DVDProductView dvdProductView = new DVDProductView();
-                    MainForm.Instance.mainFormPanel.Controls.Clear();
-                    MainForm.Instance.mainFormPanel.Controls.Add(dvdProductView);
-                    dvdProductView.Show();
-                    break;
-                case "CD":
-                    CDProductView cdProductView = new CDProductView();
-                    MainForm.Instance.mainFormPanel.Controls.Clear();
-                    MainForm.Instance.mainFormPanel.Controls.Add(cdProductView);
-                    cdProductView.Show();
-                    break;
-                case "Book":
-                    BookProductView bookProductView = new BookProductView();
-                    MainForm.Instance.mainFormPanel.Controls.Clear();
-                    MainForm.Instance.mainFormPanel.Controls.Add(bookProductView);
-                    bookProductView.Show();
-                    break;
-            }
+            SearchMediaResultView searchMediaResultsPage = new SearchMediaResultView("", category);
+            MainForm.Instance.mainFormPanel.Controls.Clear();
+            MainForm.Instance.mainFormPanel.Controls.Add(searchMediaResultsPage);
+            searchMediaResultsPage.Show();
         }
         private void LoadProductCards(FlowLayoutPanel flp, List<AIMS.Models.Entities.Media> list, string cardType)
         {
@@ -90,81 +74,54 @@ namespace AIMS.Controllers.Product
                     break;
             }
         }
-        public async Task FilterAndSortProductsAsync(FlowLayoutPanel flp, string category, string cardType, string title = "", int sortOrder = 0)
+        public async Task FilterAndSortProductsAdvancedAsync(FlowLayoutPanel flp, string cardType, string title = "", decimal? minPrice = null, decimal? maxPrice = null, string categoryFilter = null, bool sortByPriceDesc = false)
         {
-            title = string.IsNullOrEmpty(title) ? "" : title.Trim().ToLower();
-            List<Media> baseList;
-            switch (category)
-            {
-                case "DVD":
-                    baseList = dvd_list;
-                    break;
-                case "CD":
-                    baseList = cd_list;
-                    break;
-                case "Book":
-                    baseList = book_list;
-                    break;
-                default:
-                    return;
-            }
-            IEnumerable<Media> filteredList = baseList; 
+            List<Media> allMedia = await GetAllMedia();
+            IEnumerable<Media> filteredList = allMedia;
             if (!string.IsNullOrEmpty(title))
-                filteredList = baseList.Where(m => m.title.ToLower().Contains(title));
+                filteredList = filteredList.Where(m => m.title.ToLower().Contains(title.ToLower().Trim()));
+            if (minPrice.HasValue)
+                filteredList = filteredList.Where(m => m.price >= minPrice.Value);
+            if (maxPrice.HasValue)
+                filteredList = filteredList.Where(m => m.price <= maxPrice.Value);
+            if (!string.IsNullOrEmpty(categoryFilter))
+                filteredList = filteredList.Where(m => m.category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase));      
             List<Media> sortedList;
-            if (sortOrder != 0)
-            {
-                sortedList = sortOrder == 1
-                    ? filteredList.OrderByDescending(p => p.price).ToList()
-                    : filteredList.OrderBy(p => p.price).ToList();
-            }
+            if (sortByPriceDesc) 
+                sortedList = filteredList.OrderByDescending(m => m.price).ToList();
             else
-                sortedList = filteredList.ToList(); 
+                sortedList = filteredList.OrderBy(m => m.price).ToList();
             LoadProductCards(flp, sortedList, cardType);
-        }
-        public async Task SearchProductByTitleAsync(string title, FlowLayoutPanel flp, string category, string cardType)
-        {
-            title = string.IsNullOrEmpty(title) ? "" : title.Trim().ToLower();
-            List<Media> list;
-            if (category.Contains("DVD"))
-                list = dvd_list;
-            else if (category.Contains("CD"))
-                list = cd_list;
-            else
-                list = book_list;
-            if (!string.IsNullOrEmpty(title))
-            {
-                var filteredList = list.Where(m => m.title.ToLower().Contains(title)).ToList();
-                LoadProductCards(flp, filteredList, cardType);
-            }
-            else
-                LoadProductCards(flp, list, cardType);
         }
 
-        public async Task SortByPrice(FlowLayoutPanel flp, string category, int isAscending, string cardType)
+        private async Task<List<Media>> GetAllMedia()
         {
-            List<Media> sortedList;
-            switch (category)
+            List<Media> allMedia = new List<Media>();
+
+            if (dvd_list == null || dvd_list.Count == 0)
+                dvd_list = await mediaService.GetMediasAsync("category = @category", new Dictionary<string, object> { { "category", "DVD" } });
+            if (cd_list == null || cd_list.Count == 0)
+                cd_list = await mediaService.GetMediasAsync("category = @category", new Dictionary<string, object> { { "category", "CD" } });
+            if (book_list == null || book_list.Count == 0)
+                book_list = await mediaService.GetMediasAsync("category = @category", new Dictionary<string, object> { { "category", "Book" } });
+            allMedia.AddRange(dvd_list);
+            allMedia.AddRange(cd_list);
+            allMedia.AddRange(book_list);
+            return allMedia;
+        }
+        public string getCategory(int index)
+        {
+            switch (index)
             {
-                case "DVD":
-                    sortedList = isAscending == 1
-                        ? new List<Media>(dvd_list.OrderByDescending(p => p.price))
-                        : new List<Media>(dvd_list.OrderBy(p => p.price));
-                    break;
-                case "CD":
-                    sortedList = isAscending == 1
-                        ? new List<Media>(cd_list.OrderByDescending(p => p.price))
-                        : new List<Media>(cd_list.OrderBy(p => p.price));
-                    break;
-                case "Book":
-                    sortedList = isAscending == 1
-                        ? new List<Media>(book_list.OrderByDescending(p => p.price))
-                        : new List<Media>(book_list.OrderBy(p => p.price));
-                    break;
+                case 0:
+                    return "DVD";
+                case 1:
+                    return "CD";
+                case 2:
+                    return "Book";
                 default:
-                    return; 
+                    return null;
             }
-            LoadProductCards(flp, sortedList, cardType);
         }
     }
 }
