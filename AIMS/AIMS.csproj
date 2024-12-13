@@ -138,6 +138,12 @@
     <Compile Include="Views\HomeView.Designer.cs">
       <DependentUpon>HomeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\NavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NavBar.Designer.cs">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Order\PlaceOrderView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -223,6 +229,9 @@
     <EmbeddedResource Include="Views\HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\NavBar.resx">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Product\BookProductView.resx">
       <DependentUpon>BookProductView.cs</DependentUpon>
     </EmbeddedResource>
@@ -266,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="add-to-cart.ico" />
+    <Content Include="Resources\logo.png" />
     <None Include="Resources\images %283%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

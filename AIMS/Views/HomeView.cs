@@ -21,6 +21,9 @@ namespace AIMS.Views
 
         private async void HomeView_Load(object sender, EventArgs e)
         {
+            var navBar = new NavBar();
+            flpNavBar.Controls.Add(navBar);
+            navBar.Show();
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpDVD, "DVD", "productMiniCard");
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpCD, "CD", "productMiniCard");
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpBook, "Book", "productMiniCard");
