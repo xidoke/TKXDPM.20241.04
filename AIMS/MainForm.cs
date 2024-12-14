@@ -1,20 +1,9 @@
-﻿using AIMS.Controllers.Product;
-using AIMS.Models.Entities;
+﻿using AIMS.Models.Entities;
 using AIMS.Services;
 using AIMS.Views;
 using AIMS.Views.Cart;
-using AIMS.Views.Product;
-using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AIMS
@@ -26,6 +15,11 @@ namespace AIMS
         {
             InitializeComponent();
             Instance = this;
+            CartView cartView = new CartView();
+            MainForm.Instance.mainFormPanel.Controls.Clear();
+            MainForm.Instance.mainFormPanel.Controls.Add(cartView);
+            cartView.Visible = true;
+            cartView.BringToFront();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -33,26 +27,6 @@ namespace AIMS
             mainFormPanel.Controls.Add(homeViewUC);
             homeViewUC.Visible = true;
             homeViewUC.BringToFront();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            CartView cartView = new CartView();
-            DVDDetailsView productDetailsView = new DVDDetailsView(12);
-            mainFormPanel.Controls.Add(cartView);
-            mainFormPanel.Controls.Add(productDetailsView);
-            cartView.Visible = false;
-            productDetailsView.Visible = true;
-            productDetailsView.BringToFront();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CartView cartView = new CartView();
-            mainFormPanel.Controls.Clear();
-            mainFormPanel.Controls.Add(cartView);
-            cartView.Dock = DockStyle.Fill;
-            cartView.Show();
         }
         private async void button1_Click_1(object sender, EventArgs e)
         {

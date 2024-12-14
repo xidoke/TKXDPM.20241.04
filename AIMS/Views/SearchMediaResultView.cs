@@ -1,12 +1,5 @@
 ﻿using AIMS.Controllers.Product;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AIMS.Views
@@ -21,7 +14,7 @@ namespace AIMS.Views
             InitializeComponent();
             this.searchContent = searchContent;
             this.category = category;
-            mediaController = new MediaController(); 
+            mediaController = new MediaController();
         }
 
         private async void buttonShowSearchResults_Click(object sender, EventArgs e)
@@ -35,7 +28,7 @@ namespace AIMS.Views
             else if (!string.IsNullOrEmpty(txtPriceFrom.Text))
             {
                 MessageBox.Show("Invalid 'Price From' value. Please enter a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
+                return;
             }
             if (decimal.TryParse(txtPriceTo.Text, out decimal parsedMaxPrice))
             {
@@ -44,7 +37,7 @@ namespace AIMS.Views
             else if (!string.IsNullOrEmpty(txtPriceTo.Text))
             {
                 MessageBox.Show("Invalid 'Price To' value. Please enter a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
+                return;
             }
             if (string.IsNullOrEmpty(category))
             {
@@ -89,6 +82,9 @@ namespace AIMS.Views
 
         private async void SearchMediaResultView_Load(object sender, EventArgs e)
         {
+            NavBar navBar = new NavBar();
+            this.flpNavBar.Controls.Add(navBar);
+            navBar.Show();
             if (!string.IsNullOrEmpty(this.category))
             {
                 this.labelCategory.Visible = false;

@@ -21,6 +21,8 @@ namespace AIMS.Models.Entities
 
         [ForeignKey("User")]
         public int userID { get; set; }
+        [ForeignKey("userDeviceID")]
+        public int userDeviceID { get; set; }
 
         public int shippingFee { get; set; }
 

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AIMS.Models.Entities
 {
     public class CD : Media
     {
-        public int id { get; set; } 
+        public int id { get; set; }
 
         [StringLength(45)]
         public string artist { get; set; }
@@ -18,5 +17,9 @@ namespace AIMS.Models.Entities
         public string tracklist { get; set; }
 
         public DateTime? releaseDate { get; set; }
+        public string getReleasedDate()
+        {
+            return releaseDate?.ToString("dd/MM/yyyy");
+        }
     }
 }

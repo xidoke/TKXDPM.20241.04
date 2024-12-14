@@ -220,5 +220,75 @@ namespace AIMS.Services
                 rush_support = reader.GetBoolean(reader.GetOrdinal("rush_support"))
             };
         }
+        public async Task<Book> GetBookByIdAsync(int bookId)
+        {
+            string where = "id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+    {
+        { "id", bookId }
+    };
+            List<Book> bookList = await dbConnect.SelectDataAsync<Book>("Book", MapDataReaderToBook, where, parameters);
+            return bookList.Count > 0 ? bookList[0] : null;
+        }
+
+        private Book MapDataReaderToBook(NpgsqlDataReader reader)
+        {
+            return new Book
+            {
+                id = reader.GetInt32(reader.GetOrdinal("id")),
+                author = reader.IsDBNull(reader.GetOrdinal("author")) ? null : reader.GetString(reader.GetOrdinal("author")),
+                coverType = reader.IsDBNull(reader.GetOrdinal("cover_type")) ? null : reader.GetString(reader.GetOrdinal("cover_type")),
+                publisher = reader.IsDBNull(reader.GetOrdinal("publisher")) ? null : reader.GetString(reader.GetOrdinal("publisher")),
+                publishDate = reader.IsDBNull(reader.GetOrdinal("publish_date")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("publish_date")),
+                numberOfPages = reader.IsDBNull(reader.GetOrdinal("number_of_pages")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("number_of_pages")),
+                language = reader.IsDBNull(reader.GetOrdinal("language")) ? null : reader.GetString(reader.GetOrdinal("language"))
+            };
+        }
+        public async Task<CD> GetCDByIdAsync(int cdId)
+        {
+            string where = "id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+    {
+        { "id", cdId }
+    };
+            List<CD> cdList = await dbConnect.SelectDataAsync<CD>("CD", MapDataReaderToCD, where, parameters);
+            return cdList.Count > 0 ? cdList[0] : null;
+        }
+
+        private CD MapDataReaderToCD(NpgsqlDataReader reader)
+        {
+            return new CD
+            {
+                id = reader.GetInt32(reader.GetOrdinal("id")),
+                artist = reader.IsDBNull(reader.GetOrdinal("artist")) ? null : reader.GetString(reader.GetOrdinal("artist")),
+                recordLabel = reader.IsDBNull(reader.GetOrdinal("record_label")) ? null : reader.GetString(reader.GetOrdinal("record_label")),
+                tracklist = reader.IsDBNull(reader.GetOrdinal("tracklist")) ? null : reader.GetString(reader.GetOrdinal("tracklist")),
+                releaseDate = reader.IsDBNull(reader.GetOrdinal("release_date")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("release_date"))
+            };
+        }
+        public async Task<DVD> GetDVDByIdAsync(int dvdId)
+        {
+            string where = "id = @id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+    {
+        { "id", dvdId }
+    };
+            List<DVD> dvdList = await dbConnect.SelectDataAsync<DVD>("DVD", MapDataReaderToDVD, where, parameters);
+            return dvdList.Count > 0 ? dvdList[0] : null;
+        }
+
+        private DVD MapDataReaderToDVD(NpgsqlDataReader reader)
+        {
+            return new DVD
+            {
+                id = reader.GetInt32(reader.GetOrdinal("id")),
+                discType = reader.IsDBNull(reader.GetOrdinal("disc_type")) ? null : reader.GetString(reader.GetOrdinal("disc_type")),
+                director = reader.IsDBNull(reader.GetOrdinal("director")) ? null : reader.GetString(reader.GetOrdinal("director")),
+                runtime = reader.IsDBNull(reader.GetOrdinal("runtime")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("runtime")),
+                studio = reader.IsDBNull(reader.GetOrdinal("studio")) ? null : reader.GetString(reader.GetOrdinal("studio")),
+                subtitle = reader.IsDBNull(reader.GetOrdinal("subtitle")) ? null : reader.GetString(reader.GetOrdinal("subtitle")),
+                releaseDate = reader.IsDBNull(reader.GetOrdinal("release_date")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("release_date"))
+            };
+        }
     }
 }

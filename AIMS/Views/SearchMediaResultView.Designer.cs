@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonShowSearchResults = new System.Windows.Forms.Button();
+            this.flpNavBar = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // flpSearchResults
@@ -149,11 +150,20 @@
             this.buttonShowSearchResults.UseVisualStyleBackColor = true;
             this.buttonShowSearchResults.Click += new System.EventHandler(this.buttonShowSearchResults_Click);
             // 
+            // flpNavBar
+            // 
+            this.flpNavBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(27)))), ((int)(((byte)(7)))));
+            this.flpNavBar.Location = new System.Drawing.Point(0, -2);
+            this.flpNavBar.Name = "flpNavBar";
+            this.flpNavBar.Size = new System.Drawing.Size(1008, 50);
+            this.flpNavBar.TabIndex = 10;
+            // 
             // SearchMediaResultView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Controls.Add(this.flpNavBar);
             this.Controls.Add(this.buttonShowSearchResults);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -184,5 +194,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonShowSearchResults;
+        private System.Windows.Forms.FlowLayoutPanel flpNavBar;
     }
 }

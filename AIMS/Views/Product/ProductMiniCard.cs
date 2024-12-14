@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AIMS.Views.Product
@@ -139,7 +133,27 @@ namespace AIMS.Views.Product
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            if (currentProduct.category == "DVD")
+            {
+                DVDDetailsView dvdDetailsView = new DVDDetailsView(currentProduct.id);
+                MainForm.Instance.mainFormPanel.Controls.Clear();
+                MainForm.Instance.mainFormPanel.Controls.Add(dvdDetailsView);
+                dvdDetailsView.Show();
+            }
+            if (currentProduct.category == "CD")
+            {
+                CDDetailsView cdDetailsView = new CDDetailsView(currentProduct.id);
+                MainForm.Instance.mainFormPanel.Controls.Clear();
+                MainForm.Instance.mainFormPanel.Controls.Add(cdDetailsView);
+                cdDetailsView.Show();
+            }
+            if (currentProduct.category == "Book")
+            {
+                BookDetailsView bookDetailsView = new BookDetailsView(currentProduct.id);
+                MainForm.Instance.mainFormPanel.Controls.Clear();
+                MainForm.Instance.mainFormPanel.Controls.Add(bookDetailsView);
+                bookDetailsView.Show();
+            }
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using AIMS.Controllers.Product;
-using AIMS.Services;
 using AIMS.Views.Product;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AIMS.Views
@@ -21,6 +19,9 @@ namespace AIMS.Views
 
         private async void HomeView_Load(object sender, EventArgs e)
         {
+            NavBar navBar = new NavBar();
+            flpNavBar.Controls.Add(navBar);
+            navBar.Show();
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpDVD, "DVD", "productMiniCard");
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpCD, "CD", "productMiniCard");
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpBook, "Book", "productMiniCard");

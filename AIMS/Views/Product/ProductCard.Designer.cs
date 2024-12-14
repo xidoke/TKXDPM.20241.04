@@ -39,7 +39,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(27)))), ((int)(((byte)(7)))));
             this.panel1.Controls.Add(this.btnViewDetails);
             this.panel1.Controls.Add(this.productPrice);
             this.panel1.Controls.Add(this.productTitle);
@@ -48,6 +48,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(170, 229);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.MouseEnter += new System.EventHandler(this.panel1_MouseEnter);
             this.panel1.MouseLeave += new System.EventHandler(this.panel1_MouseLeave);
             // 
@@ -68,6 +69,7 @@
             this.productPrice.AutoSize = true;
             this.productPrice.BackColor = System.Drawing.Color.Transparent;
             this.productPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.productPrice.Location = new System.Drawing.Point(3, 166);
             this.productPrice.Name = "productPrice";
             this.productPrice.Size = new System.Drawing.Size(30, 17);
@@ -78,6 +80,7 @@
             // 
             this.productTitle.BackColor = System.Drawing.Color.Transparent;
             this.productTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.productTitle.Location = new System.Drawing.Point(3, 145);
             this.productTitle.MaximumSize = new System.Drawing.Size(200, 21);
             this.productTitle.Name = "productTitle";
@@ -93,6 +96,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // ProductCard
             // 

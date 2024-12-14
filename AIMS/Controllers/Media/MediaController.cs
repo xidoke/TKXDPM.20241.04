@@ -1,28 +1,175 @@
 ﻿using AIMS.Models.Entities;
 using AIMS.Services;
 using AIMS.Views;
-using AIMS.Views.Cart;
 using AIMS.Views.Product;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 
 namespace AIMS.Controllers.Product
 {
     public class MediaController
     {
         private MediaService mediaService;
+        public MediaController()
+        {
+            mediaService = new MediaService();
+        }
         public List<AIMS.Models.Entities.Media> dvd_list;
         public List<AIMS.Models.Entities.Media> cd_list;
         public List<AIMS.Models.Entities.Media> book_list;
-        public MediaController() 
-        { 
-            mediaService = new MediaService();
+        #region Liên quan tới hiển thị chi tiết sản phẩm
+        public AIMS.Models.Entities.Book currentBook;
+        public int currentID = -1;
+        public AIMS.Models.Entities.DVD currentDVD;
+        public AIMS.Models.Entities.CD currentCD;
+        public async Task LoadBookDetails()
+        {
+            if (currentID == -1)
+            {
+                await Task.Delay(1000);
+            }
+            currentBook = await mediaService.GetBookByIdAsync(currentID);
+            if (currentBook != null)
+            {
+                AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
+
+                BookDetailsView.Instance.lblTitle.Text = currentMedia.title;
+                BookDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPrice()}đ";
+
+                BookDetailsView.Instance.lblAuthor.Text = $"Tác giả: {currentBook.author}";
+                BookDetailsView.Instance.lblPublish_date.Text = $"Ngày xuất bản: {currentBook.getPublishedDate()}";
+                BookDetailsView.Instance.lblPublisher.Text = $"Nhà xuất bản: {currentBook.publisher}";
+                BookDetailsView.Instance.lblLanguage.Text = $"Ngôn ngữ: {currentBook.language}";
+                BookDetailsView.Instance.lblCoverType.Text = $"Loại bìa: {currentBook.coverType}";
+                BookDetailsView.Instance.lblPageNumber.Text = $"Số trang: {currentBook.numberOfPages}";
+                if (!string.IsNullOrEmpty(currentMedia.imgURL))
+                {
+                    using (WebClient webClient = new WebClient())
+                    {
+                        try
+                        {
+                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.imgURL);
+                            using (MemoryStream mem = new MemoryStream(data))
+                            {
+                                BookDetailsView.Instance.productImage.Image = Image.FromStream(mem);
+                            }
+                        }
+                        catch (WebException ex)
+                        {
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+                else
+                {
+                    BookDetailsView.Instance.productImage.Image = null;
+                }
+                BookDetailsView.Instance.Refresh();
+            }
+        }
+        public async Task LoadCDDetails()
+        {
+            if (currentID == -1)
+            {
+                await Task.Delay(1000);
+            }
+            currentCD = await mediaService.GetCDByIdAsync(currentID);
+            if (currentCD != null)
+            {
+                AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
+
+                CDDetailsView.Instance.lblTitle.Text = currentMedia.title;
+                CDDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPrice()}đ";
+
+                CDDetailsView.Instance.lblArtist.Text = $"Nghệ sĩ: {currentCD.artist}";
+                CDDetailsView.Instance.lblRelease_date.Text = $"Ngày phát hành: {currentCD.getReleasedDate()}";
+                CDDetailsView.Instance.lblRecordLabel.Text = $"Hãng thu âm: {currentCD.recordLabel}";
+                CDDetailsView.Instance.lblTrackList.Text = $"Danh sách bản nhạc: {currentCD.tracklist}";
+                if (!string.IsNullOrEmpty(currentMedia.imgURL))
+                {
+                    using (WebClient webClient = new WebClient())
+                    {
+                        try
+                        {
+                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.imgURL);
+                            using (MemoryStream mem = new MemoryStream(data))
+                            {
+                                CDDetailsView.Instance.productImage.Image = Image.FromStream(mem);
+                            }
+                        }
+                        catch (WebException ex)
+                        {
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+                else
+                {
+                    CDDetailsView.Instance.productImage.Image = null;
+                }
+                CDDetailsView.Instance.Refresh();
+            }
+        }
+        public async Task LoadDVDDetails()
+        {
+            if (currentID == -1)
+            {
+                await Task.Delay(1000);
+            }
+            currentDVD = await mediaService.GetDVDByIdAsync(currentID);
+            if (currentDVD != null)
+            {
+                AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
+
+                DVDDetailsView.Instance.lblTitle.Text = currentMedia.title;
+                DVDDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPrice()}đ";
+                DVDDetailsView.Instance.lblDirector.Text = $"Đạo diễn: {currentDVD.director}";
+                DVDDetailsView.Instance.lblStudio.Text = $"Studio: {currentDVD.studio}";
+                DVDDetailsView.Instance.lblRelease_date.Text = $"Ngày phát hành: {currentDVD.getReleasedDate()}";
+                DVDDetailsView.Instance.lblDics_type.Text = $"Loại đĩa: {currentDVD.discType}";
+                DVDDetailsView.Instance.lblRuntime.Text = $"Thời lượng: {currentDVD.runtime} phút";
+                DVDDetailsView.Instance.lblSubtitle.Text = $"Phụ đề: {currentDVD.subtitle}";
+                if (!string.IsNullOrEmpty(currentMedia.imgURL))
+                {
+                    using (WebClient webClient = new WebClient())
+                    {
+                        try
+                        {
+                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.imgURL);
+                            using (MemoryStream mem = new MemoryStream(data))
+                            {
+                                DVDDetailsView.Instance.productImage.Image = Image.FromStream(mem);
+                            }
+                        }
+                        catch (WebException ex)
+                        {
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+                else
+                {
+                    DVDDetailsView.Instance.productImage.Image = null;
+                }
+                DVDDetailsView.Instance.Refresh();
+            }
+        }
+        #endregion
+        public async Task<AIMS.Models.Entities.Media> GetMediaAsync(int mediaID)
+        {
+            return await mediaService.GetMediaByIdAsync(mediaID);
         }
         public void ViewCategoryList(string category)
         {
@@ -31,6 +178,14 @@ namespace AIMS.Controllers.Product
             MainForm.Instance.mainFormPanel.Controls.Add(searchMediaResultsPage);
             searchMediaResultsPage.Show();
         }
+        public void ViewSearchResult(string searchContent)
+        {
+            SearchMediaResultView searchMediaResultsPage = new SearchMediaResultView(searchContent, "");
+            MainForm.Instance.mainFormPanel.Controls.Clear();
+            MainForm.Instance.mainFormPanel.Controls.Add(searchMediaResultsPage);
+            searchMediaResultsPage.Show();
+        }
+        // Load sản phẩm cho Card
         private void LoadProductCards(FlowLayoutPanel flp, List<AIMS.Models.Entities.Media> list, string cardType)
         {
             flp.Controls.Clear();
@@ -50,6 +205,7 @@ namespace AIMS.Controllers.Product
                 }
             }
         }
+        // Load danh sách sản phẩm theo danh mục
         public async Task LoadMediaListbyCategory(FlowLayoutPanel flp, string category, string cardType)
         {
             string categoryToSearch = category;
@@ -74,6 +230,7 @@ namespace AIMS.Controllers.Product
                     break;
             }
         }
+        // Lọc và sắp xếp danh sách sản phẩm 
         public async Task FilterAndSortProductsAdvancedAsync(FlowLayoutPanel flp, string cardType, string title = "", decimal? minPrice = null, decimal? maxPrice = null, string categoryFilter = null, bool sortByPriceDesc = false)
         {
             List<Media> allMedia = await GetAllMedia();
@@ -85,15 +242,15 @@ namespace AIMS.Controllers.Product
             if (maxPrice.HasValue)
                 filteredList = filteredList.Where(m => m.price <= maxPrice.Value);
             if (!string.IsNullOrEmpty(categoryFilter))
-                filteredList = filteredList.Where(m => m.category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase));      
+                filteredList = filteredList.Where(m => m.category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase));
             List<Media> sortedList;
-            if (sortByPriceDesc) 
+            if (sortByPriceDesc)
                 sortedList = filteredList.OrderByDescending(m => m.price).ToList();
             else
                 sortedList = filteredList.OrderBy(m => m.price).ToList();
             LoadProductCards(flp, sortedList, cardType);
         }
-
+        // Lấy danh sách tất cả sản phẩm trên hệ thống (Media)
         private async Task<List<Media>> GetAllMedia()
         {
             List<Media> allMedia = new List<Media>();
