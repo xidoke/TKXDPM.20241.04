@@ -19,7 +19,5 @@ namespace AIMS.Models.Entities
 
         public int quantity { get; set; }
 
-        public virtual OrderData OrderData { get; set; }
-        public virtual Media Media { get; set; }
     }
 }

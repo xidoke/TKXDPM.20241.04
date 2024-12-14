@@ -28,34 +28,41 @@ namespace AIMS
         }
         public async Task<List<T>> SelectDataAsync<T>(string table, Func<NpgsqlDataReader, T> mapFunction, string where = null, Dictionary<string, object> parameters = null, string orderBy = null, bool ascending = true)
         {
-            await ConnectAsync(); 
             List<T> resultList = new List<T>();
-
-            string sql = $"SELECT * FROM {table}";
-            if (!string.IsNullOrEmpty(where))
+            try
             {
-                sql += $" WHERE {where}";
-            }
-            if (!string.IsNullOrEmpty(orderBy))
-            {
-                string orderDirection = ascending ? "ASC" : "DESC";
-                sql += $" ORDER BY {orderBy} {orderDirection}";
-            }
+                await ConnectAsync();
 
-            using (NpgsqlCommand command = new NpgsqlCommand(sql, vConnection))
-            {
-                command.CommandTimeout = 60;
-                AddParametersToCommand(command, parameters);
-
-                using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
+                string sql = $"SELECT * FROM {table}";
+                if (!string.IsNullOrEmpty(where))
                 {
-                    while (await reader.ReadAsync())
+                    sql += $" WHERE {where}";
+                }
+                if (!string.IsNullOrEmpty(orderBy))
+                {
+                    string orderDirection = ascending ? "ASC" : "DESC";
+                    sql += $" ORDER BY {orderBy} {orderDirection}";
+                }
+
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, vConnection))
+                {
+                    command.CommandTimeout = 60;
+                    AddParametersToCommand(command, parameters);
+
+                    using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        resultList.Add(mapFunction(reader));
+                        while (await reader.ReadAsync())
+                        {
+                            resultList.Add(mapFunction(reader));
+                        }
                     }
                 }
+                await CloseConnectionAsync();
             }
-            await CloseConnectionAsync();
+            catch
+            {
+
+            }
             return resultList;
         }
 

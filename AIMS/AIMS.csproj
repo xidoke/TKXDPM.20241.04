@@ -54,6 +54,9 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Npgsql, Version=6.0.13.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>packages\Npgsql.6.0.13\lib\netstandard2.0\Npgsql.dll</HintPath>
     </Reference>
@@ -109,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Cart\CartController.cs" />
     <Compile Include="Controllers\Media\MediaController.cs" />
+    <Compile Include="Controllers\Order\PlaceOrderController.cs" />
     <Compile Include="DatabaseConnect.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -117,11 +121,13 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Book.cs" />
+    <Compile Include="Models\Entities\CartItem.cs" />
     <Compile Include="Models\Entities\CD.cs" />
     <Compile Include="Models\Entities\DVD.cs" />
     <Compile Include="Models\Entities\Media.cs" />
     <Compile Include="Models\Entities\OrderData.cs" />
     <Compile Include="Models\Entities\OrderMedia.cs" />
+    <Compile Include="Models\Entities\TempOrderItem.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,6 +143,12 @@
     </Compile>
     <Compile Include="Views\HomeView.Designer.cs">
       <DependentUpon>HomeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NavBar.Designer.cs">
+      <DependentUpon>NavBar.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Order\PlaceOrderView.cs">
       <SubType>UserControl</SubType>
@@ -162,29 +174,11 @@
     <Compile Include="Views\Product\BookDetailsView.Designer.cs">
       <DependentUpon>BookDetailsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Product\BookProductView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Product\BookProductView.Designer.cs">
-      <DependentUpon>BookProductView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Product\CDDetailsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\Product\CDDetailsView.Designer.cs">
       <DependentUpon>CDDetailsView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Product\CDProductView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Product\CDProductView.Designer.cs">
-      <DependentUpon>CDProductView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Product\DVDProductView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Product\DVDProductView.Designer.cs">
-      <DependentUpon>DVDProductView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Product\ProductCard.cs">
       <SubType>UserControl</SubType>
@@ -203,6 +197,12 @@
     </Compile>
     <Compile Include="Views\Product\ProductMiniCard.Designer.cs">
       <DependentUpon>ProductMiniCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchMediaResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SearchMediaResultView.Designer.cs">
+      <DependentUpon>SearchMediaResultView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -223,14 +223,17 @@
     <EmbeddedResource Include="Views\HomeView.resx">
       <DependentUpon>HomeView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Product\BookProductView.resx">
-      <DependentUpon>BookProductView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\NavBar.resx">
+      <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Product\CDProductView.resx">
-      <DependentUpon>CDProductView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Order\PlaceOrderView.resx">
+      <DependentUpon>PlaceOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Product\DVDProductView.resx">
-      <DependentUpon>DVDProductView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Product\BookDetailsView.resx">
+      <DependentUpon>BookDetailsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Product\CDDetailsView.resx">
+      <DependentUpon>CDDetailsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Product\ProductCard.resx">
       <DependentUpon>ProductCard.cs</DependentUpon>
@@ -241,7 +244,12 @@
     <EmbeddedResource Include="Views\Product\ProductMiniCard.resx">
       <DependentUpon>ProductMiniCard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\SearchMediaResultView.resx">
+      <DependentUpon>SearchMediaResultView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\AIMS.Models.Entities.CartItem.datasource" />
+    <None Include="Properties\DataSources\AIMS.Models.Entities.TempOrderItem.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -255,9 +263,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\images.jpg" />
   </ItemGroup>
@@ -266,6 +272,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="add-to-cart.ico" />
+    <None Include="Resources\add-cart.png" />
+    <None Include="Resources\AIMS_LOGO.png" />
+    <None Include="Resources\square.png" />
+    <None Include="Resources\login.png" />
+    <None Include="Resources\shopping-cart.png" />
     <None Include="Resources\images %283%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AIMS.Models.Entities
 {
@@ -14,7 +12,7 @@ namespace AIMS.Models.Entities
         public string category { get; set; }
 
         [Required]
-        [StringLength(45)] // Cập nhật độ dài
+        [StringLength(45)]
         public string type { get; set; }
 
         [Required]
@@ -31,6 +29,17 @@ namespace AIMS.Models.Entities
         public string imgURL { get; set; }
 
         [Required]
-        public bool rush_support { get; set; } // Đổi tên thuộc tính
+        public bool rush_support { get; set; }
+
+        [Required]
+        public double weight { get; set; }
+        public string getPrice()
+        {
+            return string.Format("{0:N0}", price);
+        }
+        public bool isEnough(int quantity)
+        {
+            return this.quantity >= quantity;
+        }
     }
 }

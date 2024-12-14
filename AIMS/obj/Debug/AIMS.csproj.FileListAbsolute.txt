@@ -12,7 +12,6 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Cart.CartVie
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.ProductCard.resources
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.HomeView.resources
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.ProductMiniCard.resources
-C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.DVDProductView.resources
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\EntityFramework.dll
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\EntityFramework.xml
@@ -40,8 +39,6 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Text.Encodings.W
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Text.Json.xml
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.ValueTuple.xml
-C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.csproj.SuggestedBindingRedirects.cache
-C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.exe.config
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\Microsoft.Bcl.HashCode.dll
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Collections.Immutable.dll
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Diagnostics.DiagnosticSource.dll
@@ -50,6 +47,11 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\Microsoft.Bcl.HashCode.
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Collections.Immutable.xml
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\System.Threading.Channels.xml
-C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.CDProductView.resources
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.DVDDetailsView.resources
-C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.BookProductView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.SearchMediaResultView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.NavBar.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.BookDetailsView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Product.CDDetailsView.resources
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\AIMS.Views.Order.PlaceOrderView.resources

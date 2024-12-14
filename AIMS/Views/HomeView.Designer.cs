@@ -37,6 +37,7 @@
             this.lblViewMoreDVD = new System.Windows.Forms.Label();
             this.lblViewMoreCD = new System.Windows.Forms.Label();
             this.lblViewMoreBOOK = new System.Windows.Forms.Label();
+            this.flpNavBar = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // flpDVD
@@ -68,7 +69,7 @@
             this.lblDVD.AutoSize = true;
             this.lblDVD.BackColor = System.Drawing.Color.Transparent;
             this.lblDVD.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDVD.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblDVD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.lblDVD.Location = new System.Drawing.Point(4, 94);
             this.lblDVD.Name = "lblDVD";
             this.lblDVD.Size = new System.Drawing.Size(41, 20);
@@ -80,7 +81,7 @@
             this.lblCD.AutoSize = true;
             this.lblCD.BackColor = System.Drawing.Color.Transparent;
             this.lblCD.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCD.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblCD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.lblCD.Location = new System.Drawing.Point(4, 251);
             this.lblCD.Name = "lblCD";
             this.lblCD.Size = new System.Drawing.Size(29, 20);
@@ -92,7 +93,7 @@
             this.lblBOOK.AutoSize = true;
             this.lblBOOK.BackColor = System.Drawing.Color.Transparent;
             this.lblBOOK.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBOOK.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblBOOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.lblBOOK.Location = new System.Drawing.Point(4, 407);
             this.lblBOOK.Name = "lblBOOK";
             this.lblBOOK.Size = new System.Drawing.Size(49, 20);
@@ -104,7 +105,7 @@
             this.lblViewMoreDVD.AutoSize = true;
             this.lblViewMoreDVD.BackColor = System.Drawing.Color.Transparent;
             this.lblViewMoreDVD.Font = new System.Drawing.Font("Segoe UI", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblViewMoreDVD.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblViewMoreDVD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.lblViewMoreDVD.Location = new System.Drawing.Point(932, 97);
             this.lblViewMoreDVD.Name = "lblViewMoreDVD";
             this.lblViewMoreDVD.Size = new System.Drawing.Size(72, 17);
@@ -117,7 +118,7 @@
             this.lblViewMoreCD.AutoSize = true;
             this.lblViewMoreCD.BackColor = System.Drawing.Color.Transparent;
             this.lblViewMoreCD.Font = new System.Drawing.Font("Segoe UI", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblViewMoreCD.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblViewMoreCD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.lblViewMoreCD.Location = new System.Drawing.Point(932, 254);
             this.lblViewMoreCD.Name = "lblViewMoreCD";
             this.lblViewMoreCD.Size = new System.Drawing.Size(72, 17);
@@ -130,7 +131,7 @@
             this.lblViewMoreBOOK.AutoSize = true;
             this.lblViewMoreBOOK.BackColor = System.Drawing.Color.Transparent;
             this.lblViewMoreBOOK.Font = new System.Drawing.Font("Segoe UI", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblViewMoreBOOK.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblViewMoreBOOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.lblViewMoreBOOK.Location = new System.Drawing.Point(932, 410);
             this.lblViewMoreBOOK.Name = "lblViewMoreBOOK";
             this.lblViewMoreBOOK.Size = new System.Drawing.Size(72, 17);
@@ -138,11 +139,20 @@
             this.lblViewMoreBOOK.Text = "Xem thêm";
             this.lblViewMoreBOOK.Click += new System.EventHandler(this.lblViewMoreBOOK_Click);
             // 
+            // flpNavBar
+            // 
+            this.flpNavBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(27)))), ((int)(((byte)(7)))));
+            this.flpNavBar.Location = new System.Drawing.Point(-1, -3);
+            this.flpNavBar.Name = "flpNavBar";
+            this.flpNavBar.Size = new System.Drawing.Size(1008, 50);
+            this.flpNavBar.TabIndex = 8;
+            // 
             // HomeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.flpNavBar);
             this.Controls.Add(this.lblViewMoreBOOK);
             this.Controls.Add(this.lblViewMoreCD);
             this.Controls.Add(this.lblViewMoreDVD);
@@ -152,6 +162,7 @@
             this.Controls.Add(this.flpBook);
             this.Controls.Add(this.flpCD);
             this.Controls.Add(this.flpDVD);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(209)))), ((int)(((byte)(102)))));
             this.Name = "HomeView";
             this.Size = new System.Drawing.Size(1007, 604);
             this.Load += new System.EventHandler(this.HomeView_Load);
@@ -170,5 +181,6 @@
         public System.Windows.Forms.FlowLayoutPanel flpDVD;
         public System.Windows.Forms.FlowLayoutPanel flpCD;
         public System.Windows.Forms.FlowLayoutPanel flpBook;
+        private System.Windows.Forms.FlowLayoutPanel flpNavBar;
     }
 }
