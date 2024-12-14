@@ -36,24 +36,31 @@ namespace AIMS.Views.Cart
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            if (this.cartItemBindingSource.Count > 0)
+            try
             {
-                this.placeOrderButton.Visible = true;
-                label1.Text = $"Tổng tiền sản phẩm: {_cartController.getSumTotalMoney()} đ";
-                label1.Visible = true;
+                if (this.cartItemBindingSource.Count > 0)
+                {
+                    this.placeOrderButton.Visible = true;
+                    label1.Text = $"Tổng tiền sản phẩm: {_cartController.getSumTotalMoney()} đ";
+                    label1.Visible = true;
+                }
+                else
+                {
+                    label1.Visible = false;
+                    this.placeOrderButton.Visible = false;
+                }
+                if (_cartController.GetCartItemsSelected().Count > 1)
+                {
+                    label2.Text = $"Bạn đang chọn: {_cartController.GetCartItemsSelected().Count} sản phẩm";
+                }
+                else
+                {
+                    label2.Text = $"Bạn đang chọn: {_cartController.GetCartItemsSelected()[0].media_title}";
+                }
             }
-            else
+            catch
             {
-                label1.Visible = false;
-                this.placeOrderButton.Visible = false;
-            }
-            if (_cartController.GetCartItemsSelected().Count > 1)
-            {
-                label2.Text = $"Bạn đang chọn: {_cartController.GetCartItemsSelected().Count} sản phẩm";
-            }
-            else
-            {
-                label2.Text = $"Bạn đang chọn: {_cartController.GetCartItemsSelected()[0].media_title}";
+
             }
         }
         // Xóa hàng ra khỏi giỏ hàng
@@ -105,8 +112,17 @@ namespace AIMS.Views.Cart
             }
         }
 
-        private void placeOrderButton_Click(object sender, EventArgs e)
+        private async void placeOrderButton_Click(object sender, EventArgs e)
         {
+            if (_cartController.GetCartItemsSelectedToOrder().Count > 0)
+            {
+                int count = await _cartController.countItemNotEnough();
+                if (count > 0)
+                {
+                    MessageBox.Show("Vui lòng kiểm tra lại số lượng");
+                    return;
+                }
+            }
             _cartController.SaveCart();
             PlaceOrderView placeOrderView = new PlaceOrderView(_cartController.GetCartItemsSelectedToOrder());
             MainForm.Instance.mainFormPanel.Controls.Clear();

@@ -93,6 +93,12 @@ namespace AIMS.Views.Order
         {
             if (this.tempOrderItemBindingSource.Count > 0)
             {
+                if (checkBoxRushOrder.Checked)
+                {
+                    label14.Text = $"({placeOrderController.countItemSupportedRushOrder()} sản phẩm vận chuyển hóa tốc)"; label14.Visible = true;
+                }
+                else
+                    label14.Visible = false;
                 label11.Text = placeOrderController.GetStringTotalMoneyFormat() + "đ";
                 if (placeOrderController.countItemIsNotEnough() > 0)
                 {
@@ -106,6 +112,16 @@ namespace AIMS.Views.Order
                     this.lblNotEnoughNotification.Visible = false;
                 }
             }
+        }
+
+        private void btnSaveDeliveryInfo_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra tính khả thi của đặt hàng nhanh cho từng mặt hàng 
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

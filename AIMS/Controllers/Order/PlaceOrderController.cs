@@ -171,7 +171,8 @@ namespace AIMS.Controllers.Order
                                 quantity = item.quantity,
                                 mediaName = currentItem.title,
                                 price = currentItem.price * item.quantity,
-                                isReady = currentItem.isEnough(item.quantity)
+                                isReady = currentItem.isEnough(item.quantity),
+                                isSupportRushOrder = currentItem.rush_support
                             });
                         }
                     }
@@ -191,6 +192,16 @@ namespace AIMS.Controllers.Order
         public List<TempOrderItem> GetOrderItems()
         {
             return PlaceOrderView.Instance.tempOrderItemBindingSource.Cast<TempOrderItem>().ToList();
+        }
+        public int countItemSupportedRushOrder()
+        {
+            int count = 0;
+            foreach (var item in GetOrderItems())
+            {
+                if (item.isSupportRushOrder)
+                    count++;
+            }
+            return count;
         }
         public string GetStringTotalMoneyFormat()
         {

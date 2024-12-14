@@ -7,5 +7,6 @@
         public int price { get; set; }
         public bool isReady = true;
         public int quantity { get; set; }
+        public bool isSupportRushOrder = false;
     }
 }

@@ -3,6 +3,7 @@ using AIMS.Services;
 using AIMS.Views.Cart;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -88,6 +89,34 @@ namespace AIMS.Controllers.Cart
         public List<CartItem> GetCartItemsSelectedToOrder()
         {
             return GetCartItems().FindAll(x => x != null && x.isSelected);
+        }
+        public async Task<int> countItemNotEnough()
+        {
+            int count = 0;
+            foreach (var item in GetCartItemsSelectedToOrder())
+            {
+                AIMS.Models.Entities.Media media = await mediaService.GetMediaByIdAsync(item.media_id);
+                if (media != null)
+                {
+                    if (!media.isEnough(item.quantity))
+                    {
+                        if (item.media_id == media.id)
+                        {
+                            item.isPossibleToPlaceOrder = "Hết hàng";
+                            for (int i = 0; i < CartView.Instance.dataGridViewCartItems.Rows.Count; i++) 
+                            {
+                                if (CartView.Instance.dataGridViewCartItems.Rows[i].Cells[1].Value.ToString() == media.id.ToString())
+                                {
+                                    CartView.Instance.dataGridViewCartItems.Rows[i].DefaultCellStyle.BackColor = Color.OrangeRed;
+                                }
+                            }
+                        }
+                        count++;
+                    }
+                }
+            }
+            CartView.Instance.Refresh();
+            return count;
         }
         // Lấy ra tất cả mặt hàng trong giỏ hàng
         public List<CartItem> GetCartItems()
