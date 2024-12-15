@@ -39,8 +39,8 @@ namespace AIMS.Controllers.Product
             {
                 AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
 
-                BookDetailsView.Instance.lblTitle.Text = currentMedia.title;
-                BookDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPrice()}đ";
+                BookDetailsView.Instance.lblTitle.Text = currentMedia.Title;
+                BookDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPriceFormat()}đ";
 
                 BookDetailsView.Instance.lblAuthor.Text = $"Tác giả: {currentBook.author}";
                 BookDetailsView.Instance.lblPublish_date.Text = $"Ngày xuất bản: {currentBook.getPublishedDate()}";
@@ -48,13 +48,13 @@ namespace AIMS.Controllers.Product
                 BookDetailsView.Instance.lblLanguage.Text = $"Ngôn ngữ: {currentBook.language}";
                 BookDetailsView.Instance.lblCoverType.Text = $"Loại bìa: {currentBook.coverType}";
                 BookDetailsView.Instance.lblPageNumber.Text = $"Số trang: {currentBook.numberOfPages}";
-                if (!string.IsNullOrEmpty(currentMedia.imgURL))
+                if (!string.IsNullOrEmpty(currentMedia.ImgURL))
                 {
                     using (WebClient webClient = new WebClient())
                     {
                         try
                         {
-                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.imgURL);
+                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.ImgURL);
                             using (MemoryStream mem = new MemoryStream(data))
                             {
                                 BookDetailsView.Instance.productImage.Image = Image.FromStream(mem);
@@ -86,20 +86,20 @@ namespace AIMS.Controllers.Product
             {
                 AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
 
-                CDDetailsView.Instance.lblTitle.Text = currentMedia.title;
-                CDDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPrice()}đ";
+                CDDetailsView.Instance.lblTitle.Text = currentMedia.Title;
+                CDDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPriceFormat()}đ";
 
                 CDDetailsView.Instance.lblArtist.Text = $"Nghệ sĩ: {currentCD.artist}";
                 CDDetailsView.Instance.lblRelease_date.Text = $"Ngày phát hành: {currentCD.getReleasedDate()}";
                 CDDetailsView.Instance.lblRecordLabel.Text = $"Hãng thu âm: {currentCD.recordLabel}";
                 CDDetailsView.Instance.lblTrackList.Text = $"Danh sách bản nhạc: {currentCD.tracklist}";
-                if (!string.IsNullOrEmpty(currentMedia.imgURL))
+                if (!string.IsNullOrEmpty(currentMedia.ImgURL))
                 {
                     using (WebClient webClient = new WebClient())
                     {
                         try
                         {
-                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.imgURL);
+                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.ImgURL);
                             using (MemoryStream mem = new MemoryStream(data))
                             {
                                 CDDetailsView.Instance.productImage.Image = Image.FromStream(mem);
@@ -131,21 +131,21 @@ namespace AIMS.Controllers.Product
             {
                 AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
 
-                DVDDetailsView.Instance.lblTitle.Text = currentMedia.title;
-                DVDDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPrice()}đ";
+                DVDDetailsView.Instance.lblTitle.Text = currentMedia.Title;
+                DVDDetailsView.Instance.lblPrice.Text = $"{currentMedia.GetType()}đ";
                 DVDDetailsView.Instance.lblDirector.Text = $"Đạo diễn: {currentDVD.director}";
                 DVDDetailsView.Instance.lblStudio.Text = $"Studio: {currentDVD.studio}";
                 DVDDetailsView.Instance.lblRelease_date.Text = $"Ngày phát hành: {currentDVD.getReleasedDate()}";
                 DVDDetailsView.Instance.lblDics_type.Text = $"Loại đĩa: {currentDVD.discType}";
                 DVDDetailsView.Instance.lblRuntime.Text = $"Thời lượng: {currentDVD.runtime} phút";
                 DVDDetailsView.Instance.lblSubtitle.Text = $"Phụ đề: {currentDVD.subtitle}";
-                if (!string.IsNullOrEmpty(currentMedia.imgURL))
+                if (!string.IsNullOrEmpty(currentMedia.ImgURL))
                 {
                     using (WebClient webClient = new WebClient())
                     {
                         try
                         {
-                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.imgURL);
+                            byte[] data = await webClient.DownloadDataTaskAsync(currentMedia.ImgURL);
                             using (MemoryStream mem = new MemoryStream(data))
                             {
                                 DVDDetailsView.Instance.productImage.Image = Image.FromStream(mem);
@@ -236,18 +236,18 @@ namespace AIMS.Controllers.Product
             List<Media> allMedia = await GetAllMedia();
             IEnumerable<Media> filteredList = allMedia;
             if (!string.IsNullOrEmpty(title))
-                filteredList = filteredList.Where(m => m.title.ToLower().Contains(title.ToLower().Trim()));
+                filteredList = filteredList.Where(m => m.Title.ToLower().Contains(title.ToLower().Trim()));
             if (minPrice.HasValue)
-                filteredList = filteredList.Where(m => m.price >= minPrice.Value);
+                filteredList = filteredList.Where(m => m.Price >= minPrice.Value);
             if (maxPrice.HasValue)
-                filteredList = filteredList.Where(m => m.price <= maxPrice.Value);
+                filteredList = filteredList.Where(m => m.Price <= maxPrice.Value);
             if (!string.IsNullOrEmpty(categoryFilter))
-                filteredList = filteredList.Where(m => m.category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase));
+                filteredList = filteredList.Where(m => m.Category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase));
             List<Media> sortedList;
             if (sortByPriceDesc)
-                sortedList = filteredList.OrderByDescending(m => m.price).ToList();
+                sortedList = filteredList.OrderByDescending(m => m.Price).ToList();
             else
-                sortedList = filteredList.OrderBy(m => m.price).ToList();
+                sortedList = filteredList.OrderBy(m => m.Price).ToList();
             LoadProductCards(flp, sortedList, cardType);
         }
         // Lấy danh sách tất cả sản phẩm trên hệ thống (Media)

@@ -5,7 +5,6 @@ namespace AIMS.Models.Entities
 {
     public class DVD : Media
     {
-        public int id { get; set; }
 
         [StringLength(45)]
         public string discType { get; set; }

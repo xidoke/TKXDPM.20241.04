@@ -3,35 +3,95 @@
   "WorkspaceRootPath": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\cart\\cartview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\cart\\cartview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\services\\mediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:services\\mediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\controllers\\order\\placeordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\controllers\\order\\placeordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:controllers\\order\\placeordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\product\\productminicard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\product\\productminicard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\product\\bookdetailsview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\product\\bookdetailsview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\product\\productcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\product\\productcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\models\\entities\\temporderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\temporderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\order\\placeorderview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\order\\placeorderview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\controllers\\cart\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\controllers\\media\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:controllers\\media\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\controllers\\cart\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:controllers\\cart\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\views\\cart\\cartview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\dvd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\dvd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\cd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\cd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\temporderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\temporderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\ordermedia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\ordermedia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\orderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\orderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\views\\cart\\cartview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\cart\\cartview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\order\\placeorderview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\views\\product\\bookdetailsview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\product\\bookdetailsview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\views\\cart\\cartview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\cart\\cartview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -42,62 +102,251 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TempOrderItem.cs",
-              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\TempOrderItem.cs",
-              "RelativeDocumentMoniker": "Models\\Entities\\TempOrderItem.cs",
-              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\TempOrderItem.cs",
-              "RelativeToolTip": "Models\\Entities\\TempOrderItem.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAmAAAA",
+              "DocumentIndex": 4,
+              "Title": "ProductMiniCard.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Product\\ProductMiniCard.cs",
+              "RelativeDocumentMoniker": "Views\\Product\\ProductMiniCard.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Product\\ProductMiniCard.cs",
+              "RelativeToolTip": "Views\\Product\\ProductMiniCard.cs",
+              "ViewState": "AQIAAIoAAAAAAAAAAAAEwJcAAABXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T13:03:39.877Z",
+              "WhenOpened": "2024-12-15T12:46:33.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductCard.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Product\\ProductCard.cs",
+              "RelativeDocumentMoniker": "Views\\Product\\ProductCard.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Product\\ProductCard.cs",
+              "RelativeToolTip": "Views\\Product\\ProductCard.cs",
+              "ViewState": "AQIAANIAAAAAAAAAAADgv+UAAABXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T12:46:00.455Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "PlaceOrderView.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Order\\PlaceOrderView.Designer.cs",
+              "RelativeDocumentMoniker": "Views\\Order\\PlaceOrderView.Designer.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Order\\PlaceOrderView.Designer.cs",
+              "RelativeToolTip": "Views\\Order\\PlaceOrderView.Designer.cs",
+              "ViewState": "AQIAAPMBAAAAAAAAAAAAAPQBAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T12:45:34.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\MainForm.cs",
+              "RelativeDocumentMoniker": "MainForm.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\MainForm.cs",
+              "RelativeToolTip": "MainForm.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAA2wCAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T12:24:36.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MainForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\MainForm.cs",
+              "RelativeDocumentMoniker": "MainForm.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\MainForm.cs [Design]",
+              "RelativeToolTip": "MainForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T12:24:35.606Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MediaService.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Services\\MediaService.cs",
+              "RelativeDocumentMoniker": "Services\\MediaService.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Services\\MediaService.cs",
+              "RelativeToolTip": "Services\\MediaService.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAADwvykAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T12:10:04.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\User.cs",
+              "RelativeToolTip": "Models\\Entities\\User.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAIwBgAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:58:21.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "OrderMedia.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\OrderMedia.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\OrderMedia.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\OrderMedia.cs",
+              "RelativeToolTip": "Models\\Entities\\OrderMedia.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAcwBYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:58:12.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "OrderData.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\OrderData.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\OrderData.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\OrderData.cs",
+              "RelativeToolTip": "Models\\Entities\\OrderData.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAAACoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:58:07.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Media.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\Media.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Media.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\Media.cs",
+              "RelativeToolTip": "Models\\Entities\\Media.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:58:02.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DVD.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\DVD.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\DVD.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\DVD.cs",
+              "RelativeToolTip": "Models\\Entities\\DVD.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:57:58.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CD.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\CD.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\CD.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\CD.cs",
+              "RelativeToolTip": "Models\\Entities\\CD.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAkwAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:57:52.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CartItem.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\CartItem.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\CartItem.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\CartItem.cs",
+              "RelativeToolTip": "Models\\Entities\\CartItem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAQwBYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:57:48.375Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Book.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\Book.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Book.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\Book.cs",
+              "RelativeToolTip": "Models\\Entities\\Book.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAUAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:57:44.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MediaController.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Media\\MediaController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Media\\MediaController.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Media\\MediaController.cs",
+              "RelativeToolTip": "Controllers\\Media\\MediaController.cs",
+              "ViewState": "AQIAAAIBAAAAAAAAAAAlwBQBAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:57:36.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "TempOrderItem.cs",
+              "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\TempOrderItem.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\TempOrderItem.cs",
+              "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\TempOrderItem.cs",
+              "RelativeToolTip": "Models\\Entities\\TempOrderItem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-14T13:03:39.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "CartController.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Cart\\CartController.cs",
               "RelativeDocumentMoniker": "Controllers\\Cart\\CartController.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Cart\\CartController.cs",
               "RelativeToolTip": "Controllers\\Cart\\CartController.cs",
-              "ViewState": "AQIAAFoAAAAAAAAAAAAYwGQAAAA3AAAA",
+              "ViewState": "AQIAAHkAAAAAAAAAAIA3wIcAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-14T12:22:46.132Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 19,
               "Title": "CartView.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Cart\\CartView.cs",
               "RelativeDocumentMoniker": "Views\\Cart\\CartView.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Cart\\CartView.cs [Design]",
               "RelativeToolTip": "Views\\Cart\\CartView.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T12:29:22.779Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-12-14T12:29:22.779Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PlaceOrderController.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Order\\PlaceOrderController.cs",
               "RelativeDocumentMoniker": "Controllers\\Order\\PlaceOrderController.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Order\\PlaceOrderController.cs",
               "RelativeToolTip": "Controllers\\Order\\PlaceOrderController.cs",
-              "ViewState": "AQIAALIAAAAAAAAAAAAmwMsAAAAZAAAA",
+              "ViewState": "AQIAAMoAAAAAAAAAAAASwNUAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-14T12:25:28.469Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 21,
               "Title": "BookDetailsView.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Product\\BookDetailsView.cs",
               "RelativeDocumentMoniker": "Views\\Product\\BookDetailsView.cs",
@@ -105,12 +354,11 @@
               "RelativeToolTip": "Views\\Product\\BookDetailsView.cs",
               "ViewState": "AQIAACgAAAAAAAAAAAAgwCoAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T12:24:05.675Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T12:24:05.675Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 22,
               "Title": "CartView.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Cart\\CartView.cs",
               "RelativeDocumentMoniker": "Views\\Cart\\CartView.cs",
@@ -118,33 +366,30 @@
               "RelativeToolTip": "Views\\Cart\\CartView.cs",
               "ViewState": "AQIAAAUAAAAAAAAAAAArwF8AAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T12:22:32.359Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T12:22:32.359Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 18,
               "Title": "PlaceOrderView.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Order\\PlaceOrderView.cs",
               "RelativeDocumentMoniker": "Views\\Order\\PlaceOrderView.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Order\\PlaceOrderView.cs",
               "RelativeToolTip": "Views\\Order\\PlaceOrderView.cs",
-              "ViewState": "AQIAAEwAAAAAAAAAAAAewFIAAAAsAAAA",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAnwFIAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T12:22:14.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T12:22:14.901Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 20,
               "Title": "PlaceOrderView.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Order\\PlaceOrderView.cs",
               "RelativeDocumentMoniker": "Views\\Order\\PlaceOrderView.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Order\\PlaceOrderView.cs [Design]",
               "RelativeToolTip": "Views\\Order\\PlaceOrderView.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T12:22:11.892Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-12-14T12:22:11.892Z"
             }
           ]
         }

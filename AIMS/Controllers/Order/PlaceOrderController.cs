@@ -169,10 +169,10 @@ namespace AIMS.Controllers.Order
                             {
                                 mediaID = item.media_id,
                                 quantity = item.quantity,
-                                mediaName = currentItem.title,
-                                price = currentItem.price * item.quantity,
+                                mediaName = currentItem.Title,
+                                price = currentItem.Price * item.quantity,
                                 isReady = currentItem.isEnough(item.quantity),
-                                isSupportRushOrder = currentItem.rush_support
+                                isSupportRushOrder = currentItem.RushSupport
                             });
                         }
                     }

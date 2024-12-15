@@ -5,38 +5,93 @@ namespace AIMS.Models.Entities
     public class Media
     {
         [Key]
-        public int id { get; set; }
+        protected int id;
 
         [Required]
         [StringLength(45)]
-        public string category { get; set; }
+        protected string category;
 
         [Required]
         [StringLength(45)]
-        public string type { get; set; }
+        protected string type;
 
         [Required]
-        public int price { get; set; }
+        protected int price;
 
         [Required]
-        public int quantity { get; set; }
+        protected int quantity;
 
         [Required]
         [StringLength(255)]
-        public string title { get; set; }
+        protected string title;
 
         [StringLength(255)]
-        public string imgURL { get; set; }
+        protected string imgURL;
 
         [Required]
-        public bool rush_support { get; set; }
+        protected bool rush_support;
 
         [Required]
-        public double weight { get; set; }
-        public string getPrice()
+        protected double weight;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public string Category
+        {
+            get { return category; }
+            set { category = value; }
+        }
+
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        public int Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
+
+        public int Quantity
+        {
+            get { return quantity; }
+            set { quantity = value; }
+        }
+
+        public string Title
+        {
+            get { return title; }
+            set { title = value; }
+        }
+        public string ImgURL
+        {
+            get { return imgURL; }
+            set { imgURL = value; }
+        }
+
+        public bool RushSupport
+        {
+            get { return rush_support; }
+            set { rush_support = value; }
+        }
+
+        public double Weight
+        {
+            get { return weight; }
+            set { weight = value; }
+        }
+
+        public string getPriceFormat()
         {
             return string.Format("{0:N0}", price);
         }
+
         public bool isEnough(int quantity)
         {
             return this.quantity >= quantity;
