@@ -72,7 +72,7 @@ namespace AIMS.Controllers.Cart
             });
             SaveCart();
             AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(mediaID);
-            MessageBox.Show($"Thêm thành công {currentMedia.title} [{currentMedia.id}] vào giỏ hàng!");
+            MessageBox.Show($"Thêm thành công {currentMedia.Title} [{currentMedia.Id}] vào giỏ hàng!");
         }
         // Lấy ra danh sách những mặt hàng đã bôi đen
         public List<CartItem> GetCartItemsSelected()
@@ -100,12 +100,12 @@ namespace AIMS.Controllers.Cart
                 {
                     if (!media.isEnough(item.quantity))
                     {
-                        if (item.media_id == media.id)
+                        if (item.media_id == media.Id)
                         {
                             item.isPossibleToPlaceOrder = "Hết hàng";
                             for (int i = 0; i < CartView.Instance.dataGridViewCartItems.Rows.Count; i++) 
                             {
-                                if (CartView.Instance.dataGridViewCartItems.Rows[i].Cells[1].Value.ToString() == media.id.ToString())
+                                if (CartView.Instance.dataGridViewCartItems.Rows[i].Cells[1].Value.ToString() == media.Id.ToString())
                                 {
                                     CartView.Instance.dataGridViewCartItems.Rows[i].DefaultCellStyle.BackColor = Color.OrangeRed;
                                 }
@@ -140,9 +140,9 @@ namespace AIMS.Controllers.Cart
                 Media media = await mediaService.GetMediaByIdAsync(cartItem.media_id);
                 if (media != null)
                 {
-                    cartItem.total_money = media.price;
-                    cartItem.media_title = media.title;
-                    cartItem.isPossibleToPlaceOrder = cartItem.quantity <= media.quantity ? "Sẵn sàng" : "Hết hàng";
+                    cartItem.total_money = media.Price;
+                    cartItem.media_title = media.Title;
+                    cartItem.isPossibleToPlaceOrder = cartItem.quantity <= media.Quantity ? "Sẵn sàng" : "Hết hàng";
                 }
                 CartView.Instance.dataGridViewCartItems.Refresh();
             }

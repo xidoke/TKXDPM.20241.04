@@ -30,18 +30,18 @@ namespace AIMS.Services
         {
             Dictionary<string, object> setValues = new Dictionary<string, object>
             {
-                { "category", media.category },
-                { "type", media.type },
-                { "price", media.price },
-                { "quantity", media.quantity },
-                { "title", media.title },
-                { "imgURL", media.imgURL },
-                { "rush_support", media.rush_support }
+                { "category", media.Category },
+                { "type", media.Type },
+                { "price", media.Price },
+                { "quantity", media.Quantity },
+                { "title", media.Title },
+                { "imgURL", media.ImgURL },
+                { "rush_support", media.RushSupport }
             };
             string where = "id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
-                { "id", media.id }
+                { "id", media.Id }
             };
             await dbConnect.UpdateDataAsync("Media", setValues, where, parameters);
         }
@@ -91,22 +91,22 @@ namespace AIMS.Services
             {
                 Dictionary<string, object> mediaValues = new Dictionary<string, object>
         {
-            { "category", media.category },
-            { "type", media.type },
-            { "price", media.price },
-            { "quantity", media.quantity },
-            { "title", media.title },
-            { "imgURL", media.imgURL },
-            { "rush_support", media.rush_support }
+            { "category", media.Category },
+            { "type", media.Type },
+            { "price", media.Price },
+            { "quantity", media.Quantity },
+            { "title", media.Title },
+            { "imgURL", media.ImgURL },
+            { "rush_support", media.RushSupport }
         };
                 await dbConnect.InsertDataAsync("Media", mediaValues);
 
                 string whereClause = "category = @category AND type = @type AND title = @title";
                 Dictionary<string, object> parameters = new Dictionary<string, object>
         {
-            { "category", media.category },
-            { "type", media.type },
-            { "title", media.title }
+            { "category", media.Category },
+            { "type", media.Type },
+            { "title", media.Title }
         };
 
                 List<Media> insertedMediaList = await dbConnect.SelectDataAsync<Media>("Media", MapDataReaderToMedia, whereClause, parameters);
@@ -116,16 +116,16 @@ namespace AIMS.Services
                     throw new Exception("Failed to retrieve the newly inserted Media.");
                 }
 
-                int mediaId = insertedMediaList[0].id; 
+                int mediaId = insertedMediaList[0].Id; 
 
-                switch (media.category)
+                switch (media.Category)
                 {
                     case "Book":
                         if (book == null) throw new ArgumentException("Book object cannot be null when category is Book");
-                        book.id = mediaId;
+                        book.Id = mediaId;
                         Dictionary<string, object> bookValues = new Dictionary<string, object>
                 {
-                    { "id", book.id },
+                    { "id", book.Id },
                     { "author", book.author },
                     { "cover_type", book.coverType },
                     { "publisher", book.publisher },
@@ -138,10 +138,10 @@ namespace AIMS.Services
 
                     case "CD":
                         if (cd == null) throw new ArgumentException("CD object cannot be null when category is CD");
-                        cd.id = mediaId;
+                        cd.Id = mediaId;
                         Dictionary<string, object> cdValues = new Dictionary<string, object>
                 {
-                    { "id", cd.id },
+                    { "id", cd.Id },
                     { "artist", cd.artist },
                     { "record_label", cd.recordLabel },
                     { "tracklist", cd.tracklist },
@@ -152,10 +152,10 @@ namespace AIMS.Services
 
                     case "DVD":
                         if (dvd == null) throw new ArgumentException("DVD object cannot be null when category is DVD");
-                        dvd.id = mediaId;
+                        dvd.Id = mediaId;
                         Dictionary<string, object> dvdValues = new Dictionary<string, object>
                 {
-                    { "id", dvd.id },
+                    { "id", dvd.Id },
                     { "disc_type", dvd.discType },
                     { "director", dvd.director },
                     { "runtime", dvd.runtime },
@@ -210,14 +210,14 @@ namespace AIMS.Services
         {
             return new Media
             {
-                id = reader.GetInt32(reader.GetOrdinal("id")),
-                category = reader.IsDBNull(reader.GetOrdinal("category")) ? null : reader.GetString(reader.GetOrdinal("category")),
-                type = reader.IsDBNull(reader.GetOrdinal("type")) ? null : reader.GetString(reader.GetOrdinal("type")),
-                price = reader.GetInt32(reader.GetOrdinal("price")),
-                quantity = reader.GetInt32(reader.GetOrdinal("quantity")),
-                title = reader.IsDBNull(reader.GetOrdinal("title")) ? null : reader.GetString(reader.GetOrdinal("title")),
-                imgURL = reader.IsDBNull(reader.GetOrdinal("imgURL")) ? null : reader.GetString(reader.GetOrdinal("imgURL")),
-                rush_support = reader.GetBoolean(reader.GetOrdinal("rush_support"))
+                Id = reader.GetInt32(reader.GetOrdinal("id")),
+                Category = reader.IsDBNull(reader.GetOrdinal("category")) ? null : reader.GetString(reader.GetOrdinal("category")),
+                Type = reader.IsDBNull(reader.GetOrdinal("type")) ? null : reader.GetString(reader.GetOrdinal("type")),
+                Price = reader.GetInt32(reader.GetOrdinal("price")),
+                Quantity = reader.GetInt32(reader.GetOrdinal("quantity")),
+                Title = reader.IsDBNull(reader.GetOrdinal("title")) ? null : reader.GetString(reader.GetOrdinal("title")),
+                ImgURL = reader.IsDBNull(reader.GetOrdinal("imgURL")) ? null : reader.GetString(reader.GetOrdinal("imgURL")),
+                RushSupport = reader.GetBoolean(reader.GetOrdinal("rush_support"))
             };
         }
         public async Task<Book> GetBookByIdAsync(int bookId)
@@ -235,7 +235,7 @@ namespace AIMS.Services
         {
             return new Book
             {
-                id = reader.GetInt32(reader.GetOrdinal("id")),
+                Id = reader.GetInt32(reader.GetOrdinal("id")),
                 author = reader.IsDBNull(reader.GetOrdinal("author")) ? null : reader.GetString(reader.GetOrdinal("author")),
                 coverType = reader.IsDBNull(reader.GetOrdinal("cover_type")) ? null : reader.GetString(reader.GetOrdinal("cover_type")),
                 publisher = reader.IsDBNull(reader.GetOrdinal("publisher")) ? null : reader.GetString(reader.GetOrdinal("publisher")),
@@ -259,7 +259,7 @@ namespace AIMS.Services
         {
             return new CD
             {
-                id = reader.GetInt32(reader.GetOrdinal("id")),
+                Id = reader.GetInt32(reader.GetOrdinal("id")),
                 artist = reader.IsDBNull(reader.GetOrdinal("artist")) ? null : reader.GetString(reader.GetOrdinal("artist")),
                 recordLabel = reader.IsDBNull(reader.GetOrdinal("record_label")) ? null : reader.GetString(reader.GetOrdinal("record_label")),
                 tracklist = reader.IsDBNull(reader.GetOrdinal("tracklist")) ? null : reader.GetString(reader.GetOrdinal("tracklist")),
@@ -281,7 +281,7 @@ namespace AIMS.Services
         {
             return new DVD
             {
-                id = reader.GetInt32(reader.GetOrdinal("id")),
+                Id = reader.GetInt32(reader.GetOrdinal("id")),
                 discType = reader.IsDBNull(reader.GetOrdinal("disc_type")) ? null : reader.GetString(reader.GetOrdinal("disc_type")),
                 director = reader.IsDBNull(reader.GetOrdinal("director")) ? null : reader.GetString(reader.GetOrdinal("director")),
                 runtime = reader.IsDBNull(reader.GetOrdinal("runtime")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("runtime")),

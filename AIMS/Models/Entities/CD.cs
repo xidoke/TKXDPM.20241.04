@@ -5,8 +5,6 @@ namespace AIMS.Models.Entities
 {
     public class CD : Media
     {
-        public int id { get; set; }
-
         [StringLength(45)]
         public string artist { get; set; }
 

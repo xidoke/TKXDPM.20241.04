@@ -25,7 +25,7 @@ namespace AIMS.Views.Product
 
         private void ProductMiniCard_Load(object sender, EventArgs e)
         {
-            this.productTitle.Text = TruncateText(currentProduct.title, productTitle.Width);
+            this.productTitle.Text = TruncateText(currentProduct.Title, productTitle.Width);
             productTitle.AutoEllipsis = true;
             productTitle.UseMnemonic = false;
         }
@@ -44,14 +44,14 @@ namespace AIMS.Views.Product
         public void LoadProduct(AIMS.Models.Entities.Media product)
         {
             currentProduct = product;
-            this.productTitle.Text = currentProduct.title;
-            if (!string.IsNullOrEmpty(product.imgURL))
+            this.productTitle.Text = currentProduct.Title;
+            if (!string.IsNullOrEmpty(product.ImgURL))
             {
                 using (WebClient webClient = new WebClient())
                 {
                     try
                     {
-                        byte[] data = webClient.DownloadData(product.imgURL);
+                        byte[] data = webClient.DownloadData(product.ImgURL);
                         using (MemoryStream mem = new MemoryStream(data))
                         {
                             if (Image.FromStream(mem) != null)
@@ -64,7 +64,7 @@ namespace AIMS.Views.Product
                     {
                         if (ex.Response is HttpWebResponse response && response.StatusCode == HttpStatusCode.NotFound)
                         {
-                            Console.WriteLine($"Image not found: {product.imgURL}");
+                            Console.WriteLine($"Image not found: {product.ImgURL}");
                         }
                         else
                         {
@@ -133,23 +133,23 @@ namespace AIMS.Views.Product
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (currentProduct.category == "DVD")
+            if (currentProduct.Category == "DVD")
             {
-                DVDDetailsView dvdDetailsView = new DVDDetailsView(currentProduct.id);
+                DVDDetailsView dvdDetailsView = new DVDDetailsView(currentProduct.Id);
                 MainForm.Instance.mainFormPanel.Controls.Clear();
                 MainForm.Instance.mainFormPanel.Controls.Add(dvdDetailsView);
                 dvdDetailsView.Show();
             }
-            if (currentProduct.category == "CD")
+            if (currentProduct.Category == "CD")
             {
-                CDDetailsView cdDetailsView = new CDDetailsView(currentProduct.id);
+                CDDetailsView cdDetailsView = new CDDetailsView(currentProduct.Id);
                 MainForm.Instance.mainFormPanel.Controls.Clear();
                 MainForm.Instance.mainFormPanel.Controls.Add(cdDetailsView);
                 cdDetailsView.Show();
             }
-            if (currentProduct.category == "Book")
+            if (currentProduct.Category == "Book")
             {
-                BookDetailsView bookDetailsView = new BookDetailsView(currentProduct.id);
+                BookDetailsView bookDetailsView = new BookDetailsView(currentProduct.Id);
                 MainForm.Instance.mainFormPanel.Controls.Clear();
                 MainForm.Instance.mainFormPanel.Controls.Add(bookDetailsView);
                 bookDetailsView.Show();

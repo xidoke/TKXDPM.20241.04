@@ -5,7 +5,6 @@ namespace AIMS.Models.Entities
 {
     public class Book : Media
     {
-        public int id { get; set; }
 
         [StringLength(255)]
         public string author { get; set; }
