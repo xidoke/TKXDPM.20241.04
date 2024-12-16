@@ -19,6 +19,9 @@ namespace AIMS.Models.Entities
         protected int price;
 
         [Required]
+        protected int value;
+
+        [Required]
         protected int quantity;
 
         [Required]
@@ -29,7 +32,7 @@ namespace AIMS.Models.Entities
         protected string imgURL;
 
         [Required]
-        protected bool rush_support;
+        protected bool isSupportRushShipping;
 
         [Required]
         protected double weight;
@@ -58,6 +61,12 @@ namespace AIMS.Models.Entities
             set { price = value; }
         }
 
+        public int Value
+        {
+            get { return value; }
+            set { this.value = value; }
+        }
+        
         public int Quantity
         {
             get { return quantity; }
@@ -75,10 +84,10 @@ namespace AIMS.Models.Entities
             set { imgURL = value; }
         }
 
-        public bool RushSupport
+        public bool IsSupportRushShipping
         {
-            get { return rush_support; }
-            set { rush_support = value; }
+            get { return isSupportRushShipping; }
+            set { isSupportRushShipping = value; }
         }
 
         public double Weight

@@ -172,7 +172,7 @@ namespace AIMS.Controllers.Order
                                 mediaName = currentItem.Title,
                                 price = currentItem.Price * item.quantity,
                                 isReady = currentItem.isEnough(item.quantity),
-                                isSupportRushOrder = currentItem.RushSupport
+                                isSupportRushOrder = currentItem.IsSupportRushShipping
                             });
                         }
                     }

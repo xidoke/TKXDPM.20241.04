@@ -36,7 +36,7 @@ namespace AIMS.Services
                 { "quantity", media.Quantity },
                 { "title", media.Title },
                 { "imgURL", media.ImgURL },
-                { "rush_support", media.RushSupport }
+                { "rush_support", media.IsSupportRushShipping }
             };
             string where = "id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>
@@ -97,7 +97,7 @@ namespace AIMS.Services
             { "quantity", media.Quantity },
             { "title", media.Title },
             { "imgURL", media.ImgURL },
-            { "rush_support", media.RushSupport }
+            { "rush_support", media.IsSupportRushShipping }
         };
                 await dbConnect.InsertDataAsync("Media", mediaValues);
 
@@ -217,7 +217,7 @@ namespace AIMS.Services
                 Quantity = reader.GetInt32(reader.GetOrdinal("quantity")),
                 Title = reader.IsDBNull(reader.GetOrdinal("title")) ? null : reader.GetString(reader.GetOrdinal("title")),
                 ImgURL = reader.IsDBNull(reader.GetOrdinal("imgURL")) ? null : reader.GetString(reader.GetOrdinal("imgURL")),
-                RushSupport = reader.GetBoolean(reader.GetOrdinal("rush_support"))
+                IsSupportRushShipping = reader.GetBoolean(reader.GetOrdinal("rush_support"))
             };
         }
         public async Task<Book> GetBookByIdAsync(int bookId)
