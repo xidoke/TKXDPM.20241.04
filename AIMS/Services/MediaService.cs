@@ -36,7 +36,8 @@ namespace AIMS.Services
                 { "quantity", media.Quantity },
                 { "title", media.Title },
                 { "imgURL", media.ImgURL },
-                { "rush_support", media.IsSupportRushShipping }
+                { "rush_support", media.IsSupportRushShipping },
+                { "weight", media.Weight }
             };
             string where = "id = @id";
             Dictionary<string, object> parameters = new Dictionary<string, object>
@@ -55,7 +56,7 @@ namespace AIMS.Services
             };
             await dbConnect.DeleteDataAsync("Media", where, parameters);
         }
-        public async Task<List<Media>> getListDVD()
+       /* public async Task<List<Media>> getListDVD()
         {
             string categoryToSearch = "DVD";
             string whereClause = "category = @category";
@@ -84,7 +85,7 @@ namespace AIMS.Services
                  { "category", categoryToSearch }
             };
             return await GetMediasAsync(whereClause, parameters);
-        }
+        }*/
         public async Task AddMediaAsync(Media media, Book book = null, CD cd = null, DVD dvd = null)
         {
             try
@@ -97,7 +98,8 @@ namespace AIMS.Services
             { "quantity", media.Quantity },
             { "title", media.Title },
             { "imgURL", media.ImgURL },
-            { "rush_support", media.IsSupportRushShipping }
+            { "rush_support", media.IsSupportRushShipping },
+            { "weight", media.Weight }
         };
                 await dbConnect.InsertDataAsync("Media", mediaValues);
 
@@ -217,7 +219,8 @@ namespace AIMS.Services
                 Quantity = reader.GetInt32(reader.GetOrdinal("quantity")),
                 Title = reader.IsDBNull(reader.GetOrdinal("title")) ? null : reader.GetString(reader.GetOrdinal("title")),
                 ImgURL = reader.IsDBNull(reader.GetOrdinal("imgURL")) ? null : reader.GetString(reader.GetOrdinal("imgURL")),
-                IsSupportRushShipping = reader.GetBoolean(reader.GetOrdinal("rush_support"))
+                IsSupportRushShipping = reader.GetBoolean(reader.GetOrdinal("rush_support")),
+                Weight = reader.GetInt32(reader.GetOrdinal("weight")),
             };
         }
         public async Task<Book> GetBookByIdAsync(int bookId)

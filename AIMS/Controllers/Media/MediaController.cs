@@ -41,7 +41,6 @@ namespace AIMS.Controllers.Product
 
                 BookDetailsView.Instance.lblTitle.Text = currentMedia.Title;
                 BookDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPriceFormat()}đ";
-
                 BookDetailsView.Instance.lblAuthor.Text = $"Tác giả: {currentBook.author}";
                 BookDetailsView.Instance.lblPublish_date.Text = $"Ngày xuất bản: {currentBook.getPublishedDate()}";
                 BookDetailsView.Instance.lblPublisher.Text = $"Nhà xuất bản: {currentBook.publisher}";
