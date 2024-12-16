@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\models\\entities\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|c:\\users\\msi\\desktop\\aims\\tkxdpm.20241.04\\aims\\services\\mediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:services\\mediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\services\\mediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:services\\mediaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\controllers\\media\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:controllers\\media\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\controllers\\cart\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:controllers\\cart\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:models\\entities\\media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\controllers\\order\\placeordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,14 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\views\\order\\placeorderview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:views\\order\\placeorderview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\controllers\\media\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:controllers\\media\\mediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\controllers\\cart\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|solutionrelative:controllers\\cart\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D4A53F87-6EB3-44D8-A67D-CEF88356D66A}|AIMS.csproj|C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\models\\entities\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -102,11 +102,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "ProductMiniCard.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Product\\ProductMiniCard.cs",
               "RelativeDocumentMoniker": "Views\\Product\\ProductMiniCard.cs",
@@ -118,7 +118,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ProductCard.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Product\\ProductCard.cs",
               "RelativeDocumentMoniker": "Views\\Product\\ProductCard.cs",
@@ -130,7 +130,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "PlaceOrderView.Designer.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Views\\Order\\PlaceOrderView.Designer.cs",
               "RelativeDocumentMoniker": "Views\\Order\\PlaceOrderView.Designer.cs",
@@ -142,7 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\MainForm.cs",
               "RelativeDocumentMoniker": "MainForm.cs",
@@ -165,13 +165,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MediaService.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Services\\MediaService.cs",
               "RelativeDocumentMoniker": "Services\\MediaService.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Services\\MediaService.cs",
               "RelativeToolTip": "Services\\MediaService.cs",
-              "ViewState": "AQIAAM8AAAAAAAAAAAAowNIAAAAcAAAA",
+              "ViewState": "AQIAABYBAAAAAAAAAAAqwN4AAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-15T12:10:04.342Z",
               "EditorCaption": ""
@@ -214,16 +214,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Media.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\Media.cs",
               "RelativeDocumentMoniker": "Models\\Entities\\Media.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Models\\Entities\\Media.cs",
               "RelativeToolTip": "Models\\Entities\\Media.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAA5wDoAAAAJAAAA",
+              "ViewState": "AQIAADQAAAAAAAAAAAAgwDoAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T10:58:02.748Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-15T10:58:02.748Z"
             },
             {
               "$type": "Document",
@@ -275,13 +274,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "MediaController.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Media\\MediaController.cs",
               "RelativeDocumentMoniker": "Controllers\\Media\\MediaController.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Media\\MediaController.cs",
               "RelativeToolTip": "Controllers\\Media\\MediaController.cs",
-              "ViewState": "AQIAAAIBAAAAAAAAAAAlwBQBAAAXAAAA",
+              "ViewState": "AQIAAPQAAAAAAAAAAAAuwBsBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-15T10:57:36.717Z"
             },
@@ -299,13 +298,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "CartController.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Cart\\CartController.cs",
               "RelativeDocumentMoniker": "Controllers\\Cart\\CartController.cs",
               "ToolTip": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Cart\\CartController.cs",
               "RelativeToolTip": "Controllers\\Cart\\CartController.cs",
-              "ViewState": "AQIAAHkAAAAAAAAAAIA3wIcAAAAgAAAA",
+              "ViewState": "AQIAAG0AAAAAAAAAAAAAAH0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-14T12:22:46.132Z"
             },
@@ -322,7 +321,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "PlaceOrderController.cs",
               "DocumentMoniker": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\Controllers\\Order\\PlaceOrderController.cs",
               "RelativeDocumentMoniker": "Controllers\\Order\\PlaceOrderController.cs",
@@ -330,8 +329,7 @@
               "RelativeToolTip": "Controllers\\Order\\PlaceOrderController.cs",
               "ViewState": "AQIAAKQAAAAAAAAAAAAwwK4AAABWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T12:25:28.469Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T12:25:28.469Z"
             },
             {
               "$type": "Document",
