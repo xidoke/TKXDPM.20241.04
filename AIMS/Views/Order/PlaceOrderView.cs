@@ -1,8 +1,10 @@
 ﻿using AIMS.Controllers.Order;
 using AIMS.Models.Entities;
+using AIMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AIMS.Views.Order
 {
@@ -10,12 +12,19 @@ namespace AIMS.Views.Order
     {
         private PlaceOrderController placeOrderController;
         public static PlaceOrderView Instance;
+        private readonly ProvinceService _provinceService;
+        private readonly DistrictService _districtService;
+        private readonly WardService _wardService;
+
         public PlaceOrderView(List<CartItem> cartItems)
         {
             InitializeComponent();
             Instance = this;
             placeOrderController = new PlaceOrderController();
             placeOrderController.CartItems = cartItems;
+            _provinceService = new ProvinceService();
+            _districtService = new DistrictService();
+            _wardService = new WardService();
         }
 
         private async void PlaceOrderView_Load(object sender, EventArgs e)
@@ -23,34 +32,51 @@ namespace AIMS.Views.Order
             NavBar navBar = new NavBar();
             flpNavBar.Controls.Add(navBar);
             navBar.Show();
+
             checkBoxNormalOrder.Checked = true;
+
             this.cbxCity.Items.Clear();
-            foreach (var city in placeOrderController.city)
-                this.cbxCity.Items.Add(city);
+    
+            var provinces = await _provinceService.GetAllProvincesAsync();
+            foreach (var province in provinces)
+            {
+                this.cbxCity.Items.Add(province.Name);
+            }
+
             await placeOrderController.LoadItemsOrder();
+        }
+
+        private async void cbxCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbxDistrict.Items.Clear();
+            if (!string.IsNullOrEmpty(cbxCity.SelectedItem?.ToString()))
+            {
+                var selectedProvince = await _provinceService.GetProvinceByNameAsync(cbxCity.SelectedItem.ToString());
+                var districts = await _districtService.GetDistrictsByProvinceAsync(selectedProvince?.Id);
+                foreach (var district in districts)
+                {
+                    cbxDistrict.Items.Add(district.Name);
+                }
+            }
+        }
+
+        private async void cbxDistrict_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbxWard.Items.Clear();
+            if (!string.IsNullOrEmpty(cbxCity.SelectedItem?.ToString()) && !string.IsNullOrEmpty(cbxDistrict.SelectedItem?.ToString()))
+            {
+                var selectedDistrict = await _districtService.GetDistrictByNameAsync(cbxDistrict.SelectedItem.ToString());
+                var wards = await _wardService.GetWardsByDistrictAsync(selectedDistrict?.Id);
+                foreach (var ward in wards)
+                {
+                    cbxWard.Items.Add(ward.Name);
+                }
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
-        }
-
-        private void cbxCity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cbxDistrict.Items.Clear();
-            if (placeOrderController.districts.ContainsKey(cbxCity.Text))
-            {
-                cbxDistrict.Items.AddRange(placeOrderController.districts[cbxCity.Text].ToArray());
-            }
-        }
-
-        private void cbxDistrict_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cbxWard.Items.Clear();
-            if (placeOrderController.wards.ContainsKey(cbxCity.Text))
-            {
-                cbxWard.Items.AddRange(placeOrderController.wards[cbxCity.Text][cbxDistrict.Text].ToArray());
-            }
         }
 
         private void checkBoxNormalOrder_CheckedChanged(object sender, EventArgs e)
@@ -114,10 +140,30 @@ namespace AIMS.Views.Order
             }
         }
 
-        private void btnSaveDeliveryInfo_Click(object sender, EventArgs e)
+        private async void btnSaveDeliveryInfo_Click(object sender, EventArgs e)
         {
-            // Kiểm tra tính khả thi của đặt hàng nhanh cho từng mặt hàng 
+            string name = txtNameOfRecipient.Text?.Trim();
+            string phoneNumber = txtPhoneNumberOfRecipient.Text?.Trim();
+            string address = txtAddress.Text?.Trim();
+
+            string selectedCity = cbxCity.SelectedItem?.ToString();
+            string selectedDistrict = cbxDistrict.SelectedItem?.ToString();
+            string selectedWard = cbxWard.SelectedItem?.ToString();
+
+            var validator = new DeliveryInfoValidator(_provinceService, _districtService, _wardService);
+            string validationMessage = await validator.ValidateDeliveryInfoAsync(name, phoneNumber, address, selectedCity, selectedDistrict, selectedWard);
+
+            if (validationMessage.Contains("valid"))
+            {
+                MessageBox.Show(validationMessage, "Valid Address", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Continue with your save logic here
+            }
+            else
+            {
+                MessageBox.Show(validationMessage, "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
