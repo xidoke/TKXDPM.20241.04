@@ -60,8 +60,8 @@ namespace AIMS.Services
 
                     Dictionary<string, object> orderMediaValues = new Dictionary<string, object>
                     {
-                        { "orderID", orderMedia.orderID },
-                        { "mediaID", orderMedia.mediaID },
+                        { "order_id", orderMedia.orderID },
+                        { "media_id", orderMedia.mediaID },
                         { "quantity", orderMedia.quantity },
                         { "price", orderMedia.price }
                     };

@@ -100,6 +100,7 @@ namespace AIMS.Controllers.Order
             orderData.type = isRushOrder ? OrderTypeEnum.Rush.ToString() :
                     OrderTypeEnum.Normal.ToString();
             orderData.instructions = deliveryTime + " - " + description;
+            orderData.status = StatusEnum.Pending.ToString();
         }
 
         public string GetStringTotalMoneyFormat()

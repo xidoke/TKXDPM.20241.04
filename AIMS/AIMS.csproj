@@ -114,6 +114,8 @@
     <Compile Include="Controllers\Media\MediaController.cs" />
     <Compile Include="Controllers\Order\PlaceOrderController.cs" />
     <Compile Include="DatabaseConnect.cs" />
+    <Compile Include="Enum\OrderTypeEnum.cs" />
+    <Compile Include="Enum\StatusEnum.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,8 +138,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DistrictService.cs" />
     <Compile Include="Services\MediaService.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProvinceService.cs" />
     <Compile Include="Services\WardService.cs" />
+    <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\DeliveryInfoValidator.cs" />
     <Compile Include="Views\Cart\CartView.cs">
       <SubType>UserControl</SubType>
