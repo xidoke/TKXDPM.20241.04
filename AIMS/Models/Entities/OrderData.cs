@@ -9,9 +9,10 @@ namespace AIMS.Models.Entities
     {
         [Key]
         public int id { get; set; }
+        public string fullname { get; set; }
 
         [StringLength(45)]
-        public string city { get; set; }
+        public string province { get; set; }
 
         [StringLength(45)]
         public string address { get; set; }
@@ -20,9 +21,9 @@ namespace AIMS.Models.Entities
         public string phone { get; set; }
 
         [ForeignKey("User")]
-        public int userID { get; set; }
+        public int? userID { get; set; }
         [ForeignKey("userDeviceID")]
-        public int userDeviceID { get; set; }
+        public int? userDeviceID { get; set; }
 
         public int shippingFee { get; set; }
 

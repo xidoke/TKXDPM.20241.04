@@ -41,19 +41,6 @@ namespace AIMS.Services
             return districtList.Count > 0 ? districtList[0] : null;
         }
 
-        public async Task<District> GetDistrictByNameAndProvinceAsync(string districtName, string provinceId)
-        {
-            string where = "name = @name AND province_id = @provinceId";
-            var parameters = new Dictionary<string, object>
-            {
-                { "name", districtName },
-                { "provinceId", provinceId }
-            };
-
-            List<District> districtList = await dbConnect.SelectDataAsync<District>("Districts", MapDataReaderToDistrict, where, parameters);
-            return districtList.Count > 0 ? districtList[0] : null;
-        }
-
         private District MapDataReaderToDistrict(NpgsqlDataReader reader)
         {
             return new District

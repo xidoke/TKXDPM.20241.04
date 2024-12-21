@@ -1,8 +1,11 @@
-﻿using AIMS.Controllers.Order;
+﻿using AIMS.Controllers.Cart;
+using AIMS.Controllers.Order;
+using AIMS.Enum;
 using AIMS.Models.Entities;
 using AIMS.Services;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -48,6 +51,8 @@ namespace AIMS.Views.Order
 
         private async void cbxCity_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cbxDistrict.Text = "";
+            cbxWard.Text = "";
             cbxDistrict.Items.Clear();
             if (!string.IsNullOrEmpty(cbxCity.SelectedItem?.ToString()))
             {
@@ -58,10 +63,13 @@ namespace AIMS.Views.Order
                     cbxDistrict.Items.Add(district.Name);
                 }
             }
+
+           
         }
 
         private async void cbxDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cbxWard.Text = "";
             cbxWard.Items.Clear();
             if (!string.IsNullOrEmpty(cbxCity.SelectedItem?.ToString()) && !string.IsNullOrEmpty(cbxDistrict.SelectedItem?.ToString()))
             {
@@ -121,16 +129,16 @@ namespace AIMS.Views.Order
             {
                 if (checkBoxRushOrder.Checked)
                 {
-                    label14.Text = $"({placeOrderController.countItemSupportedRushOrder()} sản phẩm vận chuyển hóa tốc)"; label14.Visible = true;
+                    label14.Text = $"({placeOrderController.CountItemSupportedRushOrder()} sản phẩm vận chuyển hóa tốc)"; label14.Visible = true;
                 }
                 else
                     label14.Visible = false;
                 label11.Text = placeOrderController.GetStringTotalMoneyFormat() + "đ";
-                if (placeOrderController.countItemIsNotEnough() > 0)
+                if (placeOrderController.CountItemIsNotEnough() > 0)
                 {
                     this.btnPayment.Enabled = false;
                     this.lblNotEnoughNotification.Visible = true;
-                    this.lblNotEnoughNotification.Text = $"{placeOrderController.countItemIsNotEnough()} sản phẩm đã hết hàng, vui lòng kiểm tra giỏ hàng!";
+                    this.lblNotEnoughNotification.Text = $"{placeOrderController.CountItemIsNotEnough()} sản phẩm đã hết hàng, vui lòng kiểm tra giỏ hàng!";
                 }
                 else
                 {
@@ -147,16 +155,31 @@ namespace AIMS.Views.Order
             string address = txtAddress.Text?.Trim();
 
             string selectedCity = cbxCity.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selectedCity))
+            {
+                MessageBox.Show("Vui lòng chọn Tỉnh/Thành phố!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string selectedDistrict = cbxDistrict.SelectedItem?.ToString();
             string selectedWard = cbxWard.SelectedItem?.ToString();
+            bool isRushOrder = checkBoxRushOrder.Checked;
+            string deliveryTime = txtDeliveryTime.Text?.Trim();
+            string description = txtDescription.Text?.Trim();
 
-            var validator = new DeliveryInfoValidator(_provinceService, _districtService, _wardService);
-            string validationMessage = await validator.ValidateDeliveryInfoAsync(name, phoneNumber, address, selectedCity, selectedDistrict, selectedWard);
+            int shippingFee = await placeOrderController.CalculateShippingFee(selectedCity);
 
-            if (validationMessage.Contains("valid"))
+            var validator = new DeliveryInfoValidator();
+            string validationMessage = validator.ValidateDeliveryInfo(name, phoneNumber, address, 
+                selectedCity, selectedDistrict, selectedWard);
+
+            if (validationMessage.Contains("Delivery information is valid."))
             {
                 MessageBox.Show(validationMessage, "Valid Address", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Continue with your save logic here
+                txtShippingFee.Text = shippingFee.ToString() + "đ";
+                await placeOrderController.SetOrderData(name, phoneNumber, address, selectedCity, 
+                    selectedDistrict, selectedWard, shippingFee, isRushOrder, deliveryTime, description);
             }
             else
             {
@@ -164,10 +187,13 @@ namespace AIMS.Views.Order
             }
         }
 
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            
+            HomeView homeView = new HomeView();
+            MainForm.Instance.mainFormPanel.Controls.Clear();
+            MainForm.Instance.mainFormPanel.Controls.Add(homeView);
+            homeView.Show();
         }
+        
     }
 }

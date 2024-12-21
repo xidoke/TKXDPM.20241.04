@@ -1,6 +1,9 @@
-﻿using AIMS.Models.Entities;
+﻿using AIMS.Enum;
+using AIMS.Models.Entities;
 using AIMS.Services;
+using AIMS.Utils;
 using AIMS.Views.Order;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,11 +13,14 @@ namespace AIMS.Controllers.Order
     public class PlaceOrderController
     {
         private MediaService mediaService;
+        public OrderData orderData;
+        public List<CartItem> CartItems;
+
         public PlaceOrderController()
         {
             mediaService = new MediaService();
+            orderData = new OrderData();
         }
-        public List<CartItem> CartItems;
         
         public async Task LoadItemsOrder()
         {
@@ -41,8 +47,10 @@ namespace AIMS.Controllers.Order
                     }
                 }
             }
+            
         }
-        public int countItemIsNotEnough()
+
+        public int CountItemIsNotEnough()
         {
             int count = 0;
             foreach (var item in GetOrderItems())
@@ -52,11 +60,13 @@ namespace AIMS.Controllers.Order
             }
             return count;
         }
-        public List<TempOrderItem> GetOrderItems()
+
+        private List<TempOrderItem> GetOrderItems()
         {
             return PlaceOrderView.Instance.tempOrderItemBindingSource.Cast<TempOrderItem>().ToList();
         }
-        public int countItemSupportedRushOrder()
+
+        public int CountItemSupportedRushOrder()
         {
             int count = 0;
             foreach (var item in GetOrderItems())
@@ -66,17 +76,99 @@ namespace AIMS.Controllers.Order
             }
             return count;
         }
+
+        public async Task CreateOrder()
+        {
+            List<OrderMedia> orderMedias = GetOrderItems().Select(item => new OrderMedia()
+            {
+                mediaID = item.mediaID,
+                quantity = item.quantity,
+                price = item.price
+            }).ToList();
+            await new OrderService().CreateOrderAsync(orderData, orderMedias);
+        }
+
+        public async Task SetOrderData(string name, string phoneNumber, string address, string selectedCity,string selectedDistrict, 
+            string selectedWard, int shippingFee, bool isRushOrder, string deliveryTime, string description)
+        {
+            orderData.fullname = name;
+            orderData.province = selectedCity;
+            orderData.address = address + ", " + selectedWard + ", " + selectedDistrict;
+            orderData.phone = phoneNumber;
+            orderData.shippingFee = shippingFee;
+            orderData.totalPrice = await getTotalPrice(selectedCity);
+            orderData.type = isRushOrder ? OrderTypeEnum.Rush.ToString() :
+                    OrderTypeEnum.Normal.ToString();
+            orderData.instructions = deliveryTime + " - " + description;
+        }
+
         public string GetStringTotalMoneyFormat()
         {
-            return string.Format("{0:N0}", GetTotalMoneyWithVAT());
+            return string.Format("{0:N0}", GetTotalPriceWithVAT());
         }
-        public double GetTotalMoneyWithVAT()
+
+        public async Task<int> getTotalPrice(string selectedCity)
         {
-            double total = 0;
+            return GetTotalPriceWithVAT() + await CalculateShippingFee(selectedCity);
+        }
+
+        private int GetTotalPriceWithVAT()
+        {
+            int total = 0;
             foreach (var item in GetOrderItems())
                 total += item.price;
-            double vatAmount = total * 0.1;
-            return total + vatAmount;
+            int vatAmount = (int)(total * Constants.PERCENT_VAT);
+            return total + vatAmount; 
+        }
+
+        public async Task<int> CalculateShippingFee(string province)
+        {
+            bool isInnerCity = province.Equals("Thành phố Hà Nội", StringComparison.OrdinalIgnoreCase) ||
+                               province.Equals("Thành phố Hồ Chí Minh", StringComparison.OrdinalIgnoreCase);
+
+            int totalItemValue = 0;
+            double totalWeight = 0;
+            double heaviestItemWeight = 0;
+            int rushOrderFee = 0;
+
+            foreach (var item in GetOrderItems())
+            {
+                double itemWeight = item.quantity * (await mediaService.GetMediaByIdAsync(item.mediaID)).Weight;
+
+                totalWeight += itemWeight;
+                heaviestItemWeight = Math.Max(heaviestItemWeight, itemWeight);
+
+                if (item.isSupportRushOrder)
+                {
+                    rushOrderFee += 10000 * item.quantity;
+                }
+
+                totalItemValue += item.value;
+            }
+
+            int baseFee;
+            double weightLimit = isInnerCity ? 3 : 0.5; 
+            int initialPrice = isInnerCity ? 22000 : 30000; 
+            int additionalFeePerUnit = 2500; 
+
+            if (heaviestItemWeight <= weightLimit)
+            {
+                baseFee = initialPrice;
+            }
+            else
+            {
+                double excessWeight = heaviestItemWeight - weightLimit;
+                int additionalUnits = (int)Math.Ceiling(excessWeight / 0.5);
+                baseFee = initialPrice + (additionalUnits * additionalFeePerUnit);
+            }
+
+            int freeShippingDiscount = 0;
+            if (totalItemValue > 100000)
+            {
+                freeShippingDiscount = Math.Min(baseFee, 25000);
+            }
+
+            return Math.Max(0, baseFee - freeShippingDiscount) + rushOrderFee;
         }
     }
 }
