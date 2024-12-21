@@ -40,14 +40,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.viewName = new System.Windows.Forms.Label();
             this.dataGridViewCartItems = new System.Windows.Forms.DataGridView();
-            this.total_money = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.isSelectedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.mediaidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mediatitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total_money = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isPossibleToPlaceOrderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cartItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cartItemQuantityNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCartItems)).BeginInit();
@@ -67,8 +67,9 @@
             this.panel1.Controls.Add(this.viewName);
             this.panel1.Controls.Add(this.dataGridViewCartItems);
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1007, 604);
+            this.panel1.Size = new System.Drawing.Size(1510, 929);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -77,17 +78,19 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 562);
+            this.label1.Location = new System.Drawing.Point(4, 865);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 21);
+            this.label1.Size = new System.Drawing.Size(0, 32);
             this.label1.TabIndex = 10;
             // 
             // flpNavBar
             // 
             this.flpNavBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(27)))), ((int)(((byte)(7)))));
             this.flpNavBar.Location = new System.Drawing.Point(0, 0);
+            this.flpNavBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.flpNavBar.Name = "flpNavBar";
-            this.flpNavBar.Size = new System.Drawing.Size(1007, 50);
+            this.flpNavBar.Size = new System.Drawing.Size(1510, 77);
             this.flpNavBar.TabIndex = 9;
             // 
             // placeOrderButton
@@ -96,9 +99,10 @@
             this.placeOrderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.placeOrderButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.placeOrderButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.placeOrderButton.Location = new System.Drawing.Point(686, 562);
+            this.placeOrderButton.Location = new System.Drawing.Point(1029, 865);
+            this.placeOrderButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.placeOrderButton.Name = "placeOrderButton";
-            this.placeOrderButton.Size = new System.Drawing.Size(154, 39);
+            this.placeOrderButton.Size = new System.Drawing.Size(231, 60);
             this.placeOrderButton.TabIndex = 8;
             this.placeOrderButton.Text = "ĐẶT HÀNG";
             this.placeOrderButton.UseVisualStyleBackColor = false;
@@ -110,9 +114,10 @@
             this.updateCartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateCartButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateCartButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.updateCartButton.Location = new System.Drawing.Point(846, 562);
+            this.updateCartButton.Location = new System.Drawing.Point(1269, 865);
+            this.updateCartButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.updateCartButton.Name = "updateCartButton";
-            this.updateCartButton.Size = new System.Drawing.Size(154, 39);
+            this.updateCartButton.Size = new System.Drawing.Size(231, 60);
             this.updateCartButton.TabIndex = 7;
             this.updateCartButton.Text = "Cập nhật giỏ hàng";
             this.updateCartButton.UseVisualStyleBackColor = false;
@@ -121,18 +126,20 @@
             // cartItemQuantityNumeric
             // 
             this.cartItemQuantityNumeric.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cartItemQuantityNumeric.Location = new System.Drawing.Point(933, 523);
+            this.cartItemQuantityNumeric.Location = new System.Drawing.Point(1400, 805);
+            this.cartItemQuantityNumeric.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cartItemQuantityNumeric.Name = "cartItemQuantityNumeric";
-            this.cartItemQuantityNumeric.Size = new System.Drawing.Size(65, 29);
+            this.cartItemQuantityNumeric.Size = new System.Drawing.Size(98, 39);
             this.cartItemQuantityNumeric.TabIndex = 6;
             // 
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(776, 517);
+            this.button2.Location = new System.Drawing.Point(1164, 795);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(151, 39);
+            this.button2.Size = new System.Drawing.Size(226, 60);
             this.button2.TabIndex = 5;
             this.button2.Text = "Thay đổi số lượng";
             this.button2.UseVisualStyleBackColor = true;
@@ -142,9 +149,10 @@
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(686, 517);
+            this.button1.Location = new System.Drawing.Point(1029, 795);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 39);
+            this.button1.Size = new System.Drawing.Size(126, 60);
             this.button1.TabIndex = 4;
             this.button1.Text = "Xóa";
             this.button1.UseVisualStyleBackColor = true;
@@ -155,9 +163,10 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(686, 68);
+            this.label2.Location = new System.Drawing.Point(1029, 105);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 21);
+            this.label2.Size = new System.Drawing.Size(199, 32);
             this.label2.TabIndex = 2;
             this.label2.Text = "Bạn đang chọn: ";
             // 
@@ -166,9 +175,10 @@
             this.viewName.AutoSize = true;
             this.viewName.BackColor = System.Drawing.Color.Transparent;
             this.viewName.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewName.Location = new System.Drawing.Point(3, 54);
+            this.viewName.Location = new System.Drawing.Point(4, 83);
+            this.viewName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.viewName.Name = "viewName";
-            this.viewName.Size = new System.Drawing.Size(80, 21);
+            this.viewName.Size = new System.Drawing.Size(118, 32);
             this.viewName.TabIndex = 1;
             this.viewName.Text = "Giỏ hàng";
             // 
@@ -188,31 +198,22 @@
             this.total_money,
             this.isPossibleToPlaceOrderDataGridViewTextBoxColumn});
             this.dataGridViewCartItems.DataSource = this.cartItemBindingSource;
-            this.dataGridViewCartItems.Location = new System.Drawing.Point(3, 81);
+            this.dataGridViewCartItems.Location = new System.Drawing.Point(4, 125);
+            this.dataGridViewCartItems.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridViewCartItems.Name = "dataGridViewCartItems";
             this.dataGridViewCartItems.RowHeadersVisible = false;
+            this.dataGridViewCartItems.RowHeadersWidth = 62;
             this.dataGridViewCartItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCartItems.Size = new System.Drawing.Size(677, 471);
+            this.dataGridViewCartItems.Size = new System.Drawing.Size(1016, 725);
             this.dataGridViewCartItems.TabIndex = 0;
             this.dataGridViewCartItems.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCartItems_CellClick);
             this.dataGridViewCartItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCartItems_CellContentClick_1);
-            // 
-            // total_money
-            // 
-            this.total_money.DataPropertyName = "total_money";
-            this.total_money.HeaderText = "Số tiền";
-            this.total_money.Name = "total_money";
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // isSelectedDataGridViewCheckBoxColumn
             // 
             this.isSelectedDataGridViewCheckBoxColumn.DataPropertyName = "isSelected";
             this.isSelectedDataGridViewCheckBoxColumn.HeaderText = "";
+            this.isSelectedDataGridViewCheckBoxColumn.MinimumWidth = 8;
             this.isSelectedDataGridViewCheckBoxColumn.Name = "isSelectedDataGridViewCheckBoxColumn";
             this.isSelectedDataGridViewCheckBoxColumn.Width = 30;
             // 
@@ -220,13 +221,16 @@
             // 
             this.mediaidDataGridViewTextBoxColumn.DataPropertyName = "media_id";
             this.mediaidDataGridViewTextBoxColumn.HeaderText = "Mã sản phẩm";
+            this.mediaidDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.mediaidDataGridViewTextBoxColumn.Name = "mediaidDataGridViewTextBoxColumn";
             this.mediaidDataGridViewTextBoxColumn.ReadOnly = true;
+            this.mediaidDataGridViewTextBoxColumn.Width = 150;
             // 
             // mediatitleDataGridViewTextBoxColumn
             // 
             this.mediatitleDataGridViewTextBoxColumn.DataPropertyName = "media_title";
             this.mediatitleDataGridViewTextBoxColumn.HeaderText = "Tên sản phẩm";
+            this.mediatitleDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.mediatitleDataGridViewTextBoxColumn.Name = "mediatitleDataGridViewTextBoxColumn";
             this.mediatitleDataGridViewTextBoxColumn.ReadOnly = true;
             this.mediatitleDataGridViewTextBoxColumn.Width = 180;
@@ -235,13 +239,24 @@
             // 
             this.quantityDataGridViewTextBoxColumn.DataPropertyName = "quantity";
             this.quantityDataGridViewTextBoxColumn.HeaderText = "Số lượng";
+            this.quantityDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
             this.quantityDataGridViewTextBoxColumn.ReadOnly = true;
+            this.quantityDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // total_money
+            // 
+            this.total_money.DataPropertyName = "total_money";
+            this.total_money.HeaderText = "Số tiền";
+            this.total_money.MinimumWidth = 8;
+            this.total_money.Name = "total_money";
+            this.total_money.Width = 150;
             // 
             // isPossibleToPlaceOrderDataGridViewTextBoxColumn
             // 
             this.isPossibleToPlaceOrderDataGridViewTextBoxColumn.DataPropertyName = "isPossibleToPlaceOrder";
             this.isPossibleToPlaceOrderDataGridViewTextBoxColumn.HeaderText = "Trạng thái";
+            this.isPossibleToPlaceOrderDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.isPossibleToPlaceOrderDataGridViewTextBoxColumn.Name = "isPossibleToPlaceOrderDataGridViewTextBoxColumn";
             this.isPossibleToPlaceOrderDataGridViewTextBoxColumn.ReadOnly = true;
             this.isPossibleToPlaceOrderDataGridViewTextBoxColumn.Width = 150;
@@ -250,13 +265,19 @@
             // 
             this.cartItemBindingSource.DataSource = typeof(AIMS.Models.Entities.CartItem);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // CartView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CartView";
-            this.Size = new System.Drawing.Size(1007, 604);
+            this.Size = new System.Drawing.Size(1510, 929);
             this.Load += new System.EventHandler(this.CartView_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

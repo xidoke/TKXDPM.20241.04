@@ -32,7 +32,7 @@ namespace AIMS.Controllers.Cart
             int count = 0;
             foreach (var item in GetCartItems())
             {
-                if (item != null)
+                if (item != null && item.isSelected)
                     count += item.total_money;
             }
             return string.Format("{0:N0}", count);
