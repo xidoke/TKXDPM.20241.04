@@ -123,15 +123,22 @@
     <Compile Include="Models\Entities\Book.cs" />
     <Compile Include="Models\Entities\CartItem.cs" />
     <Compile Include="Models\Entities\CD.cs" />
+    <Compile Include="Models\Entities\District.cs" />
     <Compile Include="Models\Entities\DVD.cs" />
     <Compile Include="Models\Entities\Media.cs" />
     <Compile Include="Models\Entities\OrderData.cs" />
     <Compile Include="Models\Entities\OrderMedia.cs" />
+    <Compile Include="Models\Entities\Province.cs" />
     <Compile Include="Models\Entities\TempOrderItem.cs" />
     <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\Ward.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DistrictService.cs" />
     <Compile Include="Services\MediaService.cs" />
+    <Compile Include="Services\ProvinceService.cs" />
+    <Compile Include="Services\WardService.cs" />
+    <Compile Include="Utils\DeliveryInfoValidator.cs" />
     <Compile Include="Views\Cart\CartView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -274,6 +281,7 @@
     <Content Include="add-to-cart.ico" />
     <None Include="Resources\add-cart.png" />
     <None Include="Resources\AIMS_LOGO.png" />
+    <None Include="Resources\json\vietnamAddress.json" />
     <None Include="Resources\square.png" />
     <None Include="Resources\login.png" />
     <None Include="Resources\shopping-cart.png" />
