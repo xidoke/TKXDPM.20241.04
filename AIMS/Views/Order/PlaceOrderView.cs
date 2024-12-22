@@ -1,8 +1,10 @@
 ﻿using AIMS.Controllers.Cart;
 using AIMS.Controllers.Order;
+using AIMS.Controllers.Payment;
 using AIMS.Enum;
 using AIMS.Models.Entities;
 using AIMS.Services;
+using AIMS.Views.Payment;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ namespace AIMS.Views.Order
 {
     public partial class PlaceOrderView : UserControl
     {
+        private readonly PaymentController _paymentController;
         private PlaceOrderController placeOrderController;
         public static PlaceOrderView Instance;
         private readonly ProvinceService _provinceService;
@@ -28,6 +31,7 @@ namespace AIMS.Views.Order
             _provinceService = new ProvinceService();
             _districtService = new DistrictService();
             _wardService = new WardService();
+            _paymentController = new PaymentController();
         }
 
         private async void PlaceOrderView_Load(object sender, EventArgs e)
@@ -120,7 +124,13 @@ namespace AIMS.Views.Order
 
         private void btnPayment_Click(object sender, EventArgs e)
         {
-
+            // Gửi orderdata lên database
+            // Lấy ID của orderData vừa up lên database
+            // set ID của orderData trong placeOrderControll 
+            PaymentView paymentView = new PaymentView(placeOrderController.orderData);
+            MainForm.Instance.mainFormPanel.Controls.Clear();
+            MainForm.Instance.mainFormPanel.Controls.Add(paymentView);
+            paymentView.Show();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
