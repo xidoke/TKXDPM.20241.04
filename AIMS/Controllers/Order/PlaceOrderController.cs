@@ -12,13 +12,13 @@ namespace AIMS.Controllers.Order
 {
     public class PlaceOrderController
     {
-        private MediaService mediaService;
+        private readonly IMediaService mediaService;
         public OrderData orderData;
         public List<CartItem> CartItems;
 
-        public PlaceOrderController()
+        public PlaceOrderController(IMediaService mediaService)
         {
-            mediaService = new MediaService();
+            this.mediaService = mediaService;
             orderData = new OrderData();
         }
         
@@ -96,7 +96,7 @@ namespace AIMS.Controllers.Order
             orderData.address = address + ", " + selectedWard + ", " + selectedDistrict;
             orderData.phone = phoneNumber;
             orderData.shippingFee = shippingFee;
-            orderData.totalPrice = await getTotalPrice(selectedCity);
+            orderData.totalPrice = await getTotalPrice(selectedCity, isRushOrder);
             orderData.type = isRushOrder ? OrderTypeEnum.Rush.ToString() :
                     OrderTypeEnum.Normal.ToString();
             orderData.instructions = deliveryTime + " - " + description;
@@ -108,9 +108,9 @@ namespace AIMS.Controllers.Order
             return string.Format("{0:N0}", GetTotalPriceWithVAT());
         }
 
-        public async Task<int> getTotalPrice(string selectedCity)
+        public async Task<int> getTotalPrice(string selectedCity, bool isRushOrder)
         {
-            return GetTotalPriceWithVAT() + await CalculateShippingFee(selectedCity);
+            return GetTotalPriceWithVAT() + await CalculateShippingFee(selectedCity, isRushOrder);
         }
 
         private int GetTotalPriceWithVAT()
@@ -122,7 +122,7 @@ namespace AIMS.Controllers.Order
             return total + vatAmount; 
         }
 
-        public async Task<int> CalculateShippingFee(string province)
+        public async Task<int> CalculateShippingFee(string province, bool isRushOrder)
         {
             bool isInnerCity = province.Equals("Thành phố Hà Nội", StringComparison.OrdinalIgnoreCase) ||
                                province.Equals("Thành phố Hồ Chí Minh", StringComparison.OrdinalIgnoreCase);
@@ -169,7 +169,7 @@ namespace AIMS.Controllers.Order
                 freeShippingDiscount = Math.Min(baseFee, 25000);
             }
 
-            return Math.Max(0, baseFee - freeShippingDiscount) + rushOrderFee;
+            return isRushOrder ? Math.Max(0, baseFee - freeShippingDiscount) + rushOrderFee : Math.Max(0, baseFee - freeShippingDiscount);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Npgsql;
 
 namespace AIMS.Models.Entities
 {
@@ -66,7 +67,7 @@ namespace AIMS.Models.Entities
             get { return value; }
             set { this.value = value; }
         }
-        
+
         public int Quantity
         {
             get { return quantity; }

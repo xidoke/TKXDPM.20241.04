@@ -1,4 +1,7 @@
-﻿using AIMS.Controllers.Cart;
+﻿using AIMS.Controllers.Address;
+using AIMS.Controllers.Cart;
+using AIMS.Controllers.Order;
+using AIMS.Controllers.Product;
 using AIMS.Models.Entities;
 using AIMS.Views.Order;
 using System;
@@ -9,23 +12,33 @@ namespace AIMS.Views.Cart
 {
     public partial class CartView : UserControl
     {
-        private CartController _cartController;
+        private readonly CartController cartController;
+        private readonly PlaceOrderController placeOrderController;
+        private readonly AddressController addressController;
+        private readonly MediaController mediaController;
+        private readonly NavBar navBar; 
         public static CartView Instance;
-        public CartView()
+
+        public CartView(CartController cartController, PlaceOrderController placeOrderController, 
+            AddressController addressController, NavBar navBar, MediaController mediaController)
         {
             InitializeComponent();
-            _cartController = new CartController();
+            this.cartController = cartController;
+            this.placeOrderController = placeOrderController;
+            this.addressController = addressController;
+            this.mediaController = mediaController;
             Instance = this;
+            this.navBar = navBar;
         }
+
         private async void CartView_Load(object sender, EventArgs e)
         {
-            NavBar navBar = new NavBar();
             flpNavBar.Controls.Add(navBar);
             navBar.Show();
-            _cartController.LoadCart();
+            cartController.LoadCart();
             if (this.cartItemBindingSource.Count > 0)
             {
-                await _cartController.UpdateCartItemsAsync();
+                await cartController.UpdateCartItemsAsync();
             }
         }
 
@@ -41,7 +54,7 @@ namespace AIMS.Views.Cart
                 if (this.cartItemBindingSource.Count > 0)
                 {
                     this.placeOrderButton.Visible = true;
-                    label1.Text = $"Tổng tiền sản phẩm: {_cartController.getSumTotalMoney()} đ";
+                    label1.Text = $"Tổng tiền sản phẩm: {cartController.getSumTotalMoney()} đ";
                     label1.Visible = true;
                 }
                 else
@@ -49,13 +62,13 @@ namespace AIMS.Views.Cart
                     label1.Visible = false;
                     this.placeOrderButton.Visible = false;
                 }
-                if (_cartController.GetCartItemsSelected().Count > 1)
+                if (cartController.GetCartItemsSelected().Count > 1)
                 {
-                    label2.Text = $"Bạn đang chọn: {_cartController.GetCartItemsSelected().Count} sản phẩm";
+                    label2.Text = $"Bạn đang chọn: {cartController.GetCartItemsSelected().Count} sản phẩm";
                 }
                 else
                 {
-                    label2.Text = $"Bạn đang chọn: {_cartController.GetCartItemsSelected()[0].media_title}";
+                    label2.Text = $"Bạn đang chọn: {cartController.GetCartItemsSelected()[0].media_title}";
                 }
             }
             catch
@@ -66,7 +79,7 @@ namespace AIMS.Views.Cart
         // Xóa hàng ra khỏi giỏ hàng
         private void button1_Click(object sender, EventArgs e)
         {
-            var CartItems = _cartController.GetCartItemsSelected();
+            var CartItems = cartController.GetCartItemsSelected();
             foreach (CartItem item in CartItems)
             {
                 if (item == null)
@@ -74,18 +87,18 @@ namespace AIMS.Views.Cart
                 this.cartItemBindingSource.Remove(item);
             }
             this.Refresh();
-            _cartController.SaveCart();
+            cartController.SaveCart();
         }
         // Điều chỉnh số lượng vật phẩm trong giỏ hàng
         private void button2_Click(object sender, EventArgs e)
         {
-            CartItem cartItem = _cartController.getCartItem(-1);
+            CartItem cartItem = cartController.getCartItem(-1);
             if (cartItem != null)
             {
                 cartItem.quantity = int.Parse(cartItemQuantityNumeric.Value.ToString());
             }
             this.Refresh();
-            _cartController.SaveCart();
+            cartController.SaveCart();
         }
 
         private void dataGridViewCartItems_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -106,7 +119,7 @@ namespace AIMS.Views.Cart
         {
             if (this.cartItemBindingSource.Count > 0)
             {
-                await _cartController.UpdateCartItemsAsync();
+                await cartController.UpdateCartItemsAsync();
                 await Task.Delay(1000);
                 MessageBox.Show("Giỏ hàng đã được cập nhật!");
             }
@@ -114,17 +127,18 @@ namespace AIMS.Views.Cart
 
         private async void placeOrderButton_Click(object sender, EventArgs e)
         {
-            if (_cartController.GetCartItemsSelectedToOrder().Count > 0)
+            if (cartController.GetCartItemsSelectedToOrder().Count > 0)
             {
-                int count = await _cartController.countItemNotEnough();
+                int count = await cartController.countItemNotEnough();
                 if (count > 0)
                 {
                     MessageBox.Show("Vui lòng kiểm tra lại số lượng");
                     return;
                 }
             }
-            _cartController.SaveCart();
-            PlaceOrderView placeOrderView = new PlaceOrderView(_cartController.GetCartItemsSelectedToOrder());
+            cartController.SaveCart();
+            PlaceOrderView placeOrderView = new PlaceOrderView(cartController.GetCartItemsSelectedToOrder(), placeOrderController, 
+                addressController, navBar, mediaController);
             MainForm.Instance.mainFormPanel.Controls.Clear();
             MainForm.Instance.mainFormPanel.Controls.Add(placeOrderView);
             placeOrderView.Show();

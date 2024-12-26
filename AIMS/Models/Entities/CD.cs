@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Npgsql;
+using System.Security.Policy;
 
 namespace AIMS.Models.Entities
 {

@@ -8,18 +8,19 @@ namespace AIMS.Views
 {
     public partial class HomeView : UserControl
     {
-        private MediaController mediaController;
+        private readonly MediaController mediaController;
+        private readonly NavBar navBar;
         public static HomeView Instance;
-        public HomeView()
+        public HomeView(MediaController mediaController, NavBar navBar)
         {
             InitializeComponent();
-            mediaController = new MediaController();
+            this.mediaController = mediaController;
             Instance = this;
+            this.navBar = navBar;
         }
 
         private async void HomeView_Load(object sender, EventArgs e)
         {
-            NavBar navBar = new NavBar();
             flpNavBar.Controls.Add(navBar);
             navBar.Show();
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpDVD, "DVD", "productMiniCard");
@@ -27,26 +28,25 @@ namespace AIMS.Views
             await mediaController.LoadMediaListbyCategory(AIMS.Views.HomeView.Instance.flpBook, "Book", "productMiniCard");
         }
 
-        private void LoadProductCards(FlowLayoutPanel flp, List<AIMS.Models.Entities.Media> products)
-        {
-            if (flp == null)
-            {
-                Console.WriteLine("FlowLayoutPanel is null.");
-                return;
-            }
-            flp.Controls.Clear();
-            if (products == null || products.Count == 0)
-            {
-                Console.WriteLine("No products to display.");
-                return;
-            }
-            foreach (var product in products)
-            {
-                ProductMiniCard productCard = new ProductMiniCard();
-                productCard.LoadProduct(product);
-                flp.Controls.Add(productCard);
-            }
-        }
+        //private void LoadProductCards(FlowLayoutPanel flp, List<AIMS.Models.Entities.Media> products)
+        //{
+        //    if (flp == null)
+        //    {
+        //        Console.WriteLine("FlowLayoutPanel is null.");
+        //        return;
+        //    }
+        //    flp.Controls.Clear();
+        //    if (products == null || products.Count == 0)
+        //    {
+        //        Console.WriteLine("No products to display.");
+        //        return;
+        //    }
+        //    foreach (var product in products)
+        //    {
+        //        productMiniCard.LoadProduct(product);
+        //        flp.Controls.Add(productMiniCard);
+        //    }
+        //}
 
         private void lblViewMoreDVD_Click(object sender, EventArgs e)
         {

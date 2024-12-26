@@ -10,12 +10,15 @@ namespace AIMS
 {
     public partial class MainForm : Form
     {
+        private readonly CartView cartView;
+        private readonly HomeView homeView;
         public static MainForm Instance;
-        public MainForm()
+        public MainForm(CartView cartView, HomeView homeView)
         {
             InitializeComponent();
             Instance = this;
-            CartView cartView = new CartView();
+            this.cartView = cartView;
+            this.homeView = homeView;
             MainForm.Instance.mainFormPanel.Controls.Clear();
             MainForm.Instance.mainFormPanel.Controls.Add(cartView);
             cartView.Visible = true;
@@ -23,10 +26,9 @@ namespace AIMS
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            HomeView homeViewUC = new HomeView();
-            mainFormPanel.Controls.Add(homeViewUC);
-            homeViewUC.Visible = true;
-            homeViewUC.BringToFront();
+            mainFormPanel.Controls.Add(homeView);
+            homeView.Visible = true;
+            homeView.BringToFront();
         }
     }
 }

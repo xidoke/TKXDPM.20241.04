@@ -13,11 +13,13 @@ namespace AIMS.Controllers.Cart
 {
     public class CartController
     {
-        private MediaService mediaService;
-        public CartController()
+        private readonly IMediaService mediaService;
+
+        public CartController(IMediaService mediaService)
         {
-            mediaService = new MediaService();
+            this.mediaService = mediaService;
         }
+
         public List<CartItem> cartItems;
         private string cartPath = "cart.json";
         // Lưu giỏ hàng

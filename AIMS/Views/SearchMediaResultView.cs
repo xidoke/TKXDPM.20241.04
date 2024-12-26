@@ -8,13 +8,27 @@ namespace AIMS.Views
     {
         private string searchContent = string.Empty;
         private string category = null;
-        private MediaController mediaController;
-        public SearchMediaResultView(string searchContent, string category)
+        private readonly MediaController mediaController;
+        private readonly NavBar navBar;
+        public SearchMediaResultView(string searchContent, string category, NavBar navBar, MediaController mediaController)
         {
             InitializeComponent();
             this.searchContent = searchContent;
             this.category = category;
-            mediaController = new MediaController();
+            this.navBar = navBar;
+            this.mediaController = mediaController;
+        }
+
+        public string SearchContent 
+        {
+            get { return searchContent; }
+            set { searchContent = value; }
+        }
+
+        public string Category 
+        {
+            get { return category; }
+            set { category = value; }
         }
 
         private async void buttonShowSearchResults_Click(object sender, EventArgs e)
@@ -82,7 +96,6 @@ namespace AIMS.Views
 
         private async void SearchMediaResultView_Load(object sender, EventArgs e)
         {
-            NavBar navBar = new NavBar();
             this.flpNavBar.Controls.Add(navBar);
             navBar.Show();
             if (!string.IsNullOrEmpty(this.category))

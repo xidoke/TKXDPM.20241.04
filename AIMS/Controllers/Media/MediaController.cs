@@ -15,29 +15,44 @@ namespace AIMS.Controllers.Product
 {
     public class MediaController
     {
-        private MediaService mediaService;
-        public MediaController()
-        {
-            mediaService = new MediaService();
-        }
-        public List<AIMS.Models.Entities.Media> dvd_list;
-        public List<AIMS.Models.Entities.Media> cd_list;
-        public List<AIMS.Models.Entities.Media> book_list;
+        private readonly IMediaService mediaService;
+        private readonly IBookService bookService;
+        private readonly IDVDService dvdService;
+        private readonly ICDService cdService;
+        private readonly SearchMediaResultView searchMediaResultView;
+        private readonly ProductMiniCard productMiniCard;
+        private readonly ProductCard productCard;
+        public List<Media> dvd_list;
+        public List<Media> cd_list;
+        public List<Media> book_list;
         #region Liên quan tới hiển thị chi tiết sản phẩm
-        public AIMS.Models.Entities.Book currentBook;
+        public Book currentBook;
         public int currentID = -1;
-        public AIMS.Models.Entities.DVD currentDVD;
-        public AIMS.Models.Entities.CD currentCD;
+        public DVD currentDVD;
+        public CD currentCD;
+
+        public MediaController(IMediaService mediaService, IBookService bookService, ICDService cdService, 
+            IDVDService dvdService, SearchMediaResultView searchMediaResultView, ProductMiniCard productMiniCard, ProductCard productCard)
+        {
+            this.mediaService = mediaService;
+            this.bookService = bookService;
+            this.cdService = cdService;
+            this.dvdService = dvdService;
+            this.searchMediaResultView = searchMediaResultView;
+            this.productMiniCard = productMiniCard;
+            this.productCard = productCard;
+        }
+        
         public async Task LoadBookDetails()
         {
             if (currentID == -1)
             {
                 await Task.Delay(1000);
             }
-            currentBook = await mediaService.GetBookByIdAsync(currentID);
+            currentBook = await bookService.GetBookByIdAsync(currentID);
             if (currentBook != null)
             {
-                AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
+                Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
 
                 BookDetailsView.Instance.lblTitle.Text = currentMedia.Title;
                 BookDetailsView.Instance.lblPrice.Text = $"{currentMedia.getPriceFormat()}đ";
@@ -80,7 +95,7 @@ namespace AIMS.Controllers.Product
             {
                 await Task.Delay(1000);
             }
-            currentCD = await mediaService.GetCDByIdAsync(currentID);
+            currentCD = await cdService.GetCDByIdAsync(currentID);
             if (currentCD != null)
             {
                 AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
@@ -125,7 +140,7 @@ namespace AIMS.Controllers.Product
             {
                 await Task.Delay(1000);
             }
-            currentDVD = await mediaService.GetDVDByIdAsync(currentID);
+            currentDVD = await dvdService.GetDVDByIdAsync(currentID);
             if (currentDVD != null)
             {
                 AIMS.Models.Entities.Media currentMedia = await mediaService.GetMediaByIdAsync(currentID);
@@ -172,17 +187,19 @@ namespace AIMS.Controllers.Product
         }
         public void ViewCategoryList(string category)
         {
-            SearchMediaResultView searchMediaResultsPage = new SearchMediaResultView("", category);
+            searchMediaResultView.SearchContent = "";
+            searchMediaResultView.Category = category;
             MainForm.Instance.mainFormPanel.Controls.Clear();
-            MainForm.Instance.mainFormPanel.Controls.Add(searchMediaResultsPage);
-            searchMediaResultsPage.Show();
+            MainForm.Instance.mainFormPanel.Controls.Add(searchMediaResultView);
+            searchMediaResultView.Show();
         }
         public void ViewSearchResult(string searchContent)
         {
-            SearchMediaResultView searchMediaResultsPage = new SearchMediaResultView(searchContent, "");
+            searchMediaResultView.SearchContent = searchContent;
+            searchMediaResultView.Category = "";
             MainForm.Instance.mainFormPanel.Controls.Clear();
-            MainForm.Instance.mainFormPanel.Controls.Add(searchMediaResultsPage);
-            searchMediaResultsPage.Show();
+            MainForm.Instance.mainFormPanel.Controls.Add(searchMediaResultView);
+            searchMediaResultView.Show();
         }
         // Load sản phẩm cho Card
         private void LoadProductCards(FlowLayoutPanel flp, List<AIMS.Models.Entities.Media> list, string cardType)
@@ -192,13 +209,11 @@ namespace AIMS.Controllers.Product
             {
                 if (cardType == "productMiniCard")
                 {
-                    ProductMiniCard productCard = new ProductMiniCard();
-                    productCard.LoadProduct(product);
-                    flp.Controls.Add(productCard);
+                    productMiniCard.LoadProduct(product);
+                    flp.Controls.Add(productMiniCard);
                 }
                 if (cardType == "productCard")
                 {
-                    ProductCard productCard = new ProductCard();
                     productCard.LoadProduct(product);
                     flp.Controls.Add(productCard);
                 }

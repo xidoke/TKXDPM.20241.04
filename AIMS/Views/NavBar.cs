@@ -7,11 +7,15 @@ namespace AIMS.Views
 {
     public partial class NavBar : UserControl
     {
-        private MediaController mediaController;
-        public NavBar()
+        private readonly MediaController mediaController;
+        private readonly CartView cartView;
+        private readonly HomeView homeView;
+        public NavBar(MediaController mediaController, CartView cartView, HomeView homeView)
         {
             InitializeComponent();
-            mediaController = new MediaController();
+            this.mediaController = mediaController;
+            this.cartView = cartView;
+            this.homeView = homeView;
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -25,7 +29,6 @@ namespace AIMS.Views
 
         private void btnViewCart_Click(object sender, EventArgs e)
         {
-            CartView cartView = new CartView();
             MainForm.Instance.mainFormPanel.Controls.Clear();
             MainForm.Instance.mainFormPanel.Controls.Add(cartView);
             cartView.Visible = true;
@@ -34,11 +37,10 @@ namespace AIMS.Views
 
         private void homeButton_Click(object sender, EventArgs e)
         {
-            HomeView homeViewUC = new HomeView();
             MainForm.Instance.mainFormPanel.Controls.Clear();
-            MainForm.Instance.mainFormPanel.Controls.Add(homeViewUC);
-            homeViewUC.Visible = true;
-            homeViewUC.BringToFront();
+            MainForm.Instance.mainFormPanel.Controls.Add(homeView);
+            homeView.Visible = true;
+            homeView.BringToFront();
         }
     }
 }

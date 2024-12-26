@@ -6,28 +6,34 @@ using AIMS.Views.Order;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using AIMS.Controllers.Address;
 
 namespace AIMS.Views.Product
 {
     public partial class BookDetailsView : UserControl
     {
-        private MediaController mediaController;
-        private CartController cartController;
-        private PlaceOrderController placeOrderController;
+        private readonly MediaController mediaController;
+        private readonly CartController cartController;
+        private readonly PlaceOrderController placeOrderController;
+        private readonly AddressController addressController;
+        private NavBar navBar;
         public static BookDetailsView Instance;
-        public BookDetailsView(int mediaID)
+
+        public BookDetailsView(int mediaID, MediaController mediaController, CartController cartController, 
+            PlaceOrderController placeOrderController, NavBar navBar, AddressController addressController)
         {
             InitializeComponent();
             Instance = this;
-            mediaController = new MediaController();
-            cartController = new CartController();
-            placeOrderController = new PlaceOrderController();
-            mediaController.currentID = mediaID;
+            this.mediaController = mediaController;
+            this.cartController = cartController;
+            this.placeOrderController = placeOrderController;
+            this.navBar = navBar;
+            this.addressController = addressController;
+            this.mediaController.currentID = mediaID;
         }
 
         private async void BookDetailsView_Load(object sender, EventArgs e)
         {
-            NavBar navBar = new NavBar();
             flpNavBar.Controls.Add(navBar);
             navBar.Show();
             await mediaController.LoadBookDetails();
@@ -63,7 +69,7 @@ namespace AIMS.Views.Product
                 MessageBox.Show("Mặt hàng này đã hết hàng!");
                 return;
             }
-            PlaceOrderView placeOrderView = new PlaceOrderView(currentCart);
+            PlaceOrderView placeOrderView = new PlaceOrderView(currentCart, placeOrderController, addressController, navBar, mediaController);
             MainForm.Instance.mainFormPanel.Controls.Clear();
             MainForm.Instance.mainFormPanel.Controls.Add(placeOrderView);
             placeOrderView.Show();
@@ -73,5 +79,6 @@ namespace AIMS.Views.Product
         {
 
         }
+
     }
 }

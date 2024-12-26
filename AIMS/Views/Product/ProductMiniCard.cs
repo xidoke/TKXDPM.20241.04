@@ -14,13 +14,20 @@ namespace AIMS.Views.Product
         private int shadowOffset = 15;
         private int shadowBlur = 10;
         public AIMS.Models.Entities.Media currentProduct;
-        public ProductMiniCard()
+        private readonly DVDDetailsView dvdDetailsView;
+        private readonly CDDetailsView cdDetailsView;
+        private readonly BookDetailsView bookDetailsView;
+        public ProductMiniCard(DVDDetailsView dvdDetailsView, CDDetailsView cdDetailsView, BookDetailsView bookDetailsView)
         {
             InitializeComponent();
             this.BackColor = Color.Transparent;
             this.panel1.Paint += PanelContainer_Paint;
             this.panel1.MouseEnter += panel1_MouseEnter;
             this.panel1.MouseLeave += panel1_MouseLeave;
+            this.dvdDetailsView = dvdDetailsView;
+            this.cdDetailsView = cdDetailsView;
+            this.bookDetailsView = bookDetailsView;
+
         }
 
         private void ProductMiniCard_Load(object sender, EventArgs e)
@@ -135,21 +142,18 @@ namespace AIMS.Views.Product
         {
             if (currentProduct.Category == "DVD")
             {
-                DVDDetailsView dvdDetailsView = new DVDDetailsView(currentProduct.Id);
                 MainForm.Instance.mainFormPanel.Controls.Clear();
                 MainForm.Instance.mainFormPanel.Controls.Add(dvdDetailsView);
                 dvdDetailsView.Show();
             }
             if (currentProduct.Category == "CD")
             {
-                CDDetailsView cdDetailsView = new CDDetailsView(currentProduct.Id);
                 MainForm.Instance.mainFormPanel.Controls.Clear();
                 MainForm.Instance.mainFormPanel.Controls.Add(cdDetailsView);
                 cdDetailsView.Show();
             }
             if (currentProduct.Category == "Book")
             {
-                BookDetailsView bookDetailsView = new BookDetailsView(currentProduct.Id);
                 MainForm.Instance.mainFormPanel.Controls.Clear();
                 MainForm.Instance.mainFormPanel.Controls.Add(bookDetailsView);
                 bookDetailsView.Show();

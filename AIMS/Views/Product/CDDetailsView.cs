@@ -1,4 +1,6 @@
-﻿using AIMS.Controllers.Cart;
+﻿using AIMS.Controllers.Address;
+using AIMS.Controllers.Cart;
+using AIMS.Controllers.Order;
 using AIMS.Controllers.Product;
 using AIMS.Models.Entities;
 using AIMS.Views.Order;
@@ -10,21 +12,27 @@ namespace AIMS.Views.Product
 {
     public partial class CDDetailsView : UserControl
     {
-        private MediaController mediaController;
-        private CartController cartController;
+        private readonly MediaController mediaController;
+        private readonly CartController cartController;
+        private readonly NavBar navBar;
+        private readonly AddressController addressController;
+        private readonly PlaceOrderController placeOrderController;
         public static CDDetailsView Instance;
-        public CDDetailsView(int mediaID)
+        public CDDetailsView(int mediaID, MediaController mediaController, CartController cartController, NavBar navBar,
+            PlaceOrderController placeOrderController, AddressController addressController)
         {
             InitializeComponent();
             Instance = this;
-            mediaController = new MediaController();
-            cartController = new CartController();
+            this.mediaController = mediaController;
+            this.cartController = cartController;
+            this.navBar = navBar;
+            this.placeOrderController = placeOrderController;
+            this.addressController = addressController;
             mediaController.currentID = mediaID;
         }
 
         private async void CDDetailsView_Load(object sender, EventArgs e)
         {
-            NavBar navBar = new NavBar();
             flpNavBar.Controls.Add(navBar);
             navBar.Show();
             await mediaController.LoadCDDetails();
@@ -60,7 +68,7 @@ namespace AIMS.Views.Product
                 MessageBox.Show("Mặt hàng này đã hết hàng!");
                 return;
             }
-            PlaceOrderView placeOrderView = new PlaceOrderView(currentCart);
+            PlaceOrderView placeOrderView = new PlaceOrderView(currentCart, placeOrderController, addressController, navBar, mediaController);
             MainForm.Instance.mainFormPanel.Controls.Clear();
             MainForm.Instance.mainFormPanel.Controls.Add(placeOrderView);
             placeOrderView.Show();

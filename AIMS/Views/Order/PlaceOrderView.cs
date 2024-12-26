@@ -1,55 +1,42 @@
-﻿using AIMS.Controllers.Cart;
+﻿using AIMS.Controllers.Address;
 using AIMS.Controllers.Order;
-using AIMS.Controllers.Payment;
-using AIMS.Enum;
+using AIMS.Controllers.Product;
 using AIMS.Models.Entities;
-using AIMS.Services;
 using AIMS.Views.Payment;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace AIMS.Views.Order
 {
     public partial class PlaceOrderView : UserControl
     {
-        private readonly PaymentController _paymentController;
-        private PlaceOrderController placeOrderController;
+        private readonly PlaceOrderController placeOrderController;
+        private readonly AddressController addressController;
+        private readonly MediaController mediaController;
+        private readonly NavBar navBar;
         public static PlaceOrderView Instance;
-        private readonly ProvinceService _provinceService;
-        private readonly DistrictService _districtService;
-        private readonly WardService _wardService;
 
-        public PlaceOrderView(List<CartItem> cartItems)
+        public PlaceOrderView(List<CartItem> cartItems, PlaceOrderController placeOrderController, 
+            AddressController addressController, NavBar navBar, MediaController mediaController)
         {
             InitializeComponent();
             Instance = this;
-            placeOrderController = new PlaceOrderController();
+            this.placeOrderController = placeOrderController;
+            this.addressController = addressController;
+            this.navBar = navBar;
+            this.mediaController = mediaController;
             placeOrderController.CartItems = cartItems;
-            _provinceService = new ProvinceService();
-            _districtService = new DistrictService();
-            _wardService = new WardService();
-            _paymentController = new PaymentController();
         }
 
         private async void PlaceOrderView_Load(object sender, EventArgs e)
         {
-            NavBar navBar = new NavBar();
             flpNavBar.Controls.Add(navBar);
             navBar.Show();
-
             checkBoxNormalOrder.Checked = true;
+            cbxCity.Items.Clear();
 
-            this.cbxCity.Items.Clear();
-    
-            var provinces = await _provinceService.GetAllProvincesAsync();
-            foreach (var province in provinces)
-            {
-                this.cbxCity.Items.Add(province.Name);
-            }
-
+            await addressController.GetProvincesAsync(cbxCity);
             await placeOrderController.LoadItemsOrder();
         }
 
@@ -58,32 +45,14 @@ namespace AIMS.Views.Order
             cbxDistrict.Text = "";
             cbxWard.Text = "";
             cbxDistrict.Items.Clear();
-            if (!string.IsNullOrEmpty(cbxCity.SelectedItem?.ToString()))
-            {
-                var selectedProvince = await _provinceService.GetProvinceByNameAsync(cbxCity.SelectedItem.ToString());
-                var districts = await _districtService.GetDistrictsByProvinceAsync(selectedProvince?.Id);
-                foreach (var district in districts)
-                {
-                    cbxDistrict.Items.Add(district.Name);
-                }
-            }
-
-           
+            await addressController.GetDistrictsByProvinceAsync(cbxCity, cbxDistrict);
         }
 
         private async void cbxDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbxWard.Text = "";
             cbxWard.Items.Clear();
-            if (!string.IsNullOrEmpty(cbxCity.SelectedItem?.ToString()) && !string.IsNullOrEmpty(cbxDistrict.SelectedItem?.ToString()))
-            {
-                var selectedDistrict = await _districtService.GetDistrictByNameAsync(cbxDistrict.SelectedItem.ToString());
-                var wards = await _wardService.GetWardsByDistrictAsync(selectedDistrict?.Id);
-                foreach (var ward in wards)
-                {
-                    cbxWard.Items.Add(ward.Name);
-                }
-            }
+            await addressController.GetWardsByDistrictAsync(cbxCity, cbxDistrict, cbxWard);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -178,17 +147,17 @@ namespace AIMS.Views.Order
             string deliveryTime = txtDeliveryTime.Text?.Trim();
             string description = txtDescription.Text?.Trim();
 
-            int shippingFee = await placeOrderController.CalculateShippingFee(selectedCity);
+            int shippingFee = await placeOrderController.CalculateShippingFee(selectedCity, isRushOrder);
 
             var validator = new DeliveryInfoValidator();
-            string validationMessage = validator.ValidateDeliveryInfo(name, phoneNumber, address, 
+            string validationMessage = validator.ValidateDeliveryInfo(name, phoneNumber, address,
                 selectedCity, selectedDistrict, selectedWard);
 
             if (validationMessage.Contains("Delivery information is valid."))
             {
                 MessageBox.Show(validationMessage, "Valid Address", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtShippingFee.Text = shippingFee.ToString() + "đ";
-                await placeOrderController.SetOrderData(name, phoneNumber, address, selectedCity, 
+                await placeOrderController.SetOrderData(name, phoneNumber, address, selectedCity,
                     selectedDistrict, selectedWard, shippingFee, isRushOrder, deliveryTime, description);
             }
             else
@@ -199,11 +168,11 @@ namespace AIMS.Views.Order
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            HomeView homeView = new HomeView();
+            HomeView homeView = new HomeView(mediaController, navBar);
             MainForm.Instance.mainFormPanel.Controls.Clear();
             MainForm.Instance.mainFormPanel.Controls.Add(homeView);
             homeView.Show();
         }
-        
+
     }
 }
