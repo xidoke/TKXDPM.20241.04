@@ -24,7 +24,7 @@
                 <table class="table table-striped table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th></th> @*// New column for checkboxes*@
+                            <th></th>
                             <th>Tên sản phẩm</th>
                             <th>Ảnh mô tả</th>
                             <th>Giá</th>
@@ -43,13 +43,13 @@
                                     <input type="hidden" name="SelectedItems[@i].ProductName" value="@Model[i].ProductName" />
                                     <input type="hidden" name="SelectedItems[@i].Price" value="@Model[i].Price" />
                                     <input type="hidden" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" />
-                                    <input type="hidden" id="initial-quantity-@i" value="@Model[i].Quantity" /> @* New: Initial quantity *@
+                                    <input type="hidden" id="initial-quantity-@i" value="@Model[i].Quantity" />
                                 </td>
                                 <td>@Model[i].ProductName</td>
                                 <td>
                                     <img src="@Model[i].ImageUrl" alt="@Model[i].ProductName" style="width: 100px;" />
                                 </td>
-                                <td>@Model[i].Price.ToString("C")</td>
+                                <td>@Model[i].Price.ToString("N0") đ</td>
                                 <td>
                                     <input type="number" id="quantity-@i" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" min="1" class="form-control quantity" style="width: 80px;" data-product-id="@Model[i].ProductId" data-initial-value="@Model[i].Quantity" />
                                 </td>
@@ -64,7 +64,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-12 text-right">
-                    <h4>Tổng giá trị sản phẩm đã chọn: <span id="grand-total">@ViewBag.GrandTotal.ToString("C")</span></h4>
+                    <h4>Tổng giá trị sản phẩm đã chọn: <span id="grand-total">@ViewBag.GrandTotal.ToString("N0") VNĐ</span></h4>
                     <button type="submit" class="btn btn-success" id="orderButton" form="cartForm">Đặt hàng</button>
                     <button type="button" class="btn btn-secondary" id="updateCartButton">Cập nhật giỏ hàng</button>
                 </div>
@@ -74,8 +74,8 @@
     else
     {
         <div class="alert alert-info">
-            Your cart is empty.
-            <a asp-controller="Home" asp-action="Index" class="alert-link">Continue Shopping</a>
+           Giỏ hàng của bạn đang trống.
+            <a asp-controller="Home" asp-action="Index" class="alert-link">Xem thêm sản phẩm!</a>
         </div>
     }
 </div>
@@ -92,7 +92,7 @@
                     const quantity = parseInt($(`#${quantityFieldId}`).val());
                     grandTotal += price * quantity;
                 });
-                $('#grand-total').text(grandTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+                $('#grand-total').text(grandTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
             }
 
             // Update total on checkbox change
