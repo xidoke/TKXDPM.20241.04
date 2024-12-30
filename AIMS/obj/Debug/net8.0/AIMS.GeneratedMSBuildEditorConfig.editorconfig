@@ -18,16 +18,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/Cart/CartView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDYXJ0Vmlldy5jc2h0bWw=
+[C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/CartView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/Order/PlaceOrderView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcUGxhY2VPcmRlclZpZXcuY3NodG1s
+[C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/SearchResultView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoUmVzdWx0Vmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/Shared/Error.cshtml]

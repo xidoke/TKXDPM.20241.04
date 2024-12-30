@@ -27,13 +27,22 @@ namespace AIMS.Data.Repositories
             return await _context.Medias.FindAsync(id);
         }
 
-        public async Task<List<Media>> SearchAsync(string keyword)
+        public async Task<List<Media>> SearchAsync(string keyword, string category = null)
         {
-            return await _context.Medias
-                .Where(m => m.Title.Contains(keyword) || m.Category.Contains(keyword))
-                .ToListAsync();
-        }
+            var query = _context.Medias.AsQueryable();
 
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(m => m.Title.ToLower().Contains(keyword.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(m => m.Category == category);
+            }
+
+            return await query.ToListAsync();
+        }
         public async Task AddAsync(Media media)
         {
             _context.Medias.Add(media);

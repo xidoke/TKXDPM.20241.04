@@ -16,10 +16,17 @@
 </head>
 <body>
     <main>
+        @* CD Section *@
+        <br />
+        <div class="row" style="display: inline-block;  flex-direction: row-reverse;">
+            <button class="register-btn" onclick="location.href='@Url.Action("SearchResultView", "Home", new { category = "CD" })'">
+                DANH MỤC CD
+            </button>
+        </div>
         <section class="product-section">
-            <h2>CD</h2>
+
             <div class="product-grid">
-                @foreach (var cd in Model.CDs)
+                @foreach (var cd in Model.CDs.Take(7)) // Take 7 items
                 {
                     <div class="product-card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@cd.Title" class="product-image">
@@ -34,10 +41,15 @@
                 }
             </div>
         </section>
+        <div class="row" style="display: inline-block;  flex-direction: row-reverse;">
+            <button class="register-btn" onclick="location.href='@Url.Action("SearchResultView", "Home", new { category = "Book" })'">
+                DANH MỤC BOOK
+            </button>
+        </div>
+        @* Book Section *@
         <section class="product-section">
-            <h2>Book</h2>
             <div class="product-grid">
-                @foreach (var book in Model.Books)
+                @foreach (var book in Model.Books.Take(7)) // Take 7 items
                 {
                     <div class="product-card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@book.Title" class="product-image">
@@ -52,10 +64,17 @@
                 }
             </div>
         </section>
+
+        @* DVD Section *@
+        <div class="row" style="display: inline-block;  flex-direction: row-reverse;">
+            <button class="register-btn" onclick="location.href='@Url.Action("SearchResultView", "Home", new { category = "DVD" })'">
+                DANH MỤC DVD
+            </button>
+        </div>
         <section class="product-section">
-            <h2>DVD</h2>
+
             <div class="product-grid">
-                @foreach (var dvd in Model.DVDs)
+                @foreach (var dvd in Model.DVDs.Take(7)) // Take 7 items
                 {
                     <div class="product-card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@dvd.Title" class="product-image">

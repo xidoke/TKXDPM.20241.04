@@ -2,6 +2,7 @@
 using AIMS.Data.Repositories.Interfaces;
 using AIMS.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,14 @@ var connectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    options.ViewLocationFormats.Clear(); // Xóa các vị trí mặc định
+    options.ViewLocationFormats.Add("/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/Home/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/Media/{0}" + RazorViewEngine.ViewExtension); // Thêm thư mục Media                                                                                      // ... thêm các vị trí khác nếu cần ...
+});
 // Đăng ký ViewComponent (nếu sử dụng)
 //builder.Services.AddScoped<AIMS.ViewComponents.CartSummaryViewComponent>();
 

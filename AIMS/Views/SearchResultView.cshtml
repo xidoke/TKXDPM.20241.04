@@ -1,0 +1,156 @@
+﻿@using AIMS.Data.Entities
+@model List<AIMS.Data.Entities.Media>
+
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm";
+    // Lấy giá trị category và sortBy từ ViewBag (sẽ được truyền từ Controller)
+    string currentCategory = ViewBag.Category;
+    string currentSortBy = ViewBag.SortBy;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+
+</head>
+<div class="product-section">
+    <div class="search-results-header">
+        <h2 class="results-title">Kết quả tìm kiếm</h2>
+        <div class="filter-container">
+            <div class="filter-group">
+                <label for="category-select" class="filter-label">Danh mục:</label>
+                <select id="category-select" class="filter-select" onchange="updateUrl()">
+                    <option value="">Tất cả</option>
+                    <option value="Book" selected="@(currentCategory == "Book")">Book</option>
+                    <option value="CD" selected="@(currentCategory == "CD")">CD</option>
+                    <option value="DVD" selected="@(currentCategory == "DVD")">DVD</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="sort-select" class="filter-label">Sắp xếp theo:</label>
+                <select id="sort-select" class="filter-select" onchange="updateUrl()">
+                    <option value="">Mặc định</option>
+                    <option value="price-asc" selected="@(currentSortBy == "price-asc")">Giá tăng dần</option>
+                    <option value="price-desc" selected="@(currentSortBy == "price-desc")">Giá giảm dần</option>
+                    <option value="title-asc" selected="@(currentSortBy == "title-asc")">Tiêu đề A-Z</option>
+                    <option value="title-desc" selected="@(currentSortBy == "title-desc")">Tiêu đề Z-A</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="product-grid">
+        @foreach (var product in Model)
+        {
+            <div class="product-card">
+                <img src="@product.ImgUrl" alt="@product.Title" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">@product.Title</h3>
+                    <div class="price-container">
+                        <p class="product-price">@product.Price.ToString("N0") đ</p>
+                    </div>
+                    <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<style>
+    .search-results-header {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 30px;
+    }
+
+    .results-title {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Thay đổi font chữ */
+        font-size: 22px;
+        font-weight: 600;
+        color: #333; /* Màu xám đậm */
+        margin-bottom: 15px;
+    }
+
+    .filter-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-group {
+        margin-right: 20px;
+    }
+
+    .filter-label {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-right: 5px;
+        font-weight: 600;
+    }
+    /*select*/
+    .filter-select {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        appearance: none; /* Ẩn mũi tên mặc định của dropdown */
+        background-color: #fff;
+        cursor: pointer;
+        width: 150px; /* Điều chỉnh độ rộng */
+    }
+
+        .filter-select:hover {
+            border-color: #999;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        }
+    /* Thêm icon cho dropdown (nếu muốn) */
+    /* .filter-group:first-child .filter-label:before {
+        content: "\f0c9";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        margin-right: 5px;
+    }
+
+    .filter-group:last-child .filter-label:before {
+        content: "\f074";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        margin-right: 5px;
+    } */
+</style>
+<script>
+    // Xử lý onchange của dropdown sắp xếp
+    function updateUrl() {
+        var searchTerm = getParameterByName('searchTerm');
+        var category = $('#category-select').val();
+        var sortBy = $('#sort-select').val();
+        // Kiểm tra searchTerm có giá trị hay không
+        var url = searchTerm ? '@Url.Action("SearchResultView", "Home")?searchTerm=' + encodeURIComponent(searchTerm) : '@Url.Action("SearchResultView", "Home")';
+
+        if (category) {
+            url += (url.indexOf('?') > -1 ? '&' : '?') + 'category=' + encodeURIComponent(category);
+        }
+        if (sortBy) {
+            url += (url.indexOf('?') > -1 ? '&' : '?') + 'sortBy=' + encodeURIComponent(sortBy);
+        }
+
+        window.location.href = url;
+    }
+
+    // Hàm lấy giá trị tham số từ URL
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+</script>

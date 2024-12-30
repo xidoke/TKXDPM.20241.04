@@ -15,7 +15,7 @@
             <div class="logo">
                 <img src="https://imgur.com/Q84cM6g.png" alt="Google Logo">
             </div>
-            <div class="search-container">
+            <div class="search-container" id="search-form">
                 <input type="text" class="search-bar" placeholder="Nhập tên sản phẩm, từ khóa cần tìm">
                 <span class="search-icon-wrapper">
                     <i class="fa fa-search"></i>
@@ -47,5 +47,18 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('#search-form').keypress(function (e) {
+                if (e.which == 13) { // 13 là mã phím Enter
+                    var searchTerm = $('.search-bar').val();
+                    // Kiểm tra searchTerm có giá trị hay không
+                    var url = searchTerm ? '@Url.Action("SearchResultView", "Home")?searchTerm=' + encodeURIComponent(searchTerm) : '@Url.Action("SearchResultView", "Home")';
+                    // Các tham số category và sortBy không được truyền từ layout
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

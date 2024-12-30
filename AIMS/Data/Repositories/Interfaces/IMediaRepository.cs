@@ -8,7 +8,7 @@ namespace AIMS.Data.Repositories.Interfaces
     {
         Task<List<Media>> GetAllAsync();
         Task<Media> GetByIdAsync(int id);
-        Task<List<Media>> SearchAsync(string keyword);
+        Task<List<Media>> SearchAsync(string keyword = null, string category = null);
         Task AddAsync(Media media);
         Task UpdateAsync(Media media);
         Task DeleteAsync(int id);

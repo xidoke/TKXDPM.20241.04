@@ -1,3 +1,4 @@
+﻿using AIMS.Data.Entities;
 using AIMS.Data.Repositories.Interfaces;
 using AIMS.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,37 @@ namespace AIMS.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        [HttpGet]
+        public async Task<IActionResult> SearchResultView(string searchTerm = null, string category = null, string sortBy = null)
+        {
+            // Lấy danh sách media dựa theo từ khóa tìm kiếm và danh mục
+            List<Media> medias = await _mediaRepository.SearchAsync(searchTerm, category);
 
+            // Sắp xếp danh sách media
+            medias = SortMedias(medias, sortBy);
+
+            ViewBag.Category = category;
+            ViewBag.SortBy = sortBy;
+
+            return View("~/Views/SearchResultView.cshtml", medias);
+        }
+        private List<Media> SortMedias(List<Media> medias, string sortBy)
+        {
+            switch (sortBy)
+            {
+                case "price-asc":
+                    return medias.OrderBy(m => m.Price).ToList();
+                case "price-desc":
+                    return medias.OrderByDescending(m => m.Price).ToList();
+                case "title-asc":
+                    return medias.OrderBy(m => m.Title).ToList();
+                case "title-desc":
+                    return medias.OrderByDescending(m => m.Title).ToList();
+                default:
+                    return medias;
+            }
+        }
         public IActionResult Privacy()
         {
             return View();
