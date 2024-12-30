@@ -42,8 +42,7 @@
                                     <input type="hidden" name="SelectedItems[@i].ProductId" value="@Model[i].ProductId" />
                                     <input type="hidden" name="SelectedItems[@i].ProductName" value="@Model[i].ProductName" />
                                     <input type="hidden" name="SelectedItems[@i].Price" value="@Model[i].Price" />
-                                    <input type="hidden" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" />
-                                    <input type="hidden" id="initial-quantity-@i" value="@Model[i].Quantity" />
+                                    @*<input type="hidden" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" />*@ @* Xóa dòng này *@
                                 </td>
                                 <td>@Model[i].ProductName</td>
                                 <td>
@@ -74,7 +73,7 @@
     else
     {
         <div class="alert alert-info">
-           Giỏ hàng của bạn đang trống.
+            Giỏ hàng của bạn đang trống.
             <a asp-controller="Home" asp-action="Index" class="alert-link">Xem thêm sản phẩm!</a>
         </div>
     }
@@ -100,20 +99,35 @@
                 updateGrandTotal();
             });
 
-            // Update total on quantity change
+            // Update total on quantity change and auto-save
             $('.quantity').change(function () {
                 const quantity = parseInt($(this).val());
                 const initialQuantity = parseInt($(this).data('initial-value'));
+                const productId = $(this).data('product-id');
+
                 if (quantity < 1) {
-                    $(this).val(initialQuantity); // Reset to initial value if less than 1
+                    $(this).val(initialQuantity);
                 }
                 updateGrandTotal();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("UpdateQuantity", "Cart")',
+                    data: {
+                        productId: productId,
+                        quantity: quantity
+                    },
+                    success: function (response) {
+                        $('#grand-total').text(response.grandTotal + " VNĐ");
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
+                    }
+                });
             });
 
             // Initial calculation on page load
             updateGrandTotal();
-
-            // ... rest of your existing JavaScript code (AJAX update) ...
         });
     </script>
 }

@@ -7,12 +7,18 @@
         private int _quantity;
         private int _orderId;
         private int _mediaId;
+        private string _mediaName;
         private OrderData _order;
         private Media _media;
         public int Id
         {
             get { return _id; }
             set { _id = value; }
+        }
+        public string Name
+        {
+            get { return _mediaName; }
+            set { _mediaName = value; }
         }
         public int Price
         {

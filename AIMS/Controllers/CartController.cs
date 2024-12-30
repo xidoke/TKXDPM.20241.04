@@ -1,5 +1,6 @@
 ﻿using AIMS.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using System.Text.Json;
 
 namespace AIMS.Controllers
@@ -15,6 +16,7 @@ namespace AIMS.Controllers
             List<OrderMedia> Temp = selectedProducts.Select(item => new OrderMedia
             {
                 MediaId = item.ProductId,
+                Name = item.ProductName,
                 Quantity = item.Quantity,
                 Price = (int)item.Price,
             }).ToList();
@@ -79,7 +81,6 @@ namespace AIMS.Controllers
             return RedirectToAction("CartView", "Cart");
         }
 
-        // Cập nhật số lượng sản phẩm
         [HttpPost]
         public IActionResult UpdateQuantity(int productId, int quantity)
         {
@@ -90,7 +91,8 @@ namespace AIMS.Controllers
                 itemToUpdate.Quantity = quantity;
             }
             SaveCartToSession(cart);
-            return RedirectToAction("Index");
+            decimal grandTotal = cart.Sum(item => item.Price * item.Quantity);
+            return Json(new { grandTotal = grandTotal.ToString("N0", new CultureInfo("vi-VN")) });
         }
 
         // Lấy giỏ hàng từ Session
