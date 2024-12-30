@@ -10,10 +10,7 @@
         private string _salt;
         private bool _admin;
         private int _status;
-        private string _address;
         private string _phone;
-        private string _city;
-        private string _deviceID;
 
         public int Id
         {
@@ -56,25 +53,10 @@
             get { return _status; }
             set { _status = value; }
         }
-        public string Address
-        {
-            get { return _address; }
-            set { _address = value; }
-        }
         public string Phone
         {
             get { return _phone; }
             set { _phone = value; }
-        }
-        public string City
-        {
-            get { return _city; }
-            set { _city = value; }
-        }
-        public string DeviceID
-        {
-            get { return _deviceID; }
-            set { _deviceID = value; }
         }
     }
 }

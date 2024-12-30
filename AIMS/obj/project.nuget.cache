@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yVvOkazOgLk=",
+  "dgSpecHash": "xeTMAwIxuoA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Msi\\Desktop\\AIMSMVCWEBSITE\\AIMS\\AIMS.csproj",
+  "projectFilePath": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\AIMS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Msi\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.0\\microsoft.entityframeworkcore.9.0.0.nupkg.sha512",
     "C:\\Users\\Msi\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.0\\microsoft.entityframeworkcore.abstractions.9.0.0.nupkg.sha512",

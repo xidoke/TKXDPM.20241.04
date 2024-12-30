@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Msi\\Desktop\\AIMSMVCWEBSITE\\AIMS\\AIMS.csproj": {}
+    "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\AIMS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Msi\\Desktop\\AIMSMVCWEBSITE\\AIMS\\AIMS.csproj": {
+    "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\AIMS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Msi\\Desktop\\AIMSMVCWEBSITE\\AIMS\\AIMS.csproj",
+        "projectUniqueName": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\AIMS.csproj",
         "projectName": "AIMS",
-        "projectPath": "C:\\Users\\Msi\\Desktop\\AIMSMVCWEBSITE\\AIMS\\AIMS.csproj",
+        "projectPath": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\AIMS.csproj",
         "packagesPath": "C:\\Users\\Msi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Msi\\Desktop\\AIMSMVCWEBSITE\\AIMS\\obj\\",
+        "outputPath": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Msi\\AppData\\Roaming\\NuGet\\NuGet.Config",
