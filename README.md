@@ -5,7 +5,7 @@ Server: Supabase, PostgreSQL, ASP.NET Core 8 MVC. (C#).
 # Hướng dẫn sử dụng: 
 - IDE Visual Studio Community 2022.
 - Cài đặt ASP.NET and web development.
-- ![image](https://github.com/user-attachments/assets/549863cb-1b2e-4fe8-8190-1c414b7c95eb)\
+- ![image](https://github.com/user-attachments/assets/549863cb-1b2e-4fe8-8190-1c414b7c95eb)
 - Mở AIMS.csprj, Build trực tiếp bằng host của thiết bị.
 # Mô hình sử dụng để triển khai: Model - View - Controller
 # Phân công công việc:
