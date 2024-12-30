@@ -1,5 +1,7 @@
 ﻿using AIMS.Data.Entities;
+using AIMS.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Text.Json;
 
@@ -7,6 +9,11 @@ namespace AIMS.Controllers
 {
     public class CartController : Controller
     {
+        private readonly IMediaRepository mediaRepository;
+        public CartController(IMediaRepository mediaRepository)
+        {
+            this.mediaRepository = mediaRepository;
+        }
         private const string OrderMediaListSessionKey = "OrderMediaList";
         [HttpPost]
         public IActionResult ProcessOrder(List<CartItem> SelectedItems)
@@ -123,6 +130,26 @@ namespace AIMS.Controllers
 
             // Return the updated grand total as part of the response
             return Json(new { grandTotal = grandTotal.ToString("C") });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckStock(int productId, int quantity)
+        {
+            var product = await mediaRepository.GetByIdAsync(productId);
+
+            if (product == null)
+            {
+                return Json(new { status = "Không tìm thấy sản phẩm" });
+            }
+
+            if (product.Quantity >= quantity)
+            {
+                return Json(new { status = "Đủ số lượng" });
+            }
+            else
+            {
+                return Json(new { status = "Không đủ số lượng" });
+            }
         }
     }
 }

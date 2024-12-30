@@ -11,14 +11,12 @@ namespace AIMS.Controllers
         private readonly IProvinceRepository _provinceRepository;
         private readonly IDistrictRepository _districtRepository;
         private readonly IWardRepository _wardRepository;
-        // ... other dependencies ...
 
         public OrderController(IProvinceRepository provinceRepository, IDistrictRepository districtRepository, IWardRepository wardRepository /* ... other dependencies ... */)
         {
             _provinceRepository = provinceRepository;
             _districtRepository = districtRepository;
             _wardRepository = wardRepository;
-            // ... other initializations ...
         }
         private List<CartItem> GetCartFromSession()
         {
@@ -33,23 +31,17 @@ namespace AIMS.Controllers
         private const string OrderMediaListSessionKey = "OrderMediaList";
         public IActionResult PlaceOrderView()
         {
-            // Retrieve the Temp data from Session
             var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
             
             if (string.IsNullOrEmpty(orderMediaListJson))
             {
-                // Handle the case where Session is empty (e.g., user directly accessed the URL)
-                return RedirectToAction("CartView", "Cart"); // Redirect to cart
+                return RedirectToAction("CartView", "Cart");
             }
 
-            // Deserialize the JSON back to a list of OrderMedia
             var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
-            var provinces = _provinceRepository.GetAllAsync().Result; // Consider making this async
+            var provinces = _provinceRepository.GetAllAsync().Result; 
             ViewBag.Provinces = new SelectList(provinces, "Id", "Name");
-            // Clear the data from session after using it
             HttpContext.Session.Remove(OrderMediaListSessionKey);
-
-            // Pass the list to the view
             return View(orderMediaList);
         }
         [HttpGet]

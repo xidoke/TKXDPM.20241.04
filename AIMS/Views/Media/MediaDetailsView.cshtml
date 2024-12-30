@@ -32,7 +32,7 @@
 <div class="main-container">
     <div class="product-detail-container">
         <div class="product-image">
-            <img src="@product.ImgUrl" alt="@product.Title" />
+            <img src="@(string.IsNullOrEmpty(product.ImgUrl) ? "https://lh3.googleusercontent.com/proxy/-56r5n-QW7vIBsW2COmvoPJOHeQq6XbAeAc16UqoHGryZ1A1HfKkSQnCXiZAkxjmbdV5XYmv-z3_uR7THipN8UZuV-KIG21QhnEUtq2fbS8oFWz6_ZaI5gMV1EvzuccKJPn3KFUrtg" : product.ImgUrl)" alt="@product.Title" />
         </div>
 
         <div class="product-details">
@@ -46,30 +46,29 @@
                 <h2>Thông tin chi tiết</h2>
                 @if (category == "CD")
                 {
-                    <p><b>Artist:</b> @product.Artist</p>
-                    <p><b>Record Label:</b> @product.RecordLabel</p>
-                    <p><b>Tracklist:</b> @product.Tracklist</p>
-                    <p><b>Release Date:</b> @product.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                    <p><b>Nghệ sĩ:</b> @product.Artist</p>
+                    <p><b>Bản ghi:</b> @product.RecordLabel</p>
+                    <p><b>Danh sách Track:</b> @product.Tracklist</p>
+                    <p><b>Ngày phát hành:</b> @product.ReleaseDate.ToString("dd/MM/yyyy")</p>
                 }
                 else if (category == "Book")
                 {
-                    <p><b>Author:</b> @product.Author</p>
-                    <p><b>Cover Type:</b> @product.CoverType</p>
-                    <p><b>Publisher:</b> @product.Publisher</p>
-                    <p><b>Publish Date:</b> @product.PublishDate.ToString("dd/MM/yyyy")</p>
-                    <p><b>Number of Pages:</b> @product.NumberOfPages</p>
-                    <p><b>Language:</b> @product.Language</p>
+                    <p><b>Tác giả:</b> @product.Author</p>
+                    <p><b>Loại sách:</b> @product.CoverType</p>
+                    <p><b>Nhà xuất bản:</b> @product.Publisher</p>
+                    <p><b>Ngày xuất bản:</b> @product.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p><b>Số trang:</b> @product.NumberOfPages</p>
+                    <p><b>Ngôn ngữ:</b> @product.Language</p>
                 }
                 else if (category == "DVD")
                 {
-                    <p><b>Disc Type:</b> @product.DiscType</p>
-                    <p><b>Director:</b> @product.Director</p>
-                    <p><b>Runtime:</b> @product.Runtime</p>
+                    <p><b>Loại đĩa:</b> @product.DiscType</p>
+                    <p><b>Đạo diễn:</b> @product.Director</p>
+                    <p><b>Thời lượng:</b> @product.Runtime</p>
                     <p><b>Studio:</b> @product.Studio</p>
-                    <p><b>Subtitle:</b> @product.Subtitle</p>
-                    <p><b>Release Date:</b> @product.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                    <p><b>Phụ đề:</b> @product.Subtitle</p>
+                    <p><b>Ngày phát hành:</b> @product.ReleaseDate.ToString("dd/MM/yyyy")</p>
                 }
-                <p>@product.RushSupport</p>
             </div>
 
             <div class="product-actions">
@@ -83,6 +82,8 @@
                         <span>Số lượng</span>
                         <input type="number" min="1" value="1" name="quantity" /> @* Đặt name="quantity" *@
                     </div>
+                    <br />
+
                     <button type="submit" class="add-to-cart">Thêm vào giỏ</button> @* Sửa thành button submit *@
                 </form>
                 <button class="place-order">Đặt hàng</button>

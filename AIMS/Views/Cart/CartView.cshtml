@@ -29,6 +29,7 @@
                             <th>Ảnh mô tả</th>
                             <th>Giá</th>
                             <th>Số lượng</th>
+                            <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@
                                 <td>
                                     <input type="number" id="quantity-@i" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" min="1" class="form-control quantity" style="width: 80px;" data-product-id="@Model[i].ProductId" data-initial-value="@Model[i].Quantity" />
                                 </td>
+                                <td id="status-@i"></td>
                                 <td>
                                     <a asp-action="RemoveFromCart" asp-route-productId="@Model[i].ProductId" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 </td>
@@ -104,6 +106,7 @@
                 const quantity = parseInt($(this).val());
                 const initialQuantity = parseInt($(this).data('initial-value'));
                 const productId = $(this).data('product-id');
+                const index = $(this).closest('tr').index(); // Get the row index
 
                 if (quantity < 1) {
                     $(this).val(initialQuantity);
@@ -124,6 +127,47 @@
                         alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
                     }
                 });
+
+                // Check stock and update status
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CheckStock", "Cart")',
+                    data: {
+                        productId: productId,
+                        quantity: quantity
+                    },
+                    success: function (response) {
+                        $(`#status-${index}`).text(response.status); // Update status cell
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra khi kiểm tra số lượng tồn kho.');
+                    }
+                });
+            });
+
+            // Check stock on Update Cart button click
+            $('#updateCartButton').click(function () {
+                $('.quantity').each(function () {
+                    const quantity = parseInt($(this).val());
+                    const productId = $(this).data('product-id');
+                    const index = $(this).closest('tr').index();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("CheckStock", "Cart")',
+                        data: {
+                            productId: productId,
+                            quantity: quantity
+                        },
+                        success: function (response) {
+                            $(`#status-${index}`).text(response.status); // Update status cell
+                        },
+                        error: function () {
+                            alert('Có lỗi xảy ra khi kiểm tra số lượng tồn kho.');
+                        }
+                    });
+                });
+                alert('Giỏ hàng đã được cập nhật!');
             });
 
             // Initial calculation on page load

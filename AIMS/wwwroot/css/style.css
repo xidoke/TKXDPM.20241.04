@@ -18,6 +18,7 @@ body {
     background-color: #333; /* Nền tối */
     padding: 10px 20px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
 }
 
 .logo {
@@ -30,22 +31,24 @@ body {
     }
 
 .search-container {
-    max-width: 1000px; /* Tăng giá trị này lên, ví dụ gấp đôi */
+    max-width: 1000px; /*  có thể bỏ dòng này  */
     margin: 0 auto; /* Căn giữa ô tìm kiếm */
     display: flex;
     align-items: center; /* Căn giữa theo chiều dọc */
     position: relative;
-    margin: 0 20px;
+    margin: 0 20px; /*  có thể bỏ dòng này  */
+    flex-grow: 1;
+    max-width: 60%; /* Chiếm 60% chiều rộng của .navbar */
 }
 
 .search-bar {
-    flex-grow: 1; /* Thêm dòng này để search-bar chiếm hết phần không gian còn lại */
+    flex-grow: 1; /* Cho phép search-bar mở rộng để lấp đầy khoảng trống */
     padding: 8px;
     border: 1px solid #666; /* Viền xám */
     border-radius: 0; /* Không bo góc */
     font-size: 16px;
-    background-color: #444; /* Màu nền tối hơn */
-    color: #fff; /* Chữ màu trắng */
+    background-color: #fff; /* Màu nền trắng */
+    color: #000; /* Chữ màu đen */
 }
 
 .search-icon-wrapper {
@@ -61,7 +64,7 @@ body {
 }
 
 .search-icon-wrapper i {
-    color: white;
+    color: black;
 }
 
 .right-nav {
