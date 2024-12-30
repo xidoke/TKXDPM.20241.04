@@ -9,7 +9,7 @@ Server: Supabase, PostgreSQL, ASP.NET Core 8 MVC. (C#).
 - Mở AIMS.csprj, Build trực tiếp bằng host của thiết bị.
 # Mô hình sử dụng để triển khai: Model - View - Controller
 # Phân công công việc:
-1. Lê Hà Anh Đức (20215351): \
+1. Lê Hà Anh Đức (20215351): 
    - Tạo Project.
    - Thiết kế và xây dựng các Views: Home, Cart, PlaceOrder, Payment, SearchMediaResult, MediaDetails.
    - Thiết kế và khởi tạo các Entity.
