@@ -29,6 +29,7 @@ Server: Supabase, PostgreSQL, ASP.NET Core 8 MVC. (C#).
    - Soạn báo cáo.
    - Thiết kế và xây dựng các Views: Login, Register.
    - Thiết kế và xây dựng Controller liên quan tới Login, Register.
+   - Thiết kế và xây dựng UnitTest cho: Login, Register, PlaceOrder.
 5. Đặng Đình Diệp (20183495):
    - Thiết kế Documents liên quan tới Concept Design.
    - Thiết kế UseCase, Sequence Diagram cho ca sử dụng Đặt hàng của người dùng.
