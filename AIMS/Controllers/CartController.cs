@@ -25,68 +25,45 @@ namespace AIMS.Controllers
         private const string CartSessionKey = "Cart";
         private List<CartItem> cartItems = new List<CartItem>
         {
-            new CartItem
-            {
-                ProductId = 3,
-                ProductName = "Relaxed Fit T-shirt",
-                Price = 12.99m,
-                Quantity = 5,
-                ImageUrl = "/Content/Images/tshirt.jpg", // Đường dẫn ảnh
-            },
-           new CartItem
-            {
-               ProductId = 4,
-                ProductName = "Relaxed Fit T-shirt",
-                Price = 12.99m,
-                Quantity = 5,
-                ImageUrl = "/Content/Images/tshirt.jpg", // Đường dẫn ảnh
-            },
-           new CartItem
-            {   ProductId = 5,
-                ProductName = "Relaxed Fit T-shirt",
-                Price = 12.99m,
-                Quantity = 5,
-                ImageUrl = "/Content/Images/tshirt.jpg", // Đường dẫn ảnh
-            },
+           
         };
         // Hiển thị giỏ hàng
         public IActionResult CartView()
         {
-            var cart = cartItems;
+            var cart = GetCartFromSession();
             ViewBag.GrandTotal = cart.Sum(item => item.Price * item.Quantity); // Tính tổng tiền và truyền qua ViewBag
             return View(cart); // Truyền danh sách CartItem trực tiếp sang View
         }
 
         // Thêm sản phẩm vào giỏ hàng (cần chỉnh sửa lại logic)
         [HttpPost]
-        public IActionResult AddToCart(int productId, int quantity)
+        public IActionResult AddToCart(int mediaID, string mediaTitle, int mediaQuantity, int mediaPrice, string mediaImgUrl)
         {
-            // TODO: Lấy thông tin sản phẩm từ database dựa vào productId
-            // Đây là ví dụ, bạn cần thay thế bằng logic thực tế của bạn
             var product = new CartItem
             {
-                ProductId = productId,
-                ProductName = "Product " + productId,
-                ImageUrl = "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ad8984166761989.641d86af1a88c.png",
-                Price = 10000
+                ProductId = mediaID,
+                ProductName = mediaTitle,
+                Quantity = mediaQuantity,
+                ImageUrl = mediaImgUrl,
+                Price = mediaQuantity
             };
 
             var cart = GetCartFromSession();
 
-            var existingItem = cart.FirstOrDefault(i => i.ProductId == productId);
+            var existingItem = cart.FirstOrDefault(i => i.ProductId == mediaID);
             if (existingItem != null)
             {
-                existingItem.Quantity += quantity;
+                existingItem.Quantity += mediaQuantity;
             }
             else
             {
-                product.Quantity = quantity;
+                product.Quantity = mediaQuantity;
                 cart.Add(product);
             }
 
             SaveCartToSession(cart);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("CartView", "Cart");
         }
 
         // Xóa sản phẩm khỏi giỏ hàng
@@ -99,7 +76,7 @@ namespace AIMS.Controllers
                 cart.Remove(itemToRemove);
             }
             SaveCartToSession(cart);
-            return RedirectToAction("Index");
+            return RedirectToAction("CartView", "Cart");
         }
 
         // Cập nhật số lượng sản phẩm

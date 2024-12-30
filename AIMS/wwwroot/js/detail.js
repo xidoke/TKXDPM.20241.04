@@ -8,3 +8,16 @@ thumbnails.forEach(thumbnail => {
         thumbnail.classList.add('active');
     });
 });
+const addToCartForm = document.querySelector('.add-to-cart').closest('form');
+
+// Bắt sự kiện submit form
+addToCartForm.addEventListener('submit', (event) => {
+    // Lấy input số lượng
+    const quantityInput = addToCartForm.querySelector('input[name="quantity"]');
+
+    // Lấy input mediaQuantity
+    const mediaQuantityInput = addToCartForm.querySelector('input[name="mediaQuantity"]');
+
+    // Gán giá trị của quantity vào mediaQuantity
+    mediaQuantityInput.value = quantityInput.value;
+});

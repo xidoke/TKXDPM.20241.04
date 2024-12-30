@@ -73,12 +73,18 @@
             </div>
 
             <div class="product-actions">
-                <div class="quantity">
-                    <span>Số lượng</span>
-                    <input type="number" min="1" value="0" />
-                </div>
-
-                <button class="add-to-cart">Thêm vào giỏ</button>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="mediaID" value="@product.Id" />
+                    <input type="hidden" name="mediaTitle" value="@product.Title" />
+                    <input type="hidden" name="mediaPrice" value="@product.Price" />
+                    <input type="hidden" name="mediaImgUrl" value="@product.ImgUrl" />
+                    <input type="hidden" name="mediaQuantity" value="" /> @* Giá trị sẽ được gán bằng JavaScript *@
+                    <div class="quantity">
+                        <span>Số lượng</span>
+                        <input type="number" min="1" value="1" name="quantity" /> @* Đặt name="quantity" *@
+                    </div>
+                    <button type="submit" class="add-to-cart">Thêm vào giỏ</button> @* Sửa thành button submit *@
+                </form>
                 <button class="place-order">Đặt hàng</button>
             </div>
         </div>
