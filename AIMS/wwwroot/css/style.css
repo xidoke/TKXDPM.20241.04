@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
 }
 
@@ -213,6 +213,7 @@ body {
     width: 90%;
     text-transform: uppercase;
     align-self: center; /* Căn giữa nút */
+    text-decoration: none;
 }
 
     .view-btn:hover {

@@ -1,0 +1,90 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    string category = ViewBag.Category;
+    dynamic product;
+
+    if (category == "CD")
+    {
+        product = Model as AIMS.Data.Entities.CD;
+    }
+    else if (category == "Book")
+    {
+        product = Model as AIMS.Data.Entities.Book;
+    }
+    else
+    {
+        product = Model as AIMS.Data.Entities.DVD;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/detail.css" />
+
+</head>
+<div class="main-container">
+    <div class="product-detail-container">
+        <div class="product-image">
+            <img src="@product.ImgUrl" alt="@product.Title" />
+        </div>
+
+        <div class="product-details">
+            <h1 class="product-title">@product.Title</h1>
+
+            <div class="product-price">
+                <span class="price">@product.Price.ToString("N0")₫</span>
+            </div>
+
+            <div class="product-info">
+                <h2>Thông tin chi tiết</h2>
+                @if (category == "CD")
+                {
+                    <p><b>Artist:</b> @product.Artist</p>
+                    <p><b>Record Label:</b> @product.RecordLabel</p>
+                    <p><b>Tracklist:</b> @product.Tracklist</p>
+                    <p><b>Release Date:</b> @product.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                }
+                else if (category == "Book")
+                {
+                    <p><b>Author:</b> @product.Author</p>
+                    <p><b>Cover Type:</b> @product.CoverType</p>
+                    <p><b>Publisher:</b> @product.Publisher</p>
+                    <p><b>Publish Date:</b> @product.PublishDate.ToString("dd/MM/yyyy")</p>
+                    <p><b>Number of Pages:</b> @product.NumberOfPages</p>
+                    <p><b>Language:</b> @product.Language</p>
+                }
+                else if (category == "DVD")
+                {
+                    <p><b>Disc Type:</b> @product.DiscType</p>
+                    <p><b>Director:</b> @product.Director</p>
+                    <p><b>Runtime:</b> @product.Runtime</p>
+                    <p><b>Studio:</b> @product.Studio</p>
+                    <p><b>Subtitle:</b> @product.Subtitle</p>
+                    <p><b>Release Date:</b> @product.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                }
+                <p>@product.RushSupport</p>
+            </div>
+
+            <div class="product-actions">
+                <div class="quantity">
+                    <span>Số lượng</span>
+                    <input type="number" min="1" value="0" />
+                </div>
+
+                <button class="add-to-cart">Thêm vào giỏ</button>
+                <button class="place-order">Đặt hàng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/detail.js"></script>
+}

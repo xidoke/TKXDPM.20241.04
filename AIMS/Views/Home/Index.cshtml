@@ -16,7 +16,6 @@
 </head>
 <body>
     <main>
-        @* CD Section *@
         <br />
         <div class="row" style="display: inline-block;  flex-direction: row-reverse;">
             <button class="register-btn" onclick="location.href='@Url.Action("SearchResultView", "Home", new { category = "CD" })'">
@@ -26,7 +25,7 @@
         <section class="product-section">
 
             <div class="product-grid">
-                @foreach (var cd in Model.CDs.Take(7)) // Take 7 items
+                @foreach (var cd in Model.CDs.Take(7)) 
                 {
                     <div class="product-card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@cd.Title" class="product-image">
@@ -35,7 +34,7 @@
                             <div class="price-container">
                                 <p class="product-price">@cd.Price.ToString("N0")đ</p>
                             </div>
-                            <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                            <a class="view-btn" style="text-decoration: none;"  href="@Url.Action("MediaDetailsView", "Home", new { id = cd.Id, category = "CD" })">🛒 XEM CHI TIẾT</a>
                         </div>
                     </div>
                 }
@@ -46,10 +45,9 @@
                 DANH MỤC BOOK
             </button>
         </div>
-        @* Book Section *@
         <section class="product-section">
             <div class="product-grid">
-                @foreach (var book in Model.Books.Take(7)) // Take 7 items
+                @foreach (var book in Model.Books.Take(7)) 
                 {
                     <div class="product-card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@book.Title" class="product-image">
@@ -58,14 +56,12 @@
                             <div class="price-container">
                                 <p class="product-price">@book.Price.ToString("N0")đ</p>
                             </div>
-                            <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                            <a class="view-btn" style="text-decoration: none;" href="@Url.Action("MediaDetailsView", "Home", new { id = book.Id, category = "Book" })">🛒 XEM CHI TIẾT</a>
                         </div>
                     </div>
                 }
             </div>
         </section>
-
-        @* DVD Section *@
         <div class="row" style="display: inline-block;  flex-direction: row-reverse;">
             <button class="register-btn" onclick="location.href='@Url.Action("SearchResultView", "Home", new { category = "DVD" })'">
                 DANH MỤC DVD
@@ -74,7 +70,7 @@
         <section class="product-section">
 
             <div class="product-grid">
-                @foreach (var dvd in Model.DVDs.Take(7)) // Take 7 items
+                @foreach (var dvd in Model.DVDs.Take(7))
                 {
                     <div class="product-card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@dvd.Title" class="product-image">
@@ -83,7 +79,7 @@
                             <div class="price-container">
                                 <p class="product-price">@dvd.Price.ToString("N0")đ</p>
                             </div>
-                            <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                            <a class="view-btn" style="text-decoration: none;" href="@Url.Action("MediaDetailsView", "Home", new { id = dvd.Id, category = "DVD" })">🛒 XEM CHI TIẾT</a>
                         </div>
                     </div>
                 }

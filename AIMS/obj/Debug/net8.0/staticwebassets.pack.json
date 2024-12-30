@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\cart.css"
     },
     {
+      "Id": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\detail.css",
+      "PackagePath": "staticwebassets\\css\\detail.css"
+    },
+    {
       "Id": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\placeorder.css",
       "PackagePath": "staticwebassets\\css\\placeorder.css"
     },
@@ -23,6 +27,10 @@
     {
       "Id": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\js\\detail.js",
+      "PackagePath": "staticwebassets\\js\\detail.js"
     },
     {
       "Id": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\js\\site.js",

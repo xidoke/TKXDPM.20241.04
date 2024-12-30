@@ -3,7 +3,6 @@
 
 @{
     ViewData["Title"] = "Kết quả tìm kiếm";
-    // Lấy giá trị category và sortBy từ ViewBag (sẽ được truyền từ Controller)
     string currentCategory = ViewBag.Category;
     string currentSortBy = ViewBag.SortBy;
 }
@@ -54,7 +53,7 @@
                     <div class="price-container">
                         <p class="product-price">@product.Price.ToString("N0") đ</p>
                     </div>
-                    <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                    <a class="view-btn" href="@Url.Action("MediaDetailsView", "Home", new { id = product.Id, category = product.Category })">🛒 XEM CHI TIẾT</a>
                 </div>
             </div>
         }
@@ -69,10 +68,10 @@
     }
 
     .results-title {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Thay đổi font chữ */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 22px;
         font-weight: 600;
-        color: #333; /* Màu xám đậm */
+        color: #333; 
         margin-bottom: 15px;
     }
 
@@ -90,16 +89,15 @@
         margin-right: 5px;
         font-weight: 600;
     }
-    /*select*/
     .filter-select {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         padding: 8px 12px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        appearance: none; /* Ẩn mũi tên mặc định của dropdown */
+        appearance: none;
         background-color: #fff;
         cursor: pointer;
-        width: 150px; /* Điều chỉnh độ rộng */
+        width: 150px;
     }
 
         .filter-select:hover {
@@ -110,8 +108,7 @@
             outline: none;
             box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
         }
-    /* Thêm icon cho dropdown (nếu muốn) */
-    /* .filter-group:first-child .filter-label:before {
+    .filter-group:first-child .filter-label:before {
         content: "\f0c9";
         font-family: "Font Awesome 6 Free";
         font-weight: 900;
@@ -123,15 +120,14 @@
         font-family: "Font Awesome 6 Free";
         font-weight: 900;
         margin-right: 5px;
-    } */
+    } 
 </style>
 <script>
-    // Xử lý onchange của dropdown sắp xếp
+  
     function updateUrl() {
         var searchTerm = getParameterByName('searchTerm');
         var category = $('#category-select').val();
         var sortBy = $('#sort-select').val();
-        // Kiểm tra searchTerm có giá trị hay không
         var url = searchTerm ? '@Url.Action("SearchResultView", "Home")?searchTerm=' + encodeURIComponent(searchTerm) : '@Url.Action("SearchResultView", "Home")';
 
         if (category) {
@@ -144,7 +140,6 @@
         window.location.href = url;
     }
 
-    // Hàm lấy giá trị tham số từ URL
     function getParameterByName(name, url = window.location.href) {
         name = name.replace(/[\[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),

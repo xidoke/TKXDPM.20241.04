@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+SC93X6oiG3VL7UiKBpM/JeKPdtLGANhZi5tJyasV+U=",
+  "Hash": "GNw1ADbvmVE1nbD7OlSWEn1ZQFvLSmrpTnpdEzAWC6Y=",
   "Source": "AIMS",
   "BasePath": "_content/AIMS",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\cart.css"
+    },
+    {
+      "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\detail.css",
+      "SourceId": "AIMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\",
+      "BasePath": "_content/AIMS",
+      "RelativePath": "css/detail.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\detail.css"
     },
     {
       "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\placeorder.css",
@@ -148,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\js\\detail.js",
+      "SourceId": "AIMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\",
+      "BasePath": "_content/AIMS",
+      "RelativePath": "js/detail.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\detail.js"
     },
     {
       "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\js\\site.js",

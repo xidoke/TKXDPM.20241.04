@@ -2,6 +2,7 @@
 using AIMS.Data.Repositories.Interfaces;
 using AIMS.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace AIMS.Controllers
@@ -74,6 +75,46 @@ namespace AIMS.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public async Task<IActionResult> MediaDetailsView(int id, string category)
+        {
+            if (category == "CD")
+            {
+                var cds = await _mediaRepository.GetCDsAsync();
+                var cd = cds.FirstOrDefault(c => c.Id == id);
+                if (cd == null)
+                {
+                    return NotFound(); // Hoặc chuyển hướng đến trang lỗi
+                }
+                ViewBag.Category = "CD";
+                return View("~/Views/Media/MediaDetailsView.cshtml", cd);
+            }
+            else if (category == "Book")
+            {
+                var books = await _mediaRepository.GetBooksAsync();
+                var book = books.FirstOrDefault(c => c.Id == id); // Thay Books bằng DbSet tương ứng của bạn
+                if (book == null)
+                {
+                    return NotFound(); // Hoặc chuyển hướng đến trang lỗi
+                }
+                ViewBag.Category = "Book";
+                return View("~/Views/Media/MediaDetailsView.cshtml", book);
+            }
+            else if (category == "DVD")
+            {
+                var dvds = await _mediaRepository.GetDVDsAsync();
+                var dvd = dvds.FirstOrDefault(c => c.Id == id);// Thay DVDs bằng DbSet tương ứng của bạn
+                if (dvd == null)
+                {
+                    return NotFound(); // Hoặc chuyển hướng đến trang lỗi
+                }
+                ViewBag.Category = "DVD";
+                return View("~/Views/Media/MediaDetailsView.cshtml", dvd);
+            }
+            else
+            {
+                return BadRequest(); // Hoặc chuyển hướng đến trang lỗi
+            }
         }
     }
 }
