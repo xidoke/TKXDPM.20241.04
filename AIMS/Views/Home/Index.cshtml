@@ -1,0 +1,75 @@
+﻿@using AIMS.Models
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+@model HomeViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+
+</head>
+<body>
+    <main>
+        <section class="product-section">
+            <h2>CD</h2>
+            <div class="product-grid">
+                @foreach (var cd in Model.CDs)
+                {
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@cd.Title" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">@cd.Title</h3>
+                            <div class="price-container">
+                                <p class="product-price">@cd.Price.ToString("N0")đ</p>
+                            </div>
+                            <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+        <section class="product-section">
+            <h2>Book</h2>
+            <div class="product-grid">
+                @foreach (var book in Model.Books)
+                {
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@book.Title" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">@book.Title</h3>
+                            <div class="price-container">
+                                <p class="product-price">@book.Price.ToString("N0")đ</p>
+                            </div>
+                            <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+        <section class="product-section">
+            <h2>DVD</h2>
+            <div class="product-grid">
+                @foreach (var dvd in Model.DVDs)
+                {
+                    <div class="product-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@dvd.Title" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">@dvd.Title</h3>
+                            <div class="price-container">
+                                <p class="product-price">@dvd.Price.ToString("N0")đ</p>
+                            </div>
+                            <button class="view-btn">🛒 XEM CHI TIẾT</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </main>
+</body>
+</html>

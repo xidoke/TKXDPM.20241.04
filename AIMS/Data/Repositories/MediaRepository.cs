@@ -1,0 +1,74 @@
+﻿using AIMS.Data.Contexts;
+using AIMS.Data.Entities;
+using AIMS.Data.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AIMS.Data.Repositories
+{
+    public class MediaRepository : IMediaRepository
+    {
+        private readonly ApplicationDbContext _context;
+
+        public MediaRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<Media>> GetAllAsync()
+        {
+            return await _context.Medias.ToListAsync();
+        }
+
+        public async Task<Media> GetByIdAsync(int id)
+        {
+            return await _context.Medias.FindAsync(id);
+        }
+
+        public async Task<List<Media>> SearchAsync(string keyword)
+        {
+            return await _context.Medias
+                .Where(m => m.Title.Contains(keyword) || m.Category.Contains(keyword))
+                .ToListAsync();
+        }
+
+        public async Task AddAsync(Media media)
+        {
+            _context.Medias.Add(media);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Media media)
+        {
+            _context.Entry(media).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var media = await _context.Medias.FindAsync(id);
+            if (media != null)
+            {
+                _context.Medias.Remove(media);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<CD>> GetCDsAsync()
+        {
+            return await _context.CDs.ToListAsync();
+        }
+
+        public async Task<List<DVD>> GetDVDsAsync()
+        {
+            return await _context.DVDs.ToListAsync();
+        }
+
+        public async Task<List<Book>> GetBooksAsync()
+        {
+            return await _context.Books.ToListAsync();
+        }
+    }
+}

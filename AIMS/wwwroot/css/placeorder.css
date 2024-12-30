@@ -1,0 +1,42 @@
+﻿body {
+}
+/* Basic styling for the Place Order page */
+.container {
+    max-width: 960px; /* Adjust as needed */
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.table-bordered thead th {
+    background-color: #f5f5f5; /* Light gray background for table header */
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+/* Style the buttons */
+.btn-danger { /* Example for "Hủy" button */
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn-dark { /* Example for "Lưu thông tin vận chuyển" button */
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-dark:hover {
+    background-color: #23272b;
+    border-color: #1d2124;
+}

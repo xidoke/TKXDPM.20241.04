@@ -1,0 +1,119 @@
+﻿@using AIMS.Data.Entities
+@model List<CartItem>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+
+</head>
+<link rel="stylesheet" href="~/css/cart.css" />
+
+<div class="container mt-5">
+    <h2>Giỏ hàng cá nhân</h2>
+    @if (Model.Any())
+    {
+        <form id="cartForm" asp-controller="Cart" asp-action="ProcessOrder" method="post">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th> @*// New column for checkboxes*@
+                            <th>Tên sản phẩm</th>
+                            <th>Ảnh mô tả</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="SelectedItems[@i].IsSelected" value="true" checked class="cart-checkbox" data-price="@Model[i].Price" data-quantity-field="quantity-@i" />
+                                    <input type="hidden" name="SelectedItems[@i].IsSelected" value="false" />
+                                    <input type="hidden" name="SelectedItems[@i].ProductId" value="@Model[i].ProductId" />
+                                    <input type="hidden" name="SelectedItems[@i].ProductName" value="@Model[i].ProductName" />
+                                    <input type="hidden" name="SelectedItems[@i].Price" value="@Model[i].Price" />
+                                    <input type="hidden" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" />
+                                    <input type="hidden" id="initial-quantity-@i" value="@Model[i].Quantity" /> @* New: Initial quantity *@
+                                </td>
+                                <td>@Model[i].ProductName</td>
+                                <td>
+                                    <img src="@Model[i].ImageUrl" alt="@Model[i].ProductName" style="width: 100px;" />
+                                </td>
+                                <td>@Model[i].Price.ToString("C")</td>
+                                <td>
+                                    <input type="number" id="quantity-@i" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" min="1" class="form-control quantity" style="width: 80px;" data-product-id="@Model[i].ProductId" data-initial-value="@Model[i].Quantity" />
+                                </td>
+                                <td>
+                                    <a asp-action="RemoveFromCart" asp-route-productId="@Model[i].ProductId" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12 text-right">
+                    <h4>Tổng giá trị sản phẩm đã chọn: <span id="grand-total">@ViewBag.GrandTotal.ToString("C")</span></h4>
+                    <button type="submit" class="btn btn-success" id="orderButton" form="cartForm">Đặt hàng</button>
+                    <button type="button" class="btn btn-secondary" id="updateCartButton">Cập nhật giỏ hàng</button>
+                </div>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            Your cart is empty.
+            <a asp-controller="Home" asp-action="Index" class="alert-link">Continue Shopping</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Function to calculate and update the grand total
+            function updateGrandTotal() {
+                let grandTotal = 0;
+                $('.cart-checkbox:checked').each(function () {
+                    const price = parseFloat($(this).data('price'));
+                    const quantityFieldId = $(this).data('quantity-field');
+                    const quantity = parseInt($(`#${quantityFieldId}`).val());
+                    grandTotal += price * quantity;
+                });
+                $('#grand-total').text(grandTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            }
+
+            // Update total on checkbox change
+            $('.cart-checkbox').change(function () {
+                updateGrandTotal();
+            });
+
+            // Update total on quantity change
+            $('.quantity').change(function () {
+                const quantity = parseInt($(this).val());
+                const initialQuantity = parseInt($(this).data('initial-value'));
+                if (quantity < 1) {
+                    $(this).val(initialQuantity); // Reset to initial value if less than 1
+                }
+                updateGrandTotal();
+            });
+
+            // Initial calculation on page load
+            updateGrandTotal();
+
+            // ... rest of your existing JavaScript code (AJAX update) ...
+        });
+    </script>
+}

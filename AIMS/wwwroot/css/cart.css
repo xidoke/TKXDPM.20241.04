@@ -1,0 +1,41 @@
+﻿/* Custom CSS for a nicer cart */
+.table-hover tbody tr:hover {
+    background-color: #f5f5f5; /* Light gray on hover */
+}
+
+.table thead.thead-dark th {
+    background-color: #343a40; /* Dark background for header */
+    color: white;
+    border-color: #454d55;
+}
+
+.table td, .table th {
+    vertical-align: middle; /* Align content to the middle vertically */
+}
+
+.input-group-append .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Style for the 'Proceed to Checkout' button */
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+/* Style for the 'Remove' button */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }

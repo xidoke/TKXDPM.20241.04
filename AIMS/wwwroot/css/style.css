@@ -1,0 +1,228 @@
+﻿/* Reset */
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Header */
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #333; /* Nền tối */
+    padding: 10px 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    width: 120px;
+}
+
+    .logo img {
+        width: 100%;
+        height: auto;
+    }
+
+.search-container {
+    max-width: 1000px; /* Tăng giá trị này lên, ví dụ gấp đôi */
+    margin: 0 auto; /* Căn giữa ô tìm kiếm */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    position: relative;
+    margin: 0 20px;
+}
+/* Sửa ở đây */
+.search-bar {
+    flex-grow: 1; /* Thêm dòng này để search-bar chiếm hết phần không gian còn lại */
+    padding: 8px;
+    border: 1px solid #666; /* Viền xám */
+    border-radius: 0; /* Không bo góc */
+    font-size: 16px;
+    background-color: #444; /* Màu nền tối hơn */
+    color: #fff; /* Chữ màu trắng */
+}
+
+.search-icon-wrapper {
+    position: absolute;
+    right: 10px; /* Cách lề phải 10px */
+    top: 50%;
+    transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+    pointer-events: none; /* Để không click được vào icon */
+}
+/* Sửa ở đây */
+.search-btn {
+    display: none
+}
+
+.search-icon-wrapper i {
+    color: white;
+}
+
+.right-nav {
+    display: flex;
+    align-items: center;
+}
+
+.cart {
+    margin-right: 20px;
+}
+
+.cart-icon {
+    width: 24px;
+    height: 24px;
+    filter: invert(1); /* Đảo ngược màu icon thành màu trắng */
+}
+
+.user-actions {
+    display: flex;
+}
+
+.login-btn {
+    background-color: #00b050; /* Màu xanh lá cây */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+    .login-btn:hover {
+        background-color: #008037; /* Xanh lá đậm hơn khi hover */
+    }
+
+.register-btn {
+    background-color: #ff0000; /* Màu đỏ */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+    .register-btn:hover {
+        background-color: #cc0000; /* Đỏ đậm hơn khi hover */
+    }
+
+.product-section {
+    margin-top: 20px;
+}
+
+    .product-section h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Chỉnh minmax thành 250px */
+    gap: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Góc bo của card */
+    text-align: center;
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    /* Xóa height: 320px; */
+    padding-bottom: 0px; /* Xóa padding-bottom */
+}
+
+    .product-card img {
+        max-width: 100%;
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        border-bottom: 1px solid #ddd;
+        border-top-left-radius: 8px; /* Thêm bo góc trái trên */
+        border-top-right-radius: 8px; /* Thêm bo góc phải trên */
+    }
+
+.product-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-bottom: 20px; /* Thêm padding bottom cho product-info */
+}
+
+.product-name {
+    font-size: 18px;
+    margin: 5px 0;
+    height: 60px; /* Tăng chiều cao để đủ chỗ cho tên sản phẩm dài */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: left; /* Căn trái tên sản phẩm */
+}
+
+.product-price {
+    color: #e60000;
+    font-size: 16px;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.product-specs {
+    text-align: left; /* Căn trái thông số */
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+    .product-specs p {
+        margin-bottom: 5px; /* Khoảng cách giữa các dòng */
+    }
+
+.buy-btn {
+    background: #444; /* Màu nền xám đậm */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 90%;
+    text-transform: uppercase;
+    align-self: center; /* Căn giữa nút */
+}
+
+    .buy-btn:hover {
+        background: #222; /* Màu nền xám đậm hơn khi hover */
+    }
+
+.view-btn {
+    background: #444; /* Màu nền xám đậm */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 90%;
+    text-transform: uppercase;
+    align-self: center; /* Căn giữa nút */
+}
+
+    .view-btn:hover {
+        background: #222; /* Màu nền xám đậm hơn khi hover */
+    }
+
+.price-container {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
