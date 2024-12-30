@@ -36,11 +36,11 @@ The project utilizes the following technologies:
     -   During installation, select the "ASP.NET and web development" workload.
     -   Alternatively, if Visual Studio is already installed, open the Visual Studio Installer, click "Modify" on your Visual Studio Community 2022 installation, and then select the "ASP.NET and web development" workload.
     -   ![ASP.NET and web development workload](https://github.com/user-attachments/assets/549863cb-1b2e-4fe8-8190-1c414b7c95eb)
-3. **Clone the Project** : `git clone <repository_url>` (Replace <repository_url> with the actual URL of your project repository)
+3. **Clone the Project** : `git clone [<repository_url>](https://github.com/xidoke/TKXDPM.20241.04.git)` 
 4. **Open the Project:** Open the `AIMS.csproj` file in Visual Studio.
 5. **Database Setup:**
     -   Ensure you have a Supabase account and project set up.
-    -   Configure the connection string in your project's `appsettings.json` or equivalent configuration file to point to your Supabase PostgreSQL database.
+    -   Configure the connection string in project's `Program.cs` or equivalent configuration file to point to your Supabase PostgreSQL database.
 6. **VnPay Setup:**
    - Configure your VnPay account details, and secret key in your project's `appsettings.json` or equivalent configuration file.
 7. **Build and Run:** Build the project and run it directly using your device's host.
