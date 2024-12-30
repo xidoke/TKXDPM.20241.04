@@ -1,13 +1,16 @@
 # TKXDPM.20241.04
 # Công nghệ sử dụng:
-Cho phần mềm: Winform C# \
-Server: Supabase, PostgreSQL
+Client:  HTML, CSS, JavaScript.\
+Server: Supabase, PostgreSQL, ASP.NET Core 8 MVC. (C#).
 # Hướng dẫn sử dụng: 
-Yêu cầu cài đặt: .NET Framework 4.8 Runtime\
-File AIMS.exe theo đường dẫn bin/Debug/AIMS.exe\
-Hướng dẫn build file exe: Mở file AIMS.csproj bằng Visual Studio Community 2022, sử dụng tổ hợp phím Ctrl + B để build ra phần mềm.
+- IDE Visual Studio Community 2022.\
+- Cài đặt ASP.NET and web development.\
+- ![image](https://github.com/user-attachments/assets/549863cb-1b2e-4fe8-8190-1c414b7c95eb)\
+- Mở AIMS.csprj, Build trực tiếp bằng host của thiết bị.\
 # Mô hình sử dụng để triển khai: Model - View - Controller
 # Phân công công việc:
+1. Lê Hà Anh Đức: \
+
 Lê Hà Anh Đức (20215351): Xây dựng, thiết kế giao diện Views, Entities, MediaService, MediaController, tạo Project, tạo kết nối tới Database, kết nối VNPay. \
 Phạm Đình Đô (20200154): Tạo server, thiết kế và xây dựng database.\
 Phạm Quốc Đạt (20215345): Xây dựng CartController.\
