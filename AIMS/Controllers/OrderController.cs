@@ -79,8 +79,7 @@ namespace AIMS.Controllers
         }
         public async Task<int> CalculateShippingFee(List<OrderMedia> list, string province, bool isRushOrder)
         {
-            bool isInnerCity = province.Equals("Thành phố Hà Nội", StringComparison.OrdinalIgnoreCase) ||
-                               province.Equals("Thành phố Hồ Chí Minh", StringComparison.OrdinalIgnoreCase);
+            bool isInnerCity = province.Contains("Thành phố Hà Nội") || province.Contains("Thành phố Hồ Chí Minh");
 
             int totalItemValue = 0;
             double totalWeight = 0;
@@ -124,7 +123,7 @@ namespace AIMS.Controllers
                 freeShippingDiscount = Math.Min(baseFee, 25000);
             }
 
-            return isRushOrder ? Math.Max(0, baseFee - freeShippingDiscount) + rushOrderFee : Math.Max(0, baseFee - freeShippingDiscount);
+            return isRushOrder ? Math.Max(0, Math.Abs(baseFee - freeShippingDiscount)) + rushOrderFee : Math.Max(0, baseFee - freeShippingDiscount);
         }
      private const string OrderDataTempSessionKey = "OrderDataTemp";
         [HttpPost]
