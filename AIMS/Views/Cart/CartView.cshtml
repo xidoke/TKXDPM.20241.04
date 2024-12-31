@@ -9,149 +9,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storefront</title>
+    <title>Giỏ hàng - AIMS</title>
     <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/cart.css" />
+    <style>
+        .groupbox {
+            background-color: #fff; /* Màu nền trắng */
+            border: 1px solid #ddd; /* Đường viền */
+            padding: 20px;
+            border-radius: 5px; /* Bo góc */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+            margin-bottom: 20px; /* Cách nhau giữa 2 groupbox (nếu cần) */
+        }
 
-</head>
-<link rel="stylesheet" href="~/css/cart.css" />
-
-<div class="container mt-5">
-    <h2>Giỏ hàng cá nhân</h2>
-    @if (Model.Any())
-    {
-        <form id="cartForm" asp-controller="Cart" asp-action="ProcessOrder" method="post">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th></th>
-                            <th>Tên sản phẩm</th>
-                            <th>Ảnh mô tả</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.Count; i++)
-                        {
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="SelectedItems[@i].IsSelected" value="true" checked class="cart-checkbox" data-price="@Model[i].Price" data-quantity-field="quantity-@i" />
-                                    <input type="hidden" name="SelectedItems[@i].IsSelected" value="false" />
-                                    <input type="hidden" name="SelectedItems[@i].ProductId" value="@Model[i].ProductId" />
-                                    <input type="hidden" name="SelectedItems[@i].ProductName" value="@Model[i].ProductName" />
-                                    <input type="hidden" name="SelectedItems[@i].Price" value="@Model[i].Price" />
-                                    @*<input type="hidden" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" />*@ @* Xóa dòng này *@
-                                </td>
-                                <td>@Model[i].ProductName</td>
-                                <td>
-                                    <img src="@Model[i].ImageUrl" alt="@Model[i].ProductName" style="width: 100px;" />
-                                </td>
-                                <td>@Model[i].Price.ToString("N0") đ</td>
-                                <td>
-                                    <input type="number" id="quantity-@i" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" min="1" class="form-control quantity" style="width: 80px;" data-product-id="@Model[i].ProductId" data-initial-value="@Model[i].Quantity" />
-                                </td>
-                                <td id="status-@i"></td>
-                                <td>
-                                    <a asp-action="RemoveFromCart" asp-route-productId="@Model[i].ProductId" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-12 text-right">
-                    <h4>Tổng giá trị sản phẩm đã chọn: <span id="grand-total">@ViewBag.GrandTotal.ToString("N0") VNĐ</span></h4>
-                    <button type="submit" class="btn btn-success" id="orderButton" form="cartForm">Đặt hàng</button>
-                    <button type="button" class="btn btn-secondary" id="updateCartButton">Cập nhật giỏ hàng</button>
-                </div>
-            </div>
-        </form>
-    }
-    else
-    {
-        <div class="alert alert-info">
-            Giỏ hàng của bạn đang trống.
-            <a asp-controller="Home" asp-action="Index" class="alert-link">Xem thêm sản phẩm!</a>
-        </div>
-    }
-</div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            // Function to calculate and update the grand total
-            function updateGrandTotal() {
-                let grandTotal = 0;
-                $('.cart-checkbox:checked').each(function () {
-                    const price = parseFloat($(this).data('price'));
-                    const quantityFieldId = $(this).data('quantity-field');
-                    const quantity = parseInt($(`#${quantityFieldId}`).val());
-                    grandTotal += price * quantity;
-                });
-                $('#grand-total').text(grandTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+            .groupbox h2 { /* Hoặc h3 tùy vào cấp độ tiêu đề bạn muốn */
+                margin-top: 0; /* Bỏ margin top mặc định của tiêu đề */
+                margin-bottom: 10px;
+                font-weight: bold;
             }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="groupbox">
+            @* Thêm groupbox *@
+            <h2>Giỏ hàng cá nhân</h2>
+            @if (Model.Any())
+            {
+                <form id="cartForm" asp-controller="Cart" asp-action="ProcessOrderFromCart" method="post">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th></th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Ảnh mô tả</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="SelectedItems[@i].IsSelected" value="true" checked class="cart-checkbox" data-price="@Model[i].Price" data-quantity-field="quantity-@i" />
+                                            <input type="hidden" name="SelectedItems[@i].IsSelected" value="false" />
+                                            <input type="hidden" name="SelectedItems[@i].ProductId" value="@Model[i].ProductId" />
+                                            <input type="hidden" name="SelectedItems[@i].ProductName" value="@Model[i].ProductName" />
+                                            <input type="hidden" name="SelectedItems[@i].Price" value="@Model[i].Price" />
+                                        </td>
+                                        <td>@Model[i].ProductName</td>
+                                        <td>
+                                            <img src="@Model[i].ImageUrl" alt="@Model[i].ProductName" style="width: 100px;" />
+                                        </td>
+                                        <td>@Model[i].Price.ToString("N0") đ</td>
+                                        <td>
+                                            <input type="number" id="quantity-@i" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" min="1" class="form-control quantity" style="width: 80px;" data-product-id="@Model[i].ProductId" data-initial-value="@Model[i].Quantity" />
+                                        </td>
+                                        <td id="status-@i"></td>
+                                        <td>
+                                            <a asp-action="RemoveFromCart" asp-route-productId="@Model[i].ProductId" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
 
-            // Update total on checkbox change
-            $('.cart-checkbox').change(function () {
-                updateGrandTotal();
-            });
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-right">
+                            <h4>Tổng giá trị sản phẩm đã chọn: <span id="grand-total">@ViewBag.GrandTotal.ToString("N0") VNĐ</span></h4>
+                            <button type="submit" class="btn btn-success" id="orderButton" form="cartForm">Đặt hàng</button>
+                            <button type="button" class="btn btn-secondary" id="updateCartButton">Cập nhật giỏ hàng</button>
+                        </div>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    Giỏ hàng của bạn đang trống.
+                    <a asp-controller="Home" asp-action="Index" class="alert-link">Xem thêm sản phẩm!</a>
+                </div>
+            }
+        </div> @* Kết thúc groupbox *@
+    </div>
 
-            // Update total on quantity change and auto-save
-            $('.quantity').change(function () {
-                const quantity = parseInt($(this).val());
-                const initialQuantity = parseInt($(this).data('initial-value'));
-                const productId = $(this).data('product-id');
-                const index = $(this).closest('tr').index(); // Get the row index
-
-                if (quantity < 1) {
-                    $(this).val(initialQuantity);
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                // Function to calculate and update the grand total
+                function updateGrandTotal() {
+                    let grandTotal = 0;
+                    $('.cart-checkbox:checked').each(function () {
+                        const price = parseFloat($(this).data('price'));
+                        const quantityFieldId = $(this).data('quantity-field');
+                        const quantity = parseInt($(`#${quantityFieldId}`).val());
+                        grandTotal += price * quantity;
+                    });
+                    $('#grand-total').text(grandTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
                 }
-                updateGrandTotal();
 
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("UpdateQuantity", "Cart")',
-                    data: {
-                        productId: productId,
-                        quantity: quantity
-                    },
-                    success: function (response) {
-                        $('#grand-total').text(response.grandTotal + " VNĐ");
-                    },
-                    error: function () {
-                        alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
-                    }
+                // Update total on checkbox change
+                $('.cart-checkbox').change(function () {
+                    updateGrandTotal();
                 });
 
-                // Check stock and update status
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("CheckStock", "Cart")',
-                    data: {
-                        productId: productId,
-                        quantity: quantity
-                    },
-                    success: function (response) {
-                        $(`#status-${index}`).text(response.status); // Update status cell
-                    },
-                    error: function () {
-                        alert('Có lỗi xảy ra khi kiểm tra số lượng tồn kho.');
-                    }
-                });
-            });
-
-            // Check stock on Update Cart button click
-            $('#updateCartButton').click(function () {
-                $('.quantity').each(function () {
+                // Update total on quantity change and auto-save
+                $('.quantity').change(function () {
                     const quantity = parseInt($(this).val());
+                    const initialQuantity = parseInt($(this).data('initial-value'));
                     const productId = $(this).data('product-id');
-                    const index = $(this).closest('tr').index();
+                    const index = $(this).closest('tr').index(); // Get the row index
 
+                    if (quantity < 1) {
+                        $(this).val(initialQuantity);
+                    }
+                    updateGrandTotal();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("UpdateQuantity", "Cart")',
+                        data: {
+                            productId: productId,
+                            quantity: quantity
+                        },
+                        success: function (response) {
+                            $('#grand-total').text(response.grandTotal + " VNĐ");
+                        },
+                        error: function () {
+                            alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
+                        }
+                    });
+
+                    // Check stock and update status
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("CheckStock", "Cart")',
@@ -167,11 +161,36 @@
                         }
                     });
                 });
-                alert('Giỏ hàng đã được cập nhật!');
-            });
 
-            // Initial calculation on page load
-            updateGrandTotal();
-        });
-    </script>
-}
+                // Check stock on Update Cart button click
+                $('#updateCartButton').click(function () {
+                    $('.quantity').each(function () {
+                        const quantity = parseInt($(this).val());
+                        const productId = $(this).data('product-id');
+                        const index = $(this).closest('tr').index();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("CheckStock", "Cart")',
+                            data: {
+                                productId: productId,
+                                quantity: quantity
+                            },
+                            success: function (response) {
+                                $(`#status-${index}`).text(response.status); // Update status cell
+                            },
+                            error: function () {
+                                alert('Có lỗi xảy ra khi kiểm tra số lượng tồn kho.');
+                            }
+                        });
+                    });
+                    alert('Giỏ hàng đã được cập nhật!');
+                });
+
+                // Initial calculation on page load
+                updateGrandTotal();
+            });
+        </script>
+    }
+</body>
+</html>

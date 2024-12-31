@@ -6,14 +6,13 @@
         private string _city;
         private string _address;
         private string _phone;
-        private int _userId;
+        private string _email;
         private float _shippingFee;
         private DateTime _createdAt;
         private string _instructions;
         private string _type;
         private float _totalPrice;
         private int _status;
-        private string _userDeviceId;
         private string _fullname;
 
         public int Id
@@ -36,11 +35,10 @@
             get { return _phone; }
             set { _phone = value; }
         }
-
-        public int UserId
+        public string Email
         {
-            get { return _userId; }
-            set { _userId = value; }
+            get { return _email; }
+            set { _email = value; }
         }
 
         public float ShippingFee
@@ -76,11 +74,6 @@
             get { return _status; }
             set { _status = value; }
         }
-        public string UserDeviceId
-        {
-            get { return _userDeviceId; }
-            set { _userDeviceId = value; }
-        }
 
         public string Fullname
         {
@@ -88,7 +81,5 @@
             set { _fullname = value; }
         }
 
-        // Navigation properties
-        public List<OrderMedia> OrderMedias { get; set; } = new List<OrderMedia>();
     }
 }

@@ -8,7 +8,6 @@ using AIMS.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
 
 builder.Services.AddDistributedMemoryCache(); 
 builder.Services.AddSession(options =>
@@ -17,6 +16,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IProvinceRepository, ProvinceRepository>();
 builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
 builder.Services.AddScoped<IWardRepository, WardRepository>();
@@ -34,6 +35,7 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationFormats.Add("/Views/Home/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/Views/Media/{0}" + RazorViewEngine.ViewExtension);  
     options.ViewLocationFormats.Add("/Views/Cart/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Views/Payment/{0}" + RazorViewEngine.ViewExtension);
 });
 var app = builder.Build();
 
@@ -41,10 +43,10 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.UseSession();

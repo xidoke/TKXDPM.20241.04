@@ -16,7 +16,7 @@ namespace AIMS.Controllers
         }
         private const string OrderMediaListSessionKey = "OrderMediaList";
         [HttpPost]
-        public IActionResult ProcessOrder(List<CartItem> SelectedItems)
+        public IActionResult ProcessOrderFromCart(List<CartItem> SelectedItems)
         {
             List<CartItem> selectedProducts = SelectedItems.Where(item => item.isSelected).ToList();
 
@@ -30,6 +30,41 @@ namespace AIMS.Controllers
 
             HttpContext.Session.SetString(OrderMediaListSessionKey, JsonSerializer.Serialize(Temp));
             return RedirectToAction("PlaceOrderView", "Order");
+        }
+        [HttpPost]
+        public async Task<IActionResult> ProcessOrderDirectly(int mediaID, int mediaQuantity)
+        {
+            try
+            {
+                var media = await mediaRepository.GetByIdAsync(mediaID);
+                if (media == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
+                }
+
+                // Tạo danh sách OrderMedia tạm thời
+                var orderMediaList = new List<OrderMedia>
+                {
+                    new OrderMedia
+                    {
+                        MediaId = mediaID,
+                        Name = media.Title,
+                        Quantity = mediaQuantity,
+                        Price = media.Price
+                    }
+                };
+
+                // Lưu danh sách OrderMedia vào Session
+                HttpContext.Session.SetString(OrderMediaListSessionKey, JsonSerializer.Serialize(orderMediaList));
+
+                // Chuyển hướng đến PlaceOrderView
+                return Json(new { success = true, redirectUrl = Url.Action("PlaceOrderView", "Order") });
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi ở đây nếu cần
+                return Json(new { success = false, message = "Lỗi khi đặt hàng: " + ex.Message });
+            }
         }
         private const string CartSessionKey = "Cart";
         private List<CartItem> cartItems = new List<CartItem>
@@ -46,34 +81,46 @@ namespace AIMS.Controllers
 
         // Thêm sản phẩm vào giỏ hàng (cần chỉnh sửa lại logic)
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int mediaID,int mediaQuantity)
+        public async Task<IActionResult> AddToCart(int mediaID, int mediaQuantity)
         {
-            var media = await mediaRepository.GetByIdAsync(mediaID);
-            var product = new CartItem
+            try
             {
-                ProductId = mediaID,
-                ProductName = media.Title,
-                Quantity = mediaQuantity,
-                ImageUrl = media.ImgUrl,
-                Price = media.Price,
-            };
+                var media = await mediaRepository.GetByIdAsync(mediaID);
+                if (media == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
+                }
 
-            var cart = GetCartFromSession();
+                var product = new CartItem
+                {
+                    ProductId = mediaID,
+                    ProductName = media.Title,
+                    Quantity = mediaQuantity,
+                    ImageUrl = media.ImgUrl,
+                    Price = media.Price,
+                };
 
-            var existingItem = cart.FirstOrDefault(i => i.ProductId == mediaID);
-            if (existingItem != null)
-            {
-                existingItem.Quantity += mediaQuantity;
+                var cart = GetCartFromSession();
+
+                var existingItem = cart.FirstOrDefault(i => i.ProductId == mediaID);
+                if (existingItem != null)
+                {
+                    existingItem.Quantity += mediaQuantity;
+                }
+                else
+                {
+                    cart.Add(product);
+                }
+
+                SaveCartToSession(cart);
+
+                return Json(new { success = true, message = "Thêm giỏ hàng thành công" });
             }
-            else
+            catch (Exception ex)
             {
-                product.Quantity = mediaQuantity;
-                cart.Add(product);
+                // Log lỗi ở đây nếu cần
+                return Json(new { success = false, message = "Lỗi khi thêm vào giỏ hàng: " + ex.Message });
             }
-
-            SaveCartToSession(cart);
-
-            return RedirectToAction("CartView", "Cart");
         }
 
         // Xóa sản phẩm khỏi giỏ hàng

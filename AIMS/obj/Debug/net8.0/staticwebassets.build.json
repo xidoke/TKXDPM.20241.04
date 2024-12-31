@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GNw1ADbvmVE1nbD7OlSWEn1ZQFvLSmrpTnpdEzAWC6Y=",
+  "Hash": "XrIButLAwBl98Uv5RMh/yq/P+Tozx098JzX/ftx5TB0=",
   "Source": "AIMS",
   "BasePath": "_content/AIMS",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\detail.css"
+    },
+    {
+      "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\payment-result.css",
+      "SourceId": "AIMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\",
+      "BasePath": "_content/AIMS",
+      "RelativePath": "css/payment-result.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\payment-result.css"
     },
     {
       "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\placeorder.css",

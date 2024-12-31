@@ -118,6 +118,37 @@ namespace AIMS.Data.Contexts
                     .WithMany() // Assuming a District can have many Wards
                     .HasForeignKey(w => w.DistrictId);
             });
+
+            modelBuilder.Entity<OrderData>(entity =>
+            {
+                entity.ToTable("orderdata");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("id").UseIdentityColumn();
+                entity.Property(e => e.City).HasColumnName("city");
+                entity.Property(e => e.Address).HasColumnName("address");
+                entity.Property(e => e.Phone).HasColumnName("phone");
+                entity.Property(e => e.Email).HasColumnName("email");
+                entity.Property(e => e.ShippingFee).HasColumnName("shipping_fee");
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+                entity.Property(e => e.Instructions).HasColumnName("instructions");
+                entity.Property(e => e.Type).HasColumnName("type");
+                entity.Property(e => e.TotalPrice).HasColumnName("total_price");
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.Fullname).HasColumnName("fullname");
+            });
+
+            // Configure OrderMedia entity
+            modelBuilder.Entity<OrderMedia>(entity =>
+            {
+                entity.ToTable("ordermedia");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("id").UseIdentityColumn();
+                entity.Property(e => e.Name).HasColumnName("media_name");
+                entity.Property(e => e.Price).HasColumnName("price");
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+                entity.Property(e => e.OrderId).HasColumnName("order_id");
+                entity.Property(e => e.MediaId).HasColumnName("media_id");
+            });
         }
     }
 }

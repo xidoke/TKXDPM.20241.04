@@ -16,12 +16,14 @@ namespace AIMS.Controllers
         private readonly IWardRepository _wardRepository;
         private readonly IVnPayService _vnPayservice;
         private readonly IMediaRepository _mediaRepository;
-        public OrderController(IProvinceRepository provinceRepository, IDistrictRepository districtRepository, IWardRepository wardRepository, IVnPayService vnPayservice, IMediaRepository mediaRepository)
+        private readonly IOrderRepository _orderRepository;
+        public OrderController(IProvinceRepository provinceRepository, IOrderRepository orderRepository, IDistrictRepository districtRepository, IWardRepository wardRepository, IVnPayService vnPayservice, IMediaRepository mediaRepository)
         {
             _provinceRepository = provinceRepository;
             _districtRepository = districtRepository;
             _wardRepository = wardRepository;
             _vnPayservice = vnPayservice;
+            _orderRepository = orderRepository;
             _mediaRepository = mediaRepository;
         }
         private List<CartItem> GetCartFromSession()
@@ -63,8 +65,8 @@ namespace AIMS.Controllers
             return Json(wards);
         }
 
-        [Authorize]
-        public IActionResult PaymentCallBack()
+        [HttpGet]
+        public async Task<IActionResult> PaymentCallBack()
         {
             var response = _vnPayservice.PaymentExecute(Request.Query);
 
@@ -74,8 +76,99 @@ namespace AIMS.Controllers
                 return RedirectToAction("PaymentFail");
             }
 
+            var orderInfoJson = HttpContext.Session.GetString(OrderInfoSessionKey);
+            if (string.IsNullOrEmpty(orderInfoJson))
+            {
+                TempData["ErrorMessage"] = "Order information not found.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var orderInfo = JsonSerializer.Deserialize<VnPayRequest>(orderInfoJson);
+            var orderId = orderInfo.OrderId;
+
+            TempData["PaymentResult"] = "Success"; 
+            TempData["OrderId"] = orderId;
+            TempData["TransactionId"] = response.TransactionId;
+            TempData["Amount"] = orderInfo.Amount.ToString();
+            TempData["PaymentTime"] = DateTime.Now; 
+
+
             TempData["Message"] = $"Thanh toán VNPay thành công";
-            return RedirectToAction("PaymentSuccess");
+            if (TempData["PaymentResult"]?.ToString() == "Success")
+            {
+                #region Add OrderData/OrderMedia to Database
+                var orderDataTempJson = HttpContext.Session.GetString(OrderDataTempSessionKey);
+                var ordatDataSession = JsonSerializer.Deserialize<OrderData>(orderDataTempJson);
+                var orderData = new OrderData
+                {
+                    City = "Hà Nội", // Lấy thông tin thành phố từ orderInfo hoặc session
+                    Address = ordatDataSession.Address, // Lấy thông tin địa chỉ từ orderInfo
+                    Phone = ordatDataSession.Phone,
+                    Email = ordatDataSession.Email, // Lấy thông tin email từ session nếu có
+                    ShippingFee = ordatDataSession.ShippingFee,
+                    CreatedAt = ordatDataSession.CreatedAt,
+                    Instructions = ordatDataSession.Instructions,
+                    Type = "VnPay", // Hoặc phương thức thanh toán khác
+                    TotalPrice = ordatDataSession.TotalPrice,
+                    Status = 0, // Trạng thái đơn hàng (0: Chờ xử lý, 1: Đã xác nhận, ...)
+                    Fullname = ordatDataSession.Fullname // Lấy thông tin fullname từ session
+                };
+
+                var orderMediaJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
+                List<OrderMedia> orderMedias = new List<OrderMedia>();
+                if (!string.IsNullOrEmpty(orderMediaJson))
+                {
+                    var listOrderItem = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaJson);
+                    foreach (var orderMedia in listOrderItem)
+                    {
+                        var media = await _mediaRepository.GetByIdAsync(orderMedia.MediaId);
+                        if (media != null)
+                        {
+                            orderMedias.Add(new OrderMedia
+                            {
+                                MediaId =media.Id,
+                                Price = media.Price,
+                                Quantity = orderMedia.Quantity,
+                                Name = media.Title
+                            });
+                        }
+                    }
+                }
+
+                var orderID_after_added = await _orderRepository.CreateOrderAsync(orderData);
+                // Thêm OrderID cho từng OrderMedia
+                foreach (var orderMedia in orderMedias)
+                {
+                    orderMedia.OrderId = orderID_after_added;
+                }
+
+                await _orderRepository.AddOrderMediasAsync(orderMedias);
+
+                #endregion
+
+                ViewBag.OrderId = TempData["OrderId"]?.ToString();
+                ViewBag.TransactionId = TempData["TransactionId"]?.ToString();
+                if (TempData["Amount"] != null)
+                {
+                    ViewBag.Amount = decimal.Parse(TempData["Amount"].ToString());
+                }
+                ViewBag.PaymentTime = TempData["PaymentTime"];
+                TempData.Remove("PaymentResult");
+                TempData.Remove("OrderId");
+                TempData.Remove("TransactionId");
+                TempData.Remove("Amount");
+                TempData.Remove("PaymentTime");
+                HttpContext.Session.Remove(OrderDataTempSessionKey);
+                HttpContext.Session.Remove(OrderInfoSessionKey);
+                HttpContext.Session.Remove(OrderMediaListSessionKey);
+                return View("PaymentResult");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Payment information not found or payment failed.";
+                return RedirectToAction("Index", "Home");
+            }
+            return View(response);
         }
         public async Task<int> CalculateShippingFee(List<OrderMedia> list, string province, bool isRushOrder)
         {
@@ -210,7 +303,7 @@ namespace AIMS.Controllers
                     orderData.ShippingFee = await CalculateShippingFee(orderMediaList, provinceName, false);
                 }
 
-                orderData.TotalPrice = orderMediaList.Sum(item => item.Quantity * item.Price) + orderData.ShippingFee;
+                orderData.TotalPrice = (float)orderMediaList.Sum(item => item.Quantity * item.Price * 1.1) + orderData.ShippingFee;
 
                 // 7. Lưu OrderDataTemp vào Session
                 // Kiểm tra null trước khi serialize
@@ -253,7 +346,7 @@ namespace AIMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePaymentUrl(OrderData orderData)
+        public IActionResult CreatePaymentUrl()
         {
             var orderDataTempJson = HttpContext.Session.GetString(OrderDataTempSessionKey);
             if (string.IsNullOrEmpty(orderDataTempJson))
@@ -269,11 +362,14 @@ namespace AIMS.Controllers
             {
                 Amount = orderDataTemp.TotalPrice,
                 CreatedDate = DateTime.Now,
-                OrderId = int.Parse(DateTime.Now.Ticks.ToString()) // Or use a better unique identifier
+                OrderId = DateTime.Now.Ticks.ToString()
             };
-
+            HttpContext.Session.SetString(OrderInfoSessionKey, JsonSerializer.Serialize(orderInfo));
             var paymentUrl = _vnPayservice.CreatePaymentUrl(HttpContext, orderInfo);
             return Redirect(paymentUrl);
         }
+        private const string OrderInfoSessionKey = "OrderInfo";
+
+
     }
 }

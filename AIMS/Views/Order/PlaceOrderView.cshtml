@@ -9,16 +9,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storefront</title>
-    <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="~/css/placeorder.css">
+    <title>Đặt hàng - AIMS</title>
+    <link rel="stylesheet" href="~/css/style.css"> @* Giữ nguyên link đến style.css (nếu có) *@
+
+    <style>
+        /* CSS cho PlaceOrderView */
+        body {
+        }
+        /* Basic styling for the Place Order page */
+        .container {
+            max-width: 960px; /* Adjust as needed */
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .table-bordered thead th {
+            background-color: grey; /* Light gray background for table header */
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        /* Style the buttons */
+        .btn-danger { /* Example for "Hủy" button */
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        .btn-dark { /* Example for "Lưu thông tin vận chuyển" button */
+            background-color: #343a40;
+            border-color: #343a40;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        .btn-dark:hover {
+            background-color: #23272b;
+            border-color: #1d2124;
+        }
+
+        /* Style the groupbox */
+        .groupbox {
+            background-color: #fff; /* Màu nền trắng */
+            border: 1px solid #ddd; /* Đường viền */
+            padding: 20px;
+            border-radius: 10px; /* Bo góc */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+            margin-bottom: 20px; /* Cách nhau giữa 2 groupbox */
+        }
+
+            .groupbox h3 {
+                margin-top: 0; /* Bỏ margin top mặc định của h3 */
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <div class="container-box">
-                    <h2>Thông tin giao hàng</h2>
+                <div class="groupbox">
+                    <h3>Thông tin giao hàng</h3>
                     <form id="shippingForm">
                         <div class="form-group">
                             <label for="fullName">Họ và tên người nhận</label>
@@ -27,6 +88,10 @@
                         <div class="form-group">
                             <label for="phoneNumber">Số điện thoại</label>
                             <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="tel" class="form-control" id="email" name="email" placeholder="">
                         </div>
                         <div class="form-group">
                             <label for="address">Địa chỉ</label>
@@ -84,8 +149,8 @@
             </div>
 
             <div class="col-md-6">
-                <div class="container-box">
-                    <h2>Đơn hàng</h2>
+                <div class="groupbox">
+                    <h3>Đơn hàng</h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -108,21 +173,23 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3" class="text-right">Grand Total:</td>
-                                <td>@Model.Sum(item => item.Quantity * item.Price).ToString("N0") VNĐ</td>
+                                <td colspan="3" class="text-right">Tổng tiền (Đã VAT):</td>
+                                <td><span id="totalPriceWithVAT"></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Phí vận chuyển:</td>
+                                <td><span id="shippingFee"></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Tổng thanh toán:</td>
+                                <td><span id="totalPrice"></span></td>
                             </tr>
                         </tfoot>
                     </table>
-
-                    <div class="mt-4">
-                        @* <p><b>Giá (Đã VAT):</b> <span id="grandTotal">@grandTotal.ToString("C")</span></p>
-                        <p><b>Phí vận chuyển:</b> <span id="shippingFee">@shippingFee.ToString("C")</span></p> *@
-                        <p id="shippingNote">(1 sản phẩm vận chuyển hỏa tốc)</p>
-                        <p><b>Phí vận chuyển:</b> <span id="shippingFee"></span></p>
-                    </div>
-
                     <div class="mt-4 text-right">
-                        <button type="button" class="btn btn-danger" id="checkoutButton">Thanh toán</button>
+                        <form method="post" action="@Url.Action("CreatePaymentUrl", "Order")">
+                            <button type="submit" class="btn btn-danger" id="checkoutButton">Thanh toán</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -185,24 +252,14 @@
                     var ward = $("#ward").val();
                     var deliveryTime = $("#deliveryTime").val();
                     var shipperNote = $("#shipperNote").val();
-
+                    var email = $("#email").val();
                     var orderData = {
                         Fullname: fullName,
                         Phone: phoneNumber,
                         Address: address,
                         Instructions: shipperNote,
-                        // ... other properties if needed ...
+                        Email: email,
                     };
-                    alert("Dữ liệu gửi đi:\n" +
-                        "Fullname: " + fullName + "\n" +
-                        "Phone: " + phoneNumber + "\n" +
-                        "Address: " + address + "\n" +
-                        "Province ID: " + province + "\n" +
-                        "District ID: " + district + "\n" +
-                        "Ward ID: " + ward + "\n" +
-                        "Shipping Method: " + shippingMethod + "\n" +
-                        "Delivery Time: " + deliveryTime + "\n" +
-                        "Shipper Note: " + shipperNote);
                     $.ajax({
                         url: "@Url.Action("SaveOrderData", "Order")",
                         type: "POST",
@@ -218,14 +275,26 @@
                                 console.log("Order data saved successfully.");
                                 // Cập nhật phí vận chuyển và ghi chú
                                 $("#shippingFee").text(response.shippingFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                                var totalPriceWithVAT = 0;
+                                $("tbody tr").each(function () {
+                                    var quantity = parseFloat($(this).find("td:eq(1)").text());
+                                    var price = parseFloat($(this).find("td:eq(2)").text().replace(/\D/g, ''));
+                                    totalPriceWithVAT += quantity * price;
+                                });
+                                totalPriceWithVAT = totalPriceWithVAT * 1.1;
+
+                                $("#totalPriceWithVAT").text(totalPriceWithVAT.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+
+                                var shippingFee = parseFloat(response.shippingFee);
+                                var totalPrice = totalPriceWithVAT + shippingFee;
+                                $("#totalPrice").text(totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
                                 if (shippingMethod === "express") {
                                     $("#shippingNote").text("(Vận chuyển hỏa tốc)");
                                 } else {
                                     $("#shippingNote").text("(Vận chuyển thường)");
                                 }
                             }
-                            else 
-                            {
+                            else {
                                 alert("Error saving order data [1]. " + response.message);
                             }
                         },

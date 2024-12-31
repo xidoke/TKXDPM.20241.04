@@ -1,0 +1,73 @@
+﻿@model VnPayResponse
+@{
+    ViewBag.Title = "Kết quả thanh toán";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/payment-result.css">
+</head>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h3 class="mb-0">
+                        <i class="fas fa-check-circle"></i> THANH TOÁN THÀNH CÔNG!
+                    </h3>
+                    <small>Đơn hàng của bạn đã được đặt!</small>
+                </div>
+                <div class="card-body">
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert @(TempData["Message"].ToString().Contains("thành công") ? "alert-success" : "alert-danger")" role="alert">
+                            Trạng thái: @TempData["Message"]
+                        </div>
+                    }
+
+                    @if (ViewBag.OrderId != null)
+                    {
+                        <h4 class="text-center mb-3">Hóa đơn thanh toán</h4>
+                        <hr />
+                        <dl class="row">
+                            <dt class="col-sm-4">Số tiền</dt>
+                            <dd class="col-sm-8">@(((decimal)ViewBag.Amount).ToString("N0")) VNĐ</dd>
+
+                            <dt class="col-sm-4">Nội dung</dt>
+                            <dd class="col-sm-8">Thanh toán đơn hàng #@ViewBag.OrderId</dd>
+
+                            <dt class="col-sm-4">Mã đơn hàng</dt>
+                            <dd class="col-sm-8">@ViewBag.OrderId</dd>
+
+                            <dt class="col-sm-4">Mã giao dịch VNPay</dt>
+                            <dd class="col-sm-8">@ViewBag.TransactionId</dd>
+
+                            <dt class="col-sm-4">Thời gian thanh toán</dt>
+                            <dd class="col-sm-8">@(((DateTime)ViewBag.PaymentTime).ToString("dd/MM/yyyy HH:mm:ss"))</dd>
+                        </dl>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            Không tìm thấy thông tin thanh toán.
+                        </div>
+                    }
+                    <div class="text-center mt-4">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về trang chủ</a>
+                    </div>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    <small><i class="fas fa-lock"></i> Secure payments with VnPay</small>
+                    <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR.png" alt="VnPay Logo" width="20" class="ml-2" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Thêm icon *@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
