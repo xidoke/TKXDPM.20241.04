@@ -15,12 +15,14 @@ namespace AIMS.Controllers
         private readonly IDistrictRepository _districtRepository;
         private readonly IWardRepository _wardRepository;
         private readonly IVnPayService _vnPayservice;
-        public OrderController(IProvinceRepository provinceRepository, IDistrictRepository districtRepository, IWardRepository wardRepository, IVnPayService vnPayservice)
+        private readonly IMediaRepository _mediaRepository;
+        public OrderController(IProvinceRepository provinceRepository, IDistrictRepository districtRepository, IWardRepository wardRepository, IVnPayService vnPayservice, IMediaRepository mediaRepository)
         {
             _provinceRepository = provinceRepository;
             _districtRepository = districtRepository;
             _wardRepository = wardRepository;
             _vnPayservice = vnPayservice;
+            _mediaRepository = mediaRepository;
         }
         private List<CartItem> GetCartFromSession()
         {
@@ -75,12 +77,61 @@ namespace AIMS.Controllers
             TempData["Message"] = $"Thanh toán VNPay thành công";
             return RedirectToAction("PaymentSuccess");
         }
+        public async Task<int> CalculateShippingFee(string province, bool isRushOrder)
+        {
+            bool isInnerCity = province.Equals("Thành phố Hà Nội", StringComparison.OrdinalIgnoreCase) ||
+                               province.Equals("Thành phố Hồ Chí Minh", StringComparison.OrdinalIgnoreCase);
 
-        private const string OrderDataTempSessionKey = "OrderDataTemp";
+            int totalItemValue = 0;
+            double totalWeight = 0;
+            double heaviestItemWeight = 0;
+            int rushOrderFee = 0;
+            var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
+            var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
+            foreach (var item in orderMediaList)
+            {
+                var media = await _mediaRepository.GetByIdAsync(item.MediaId);
+                double itemWeight = item.Quantity * media.Weight;
+
+                totalWeight += itemWeight;
+                heaviestItemWeight = Math.Max(heaviestItemWeight, itemWeight);
+
+                if (media.RushSupport)
+                {
+                    rushOrderFee += 10000 * item.Quantity;
+                }
+
+                totalItemValue += media.Value;
+            }
+
+            int baseFee;
+            double weightLimit = isInnerCity ? 3 : 0.5;
+            int initialPrice = isInnerCity ? 22000 : 30000;
+            int additionalFeePerUnit = 2500;
+
+            if (heaviestItemWeight <= weightLimit)
+            {
+                baseFee = initialPrice;
+            }
+            else
+            {
+                double excessWeight = heaviestItemWeight - weightLimit;
+                int additionalUnits = (int)Math.Ceiling(excessWeight / 0.5);
+                baseFee = initialPrice + (additionalUnits * additionalFeePerUnit);
+            }
+
+            int freeShippingDiscount = 0;
+            if (totalItemValue > 100000)
+            {
+                freeShippingDiscount = Math.Min(baseFee, 25000);
+            }
+
+            return isRushOrder ? Math.Max(0, baseFee - freeShippingDiscount) + rushOrderFee : Math.Max(0, baseFee - freeShippingDiscount);
+        }
+     private const string OrderDataTempSessionKey = "OrderDataTemp";
         [HttpPost]
         public async Task<IActionResult> SaveOrderData(OrderData orderData, string province, string district, string ward, string shippingMethod)
         {
-            // 1. Validate thông tin vận chuyển
             if (string.IsNullOrEmpty(orderData.Fullname))
             {
                 return Json(new { success = false, message = "Vui lòng nhập họ tên người nhận." });
@@ -112,59 +163,18 @@ namespace AIMS.Controllers
 
             try
             {
-                // 2. Lấy thông tin tỉnh, huyện, xã từ ID
-                // Kiểm tra null trước khi truy vấn
-                if (string.IsNullOrEmpty(province))
-                {
-                    return Json(new { success = false, message = "Province ID is null or empty." });
-                }
-                if (string.IsNullOrEmpty(district))
-                {
-                    return Json(new { success = false, message = "District ID is null or empty." });
-                }
-                if (string.IsNullOrEmpty(ward))
-                {
-                    return Json(new { success = false, message = "Ward ID is null or empty." });
-                }
-
                 var provinceName = (await _provinceRepository.GetById(province))?.Name;
                 var districtName = (await _districtRepository.GetById(district))?.Name;
                 var wardName = (await _wardRepository.GetById(ward))?.Name;
-
-                // Kiểm tra null sau khi truy vấn
-                if (provinceName == null)
-                {
-                    return Json(new { success = false, message = $"Province not found for ID: {province}." });
-                }
-                if (districtName == null)
-                {
-                    return Json(new { success = false, message = $"District not found for ID: {district}." });
-                }
-                if (wardName == null)
-                {
-                    return Json(new { success = false, message = $"Ward not found for ID: {ward}." });
-                }
-
-                // 3. Hoàn thiện địa chỉ
-                // Kiểm tra null trước khi thực hiện phép cộng chuỗi
-                if (orderData.Address == null)
-                {
-                    orderData.Address = string.Empty;
-                }
                 orderData.Address = $"{orderData.Address}, {wardName}, {districtName}, {provinceName}";
-
-                // 4. Thêm thông tin về shipping method
                 orderData.Type = shippingMethod;
-
-                // 5. Tính toán shipping fee dựa trên shipping method 
-                // TODO: Bạn cần logic tính toán phí vận chuyển ở đây dựa vào shippingMethod, province, district, ...
-                if (shippingMethod == "express")
+                if (shippingMethod == "rush")
                 {
-                    orderData.ShippingFee = 50000; // Phí vận chuyển hỏa tốc (ví dụ)
+                    orderData.ShippingFee = await CalculateShippingFee(provinceName, true);
                 }
                 else
                 {
-                    orderData.ShippingFee = 20000; // Phí vận chuyển thường (ví dụ)
+                    orderData.ShippingFee = await CalculateShippingFee(provinceName, false);
                 }
 
                 // 6. Tính toán TotalPrice (đã bao gồm phí vận chuyển)

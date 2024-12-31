@@ -11,7 +11,7 @@
         private string _imgUrl;
         private bool _rushSupport;
         private float _weight;
-
+        private int _value;
         public int Id
         {
             get { return _id; }
@@ -64,6 +64,11 @@
         {
             get { return _weight; }
             set { _weight = value; }
+        }
+        public int Value
+        {
+            get { return _value; }
+            set { _value = value; }
         }
     }
 }

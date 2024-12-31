@@ -5,7 +5,5 @@ namespace AIMS.Data.Repositories.Interfaces
     public interface IOrderRepository
     {
         OrderData CreateOrder(OrderData order);
-        OrderData GetOrderById(int orderId);
-        List<OrderData> GetOrdersByUserId(int userId);
     }
 }

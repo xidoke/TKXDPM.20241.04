@@ -8,8 +8,6 @@
         private int _orderId;
         private int _mediaId;
         private string _mediaName;
-        private OrderData _order;
-        private Media _media;
         public int Id
         {
             get { return _id; }
@@ -42,19 +40,6 @@
         {
             get { return _mediaId; }
             set { _mediaId = value; }
-        }
-
-        // Navigation properties
-        public OrderData Order
-        {
-            get { return _order; }
-            set { _order = value; }
-        }
-
-        public Media Media
-        {
-            get { return _media; }
-            set { _media = value; }
         }
     }
 }

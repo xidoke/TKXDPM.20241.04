@@ -41,6 +41,7 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.ImgUrl).HasColumnName("imgurl");
                 entity.Property(e => e.RushSupport).HasColumnName("rush_support");
                 entity.Property(e => e.Weight).HasColumnName("weight");
+                entity.Property(e => e.Value).HasColumnName("value");
             });
 
             // Configure derived entity: Book
@@ -80,11 +81,6 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.ReleaseDate).HasColumnName("release_date");
             });
 
-            // Configure other relationships
-            modelBuilder.Entity<OrderData>()
-                .HasMany(o => o.OrderMedias)
-                .WithOne(om => om.Order)
-                .HasForeignKey(om => om.OrderId);
             modelBuilder.Entity<Province>(entity =>
             {
                 entity.ToTable("province");

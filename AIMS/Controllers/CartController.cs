@@ -46,15 +46,16 @@ namespace AIMS.Controllers
 
         // Thêm sản phẩm vào giỏ hàng (cần chỉnh sửa lại logic)
         [HttpPost]
-        public IActionResult AddToCart(int mediaID, string mediaTitle, int mediaQuantity, int mediaPrice, string mediaImgUrl)
+        public async Task<IActionResult> AddToCart(int mediaID,int mediaQuantity)
         {
+            var media = await mediaRepository.GetByIdAsync(mediaID);
             var product = new CartItem
             {
                 ProductId = mediaID,
-                ProductName = mediaTitle,
+                ProductName = media.Title,
                 Quantity = mediaQuantity,
-                ImageUrl = mediaImgUrl,
-                Price = mediaQuantity
+                ImageUrl = media.ImgUrl,
+                Price = media.Price,
             };
 
             var cart = GetCartFromSession();
