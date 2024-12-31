@@ -77,7 +77,7 @@ namespace AIMS.Controllers
             TempData["Message"] = $"Thanh toán VNPay thành công";
             return RedirectToAction("PaymentSuccess");
         }
-        public async Task<int> CalculateShippingFee(string province, bool isRushOrder)
+        public async Task<int> CalculateShippingFee(List<OrderMedia> list, string province, bool isRushOrder)
         {
             bool isInnerCity = province.Equals("Thành phố Hà Nội", StringComparison.OrdinalIgnoreCase) ||
                                province.Equals("Thành phố Hồ Chí Minh", StringComparison.OrdinalIgnoreCase);
@@ -86,9 +86,7 @@ namespace AIMS.Controllers
             double totalWeight = 0;
             double heaviestItemWeight = 0;
             int rushOrderFee = 0;
-            var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
-            var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
-            foreach (var item in orderMediaList)
+            foreach (var item in list)
             {
                 var media = await _mediaRepository.GetByIdAsync(item.MediaId);
                 double itemWeight = item.Quantity * media.Weight;
@@ -168,14 +166,7 @@ namespace AIMS.Controllers
                 var wardName = (await _wardRepository.GetById(ward))?.Name;
                 orderData.Address = $"{orderData.Address}, {wardName}, {districtName}, {provinceName}";
                 orderData.Type = shippingMethod;
-                if (shippingMethod == "rush")
-                {
-                    orderData.ShippingFee = await CalculateShippingFee(provinceName, true);
-                }
-                else
-                {
-                    orderData.ShippingFee = await CalculateShippingFee(provinceName, false);
-                }
+               
 
                 // 6. Tính toán TotalPrice (đã bao gồm phí vận chuyển)
                 var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
@@ -210,6 +201,14 @@ namespace AIMS.Controllers
                     {
                         return Json(new { success = false, message = "An item in OrderMediaList has a non-positive Price." });
                     }
+                }
+                if (shippingMethod == "rush")
+                {
+                    orderData.ShippingFee = await CalculateShippingFee(orderMediaList, provinceName, true);
+                }
+                else
+                {
+                    orderData.ShippingFee = await CalculateShippingFee(orderMediaList, provinceName, false);
                 }
 
                 orderData.TotalPrice = orderMediaList.Sum(item => item.Quantity * item.Price) + orderData.ShippingFee;
