@@ -20,5 +20,9 @@ namespace AIMS.Data.Repositories
                 .Where(w => w.DistrictId == districtId)
                 .ToListAsync();
         }
+        public async Task<Ward> GetById(string id)
+        {
+            return await _context.Wards.FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

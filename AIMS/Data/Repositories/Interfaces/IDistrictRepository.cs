@@ -5,5 +5,6 @@ namespace AIMS.Data.Repositories.Interfaces
     public interface IDistrictRepository
     {
         Task<List<District>> GetDistrictsByProvinceIdAsync(string provinceId);
+        Task<District> GetById(string id);
     }
 }

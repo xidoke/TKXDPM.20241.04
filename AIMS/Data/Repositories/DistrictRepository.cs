@@ -20,5 +20,9 @@ namespace AIMS.Data.Repositories
                 .Where(d => d.ProvinceId == provinceId)
                 .ToListAsync();
         }
+        public async Task<District> GetById(string id)
+        {
+            return await _context.Districts.FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

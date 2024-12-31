@@ -18,5 +18,9 @@ namespace AIMS.Data.Repositories
         {
             return await _context.Provinces.ToListAsync();
         }
+        public async Task<Province> GetById(string id) 
+        {
+            return await _context.Provinces.FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

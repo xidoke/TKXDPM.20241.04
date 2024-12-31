@@ -76,7 +76,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <button type="button" class="btn btn-danger" id="cancelButton">Hủy</button>
+                            <button type="button" class="btn btn-danger" id="cancelButton" onclick="window.location.href='@Url.Action("CartView", "Cart")'">Hủy</button>
                             <button type="button" class="btn btn-dark" id="saveShippingInfo">Lưu thông tin vận chuyển</button>
                         </div>
                     </form>
@@ -118,6 +118,7 @@
                         @* <p><b>Giá (Đã VAT):</b> <span id="grandTotal">@grandTotal.ToString("C")</span></p>
                         <p><b>Phí vận chuyển:</b> <span id="shippingFee">@shippingFee.ToString("C")</span></p> *@
                         <p id="shippingNote">(1 sản phẩm vận chuyển hỏa tốc)</p>
+                        <p><b>Phí vận chuyển:</b> <span id="shippingFee"></span></p>
                     </div>
 
                     <div class="mt-4 text-right">
@@ -176,22 +177,60 @@
                 });
                 $("#saveShippingInfo").click(function () {
                     var shippingMethod = $("input[name='shippingMethod']:checked").val();
+                    var fullName = $("#fullName").val();
+                    var phoneNumber = $("#phoneNumber").val();
+                    var address = $("#address").val();
+                    var province = $("#province").val();
+                    var district = $("#district").val();
+                    var ward = $("#ward").val();
+                    var deliveryTime = $("#deliveryTime").val();
+                    var shipperNote = $("#shipperNote").val();
 
+                    var orderData = {
+                        Fullname: fullName,
+                        Phone: phoneNumber,
+                        Address: address,
+                        Instructions: shipperNote,
+                        // ... other properties if needed ...
+                    };
+                    alert("Dữ liệu gửi đi:\n" +
+                        "Fullname: " + fullName + "\n" +
+                        "Phone: " + phoneNumber + "\n" +
+                        "Address: " + address + "\n" +
+                        "Province ID: " + province + "\n" +
+                        "District ID: " + district + "\n" +
+                        "Ward ID: " + ward + "\n" +
+                        "Shipping Method: " + shippingMethod + "\n" +
+                        "Delivery Time: " + deliveryTime + "\n" +
+                        "Shipper Note: " + shipperNote);
                     $.ajax({
-                        url: "@Url.Action("UpdateShippingFee", "Order")",
+                        url: "@Url.Action("SaveOrderData", "Order")",
                         type: "POST",
-                        data: { shippingMethod: shippingMethod },
-                        success: function (newShippingFee) {
-                            $("#shippingFee").text(newShippingFee);
-
-                            if (shippingMethod === "express") {
-                                $("#shippingNote").text("(Vận chuyển hỏa tốc)");
-                            } else {
-                                $("#shippingNote").text("(Vận chuyển thường)");
+                        data: {
+                            orderData: orderData,
+                            province: province,
+                            district: district,
+                            ward: ward,
+                            shippingMethod: shippingMethod
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                console.log("Order data saved successfully.");
+                                // Cập nhật phí vận chuyển và ghi chú
+                                $("#shippingFee").text(response.shippingFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                                if (shippingMethod === "express") {
+                                    $("#shippingNote").text("(Vận chuyển hỏa tốc)");
+                                } else {
+                                    $("#shippingNote").text("(Vận chuyển thường)");
+                                }
+                            }
+                            else 
+                            {
+                                alert("Error saving order data [1]. " + response.message);
                             }
                         },
                         error: function () {
-                            alert("Error updating shipping fee.");
+                            alert("Error saving order data [2].");
                         }
                     });
                 });

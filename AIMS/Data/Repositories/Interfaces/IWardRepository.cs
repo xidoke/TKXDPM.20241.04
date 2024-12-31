@@ -5,5 +5,6 @@ namespace AIMS.Data.Repositories.Interfaces
     public interface IWardRepository
     {
         Task<List<Ward>> GetWardsByDistrictIdAsync(string districtId);
+        Task<Ward> GetById(string id);
     }
 }
