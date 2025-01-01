@@ -56,7 +56,6 @@ namespace AIMS.Service
             sb.AppendLine("<table>");
             sb.AppendLine("<thead><tr><th>Tên sản phẩm</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th></tr></thead>");
             sb.AppendLine("<tbody>");
-
             foreach (var item in model.OrderMedias)
             {
                 sb.AppendLine("<tr>");
@@ -66,7 +65,6 @@ namespace AIMS.Service
                 sb.AppendLine($"<td>{item.Quantity * item.Price} VND</td>");
                 sb.AppendLine("</tr>");
             }
-
             sb.AppendLine("</tbody>");
             sb.AppendLine("</table>");
             sb.AppendLine($"<p><b>Tổng tiền (Chưa bao gồm phí VAT):</b> {model.TotalProductPriceExcludingVAT} VND</p>");
@@ -75,7 +73,6 @@ namespace AIMS.Service
             sb.AppendLine($"<p><b>Số tiền đã thanh toán:</b> {model.Order.TotalPrice} VND</p>");
             sb.AppendLine("</body>");
             sb.AppendLine("</html>");
-
             return sb.ToString();
         }
 
@@ -88,13 +85,11 @@ namespace AIMS.Service
                 var smtpUsername = _configuration["SmtpSettings:Username"];
                 var smtpPassword = _configuration["SmtpSettings:Password"];
                 var enableSsl = bool.Parse(_configuration["SmtpSettings:EnableSsl"]);
-
                 using (var client = new SmtpClient(smtpServer, smtpPort))
                 {
                     client.EnableSsl = enableSsl;
                     client.UseDefaultCredentials = false;
                     client.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
-
                     var message = new MailMessage
                     {
                         From = new MailAddress(smtpUsername),
@@ -104,7 +99,6 @@ namespace AIMS.Service
                         BodyEncoding = Encoding.UTF8
                     };
                     message.To.Add(toEmail);
-
                     await client.SendMailAsync(message);
                 }
             }

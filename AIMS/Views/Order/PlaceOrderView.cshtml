@@ -184,9 +184,8 @@
                         </tfoot>
                     </table>
                     <div class="mt-4 text-right">
-                        <form method="post" action="@Url.Action("CreatePaymentUrl", "Order")">
-                            <button type="submit" class="btn btn-danger" id="checkoutButton">Thanh toán</button>
-                        </form>
+                        <input type="hidden" id="isOrderDataSaved" value="false" /> @* Thêm hidden input *@
+                        <button type="button" class="btn btn-danger" id="checkoutButton">Thanh toán</button> @* Sửa thành button *@
                     </div>
                 </div>
             </div>
@@ -239,6 +238,13 @@
                         $("#ward").empty().append($('<option>').text("-- Chọn phường/xã --").attr('value', ''));
                     }
                 });
+                $("#checkoutButton").click(function () {
+                    if ($("#isOrderDataSaved").val() !== "true") {
+                        alert("Vui lòng lưu thông tin vận chuyển trước khi thanh toán.");
+                        return;
+                    }
+                    window.location.href = "@Url.Action("PaymentInfo", "Payment")";
+                });
                 $("#saveShippingInfo").click(function () {
                     var shippingMethod = $("input[name='shippingMethod']:checked").val();
                     var fullName = $("#fullName").val();
@@ -289,6 +295,7 @@
                                 } else {
                                     $("#shippingNote").text("(Vận chuyển thường)");
                                 }
+                                $("#isOrderDataSaved").val("true");
                             }
                             else {
                                 alert(response.message);

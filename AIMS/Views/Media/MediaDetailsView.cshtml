@@ -80,8 +80,8 @@
                     </div>
                     <br />
 
-                    <button type="button" class="add-to-cart" id="addToCartBtn" data-action="AddToCart">Thêm vào giỏ</button>
-                    <button type="button" class="place-order" id="placeOrderButton" data-action="ProcessOrderDirectly">Đặt hàng</button>
+                    <button type="button" class="add-to-cart" id="addToCartBtn">Thêm vào giỏ</button>
+                    <button type="button" class="place-order" id="placeOrderButton">Đặt hàng</button>
                 </form>
             </div>
 
@@ -92,15 +92,14 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $("#mainForm button").click(function (event) {
+            $("#addToCartBtn").click(function (event) {
                 event.preventDefault();
 
                 var mediaID = $("input[name=mediaID]").val();
                 var quantity = $("input[name=quantity]").val();
-                var formAction = $(this).data("action");
 
                 $.ajax({
-                    url: "@Url.Action("", "Cart")".replace(/%2F$/, "") + "/" + formAction,
+                    url: "@Url.Action("AddToCart", "Cart")",
                     type: "POST",
                     data: {
                         mediaID: mediaID,
@@ -108,18 +107,36 @@
                     },
                     success: function (data) {
                         if (data.success) {
-                            if (formAction === "ProcessOrderDirectly") {
-                                window.location.href = data.redirectUrl;
-                            } else {
-                                alert(data.message);
-                            }
+                            alert(data.message);
                         } else {
-                            // Kiểm tra thông báo lỗi
-                            if (data.message.includes("Không đủ số lượng")) {
-                                alert(data.message); // Hiển thị thông báo lỗi cụ thể
-                            } else {
-                                alert(data.message); // Hiển thị thông báo lỗi chung
-                            }
+                            alert(data.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                        alert("Đã xảy ra lỗi.");
+                    }
+                });
+            });
+
+            $("#placeOrderButton").click(function (event) {
+                event.preventDefault();
+
+                var mediaID = $("input[name=mediaID]").val();
+                var quantity = $("input[name=quantity]").val();
+
+                $.ajax({
+                    url: "@Url.Action("ProcessOrderDirectly", "Order")",
+                    type: "POST",
+                    data: {
+                        mediaID: mediaID,
+                        mediaQuantity: quantity
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = data.redirectUrl;
+                        } else {
+                            alert(data.message);
                         }
                     },
                     error: function (xhr, status, error) {

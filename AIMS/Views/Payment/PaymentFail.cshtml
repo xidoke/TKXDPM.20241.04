@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Thanh toán thất bại";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+
+</head>
+<h2>Thanh toán thất bại</h2>
+
+<p>Đã có lỗi xảy ra trong quá trình thanh toán.</p>
+
+@if (TempData["Message"] != null)
+{
+    <p>Thông báo lỗi: @TempData["Message"]</p>
+}
+
+<a href="@Url.Action("Index", "Home")">Quay về trang chủ</a>

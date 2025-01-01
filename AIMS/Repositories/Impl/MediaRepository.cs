@@ -30,16 +30,8 @@ namespace AIMS.Repositories.Impl
         {
             var query = _context.Medias.AsQueryable();
 
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                query = query.Where(m => m.Title.ToLower().Contains(keyword.ToLower()));
-            }
-
-            if (!string.IsNullOrEmpty(category))
-            {
-                query = query.Where(m => m.Category == category);
-            }
-
+            if (!string.IsNullOrEmpty(keyword)) query = query.Where(m => m.Title.ToLower().Contains(keyword.ToLower()));
+            if (!string.IsNullOrEmpty(category)) query = query.Where(m => m.Category == category);
             return await query.ToListAsync();
         }
         public async Task AddAsync(Media media)

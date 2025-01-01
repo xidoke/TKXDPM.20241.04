@@ -15,9 +15,7 @@ namespace AIMS.Repositories.Impl
 
         public async Task<List<District>> GetDistrictsByProvinceIdAsync(string provinceId)
         {
-            return await _context.Districts
-                .Where(d => d.ProvinceId == provinceId)
-                .ToListAsync();
+            return await _context.Districts.Where(d => d.ProvinceId == provinceId).ToListAsync();
         }
         public async Task<District> GetById(string id)
         {

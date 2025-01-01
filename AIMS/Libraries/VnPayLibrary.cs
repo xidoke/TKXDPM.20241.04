@@ -13,18 +13,12 @@ namespace AIMS.Libraries
 
         public void AddRequestData(string key, string value)
         {
-            if (!string.IsNullOrEmpty(value))
-            {
-                _requestData.Add(key, value);
-            }
+            if (!string.IsNullOrEmpty(value)) _requestData.Add(key, value);
         }
 
         public void AddResponseData(string key, string value)
         {
-            if (!string.IsNullOrEmpty(value))
-            {
-                _responseData.Add(key, value);
-            }
+            if (!string.IsNullOrEmpty(value)) _responseData.Add(key, value);
         }
 
         public string GetResponseData(string key)
@@ -36,24 +30,16 @@ namespace AIMS.Libraries
         public string CreateRequestUrl(string baseUrl, string vnpHashSecret)
         {
             var data = new StringBuilder();
-
             foreach (var (key, value) in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
             {
                 data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
             }
-
             var querystring = data.ToString();
-
             baseUrl += "?" + querystring;
             var signData = querystring;
-            if (signData.Length > 0)
-            {
-                signData = signData.Remove(data.Length - 1, 1);
-            }
-
+            if (signData.Length > 0)  signData = signData.Remove(data.Length - 1, 1);
             var vnpSecureHash = VnPayUtils.HmacSHA512(vnpHashSecret, signData);
             baseUrl += "vnp_SecureHash=" + vnpSecureHash;
-
             return baseUrl;
         }
         #endregion
@@ -69,26 +55,14 @@ namespace AIMS.Libraries
         private string GetResponseData()
         {
             var data = new StringBuilder();
-            if (_responseData.ContainsKey("vnp_SecureHashType"))
-            {
-                _responseData.Remove("vnp_SecureHashType");
-            }
+            if (_responseData.ContainsKey("vnp_SecureHashType")) _responseData.Remove("vnp_SecureHashType");
 
-            if (_responseData.ContainsKey("vnp_SecureHash"))
-            {
-                _responseData.Remove("vnp_SecureHash");
-            }
-
+            if (_responseData.ContainsKey("vnp_SecureHash")) _responseData.Remove("vnp_SecureHash");
             foreach (var (key, value) in _responseData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
             {
                 data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
             }
-
-            if (data.Length > 0)
-            {
-                data.Remove(data.Length - 1, 1);
-            }
-
+            if (data.Length > 0) data.Remove(data.Length - 1, 1);
             return data.ToString();
         }
         #endregion
@@ -110,7 +84,6 @@ namespace AIMS.Libraries
                     hash.Append(theByte.ToString("x2"));
                 }
             }
-
             return hash.ToString();
         }
 
@@ -124,14 +97,8 @@ namespace AIMS.Libraries
 
                 if (remoteIpAddress != null)
                 {
-                    if (remoteIpAddress.AddressFamily == AddressFamily.InterNetworkV6)
-                    {
-                        remoteIpAddress = Dns.GetHostEntry(remoteIpAddress).AddressList
-                            .FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
-                    }
-
+                    if (remoteIpAddress.AddressFamily == AddressFamily.InterNetworkV6) remoteIpAddress = Dns.GetHostEntry(remoteIpAddress).AddressList.FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
                     if (remoteIpAddress != null) ipAddress = remoteIpAddress.ToString();
-
                     return ipAddress;
                 }
             }
@@ -139,7 +106,6 @@ namespace AIMS.Libraries
             {
                 return "Invalid IP:" + ex.Message;
             }
-
             return "127.0.0.1";
         }
     }

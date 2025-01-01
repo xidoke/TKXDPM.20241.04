@@ -1,0 +1,219 @@
+﻿@{
+    ViewBag.Title = "Thông tin thanh toán";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/style.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        .groupbox {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+            .groupbox h3 {
+                margin-top: 0;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .payment-logo {
+            width: 30px; 
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .select-wrapper {
+            width: 100%;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 0;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                color: #333;
+                width: 100%;
+                padding: 0 10px;
+                line-height: 40px;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+            }
+
+        .select2-results__option {
+            padding: 0; 
+        }
+
+        .select2-dropdown {
+            border: 1px solid #ddd !important;
+            border-radius: 5px !important;
+        }
+
+        .select2-container--open .select2-dropdown {
+            z-index: 1051; 
+        }
+
+        .select2-container--default .select2-results__option .payment-option {
+            width: auto;
+            white-space: nowrap; 
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="groupbox">
+                    <h3>Chi tiết đơn hàng</h3>
+                    <table class="table" id="orderTable">
+                        <thead>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right">Tổng tiền sản phẩm (Chưa VAT):</td>
+                                <td><span id="totalProductPriceExcludingVAT"></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Tổng tiền sản phẩm (Đã VAT):</td>
+                                <td><span id="totalProductPriceIncludingVAT"></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Phí vận chuyển:</td>
+                                <td><span id="shippingFee"></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Tổng thanh toán:</td>
+                                <td><span id="totalPrice"></span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="groupbox">
+                    <h3>Chọn phương thức thanh toán</h3>
+                    <div class="form-group select-wrapper">
+                        <select class="form-control" id="paymentMethod">
+                            <option value="momo" data-img-src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png">Thanh toán qua ví MOMO</option>
+                            <option value="domesticCard" data-img-src="https://minisiteb.qltns.mediacdn.vn/minisite/napasen/image/card-napas.png">Thanh toán qua Thẻ nội địa</option>
+                            <option value="vnpay" data-img-src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR.png">Thanh toán qua cổng VNPay</option>
+                        </select>
+                    </div>
+                    <br />
+                    <button type="button" class="btn btn-primary" id="confirmPayment">Xác nhận thanh toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var orderMediaListJson = '@Html.Raw(ViewBag.OrderMediaListJson)';
+                var orderDataTempJson = '@Html.Raw(ViewBag.OrderDataTempJson)';
+
+                if (orderMediaListJson && orderDataTempJson) {
+                    var orderMediaList = JSON.parse(orderMediaListJson);
+                    var orderDataTemp = JSON.parse(orderDataTempJson);
+
+                    var tableBody = $("#orderTable tbody");
+                    orderMediaList.forEach(function (item) {
+                        var row = "<tr>";
+                        row += "<td>" + item.Name + "</td>";
+                        row += "<td>" + item.Quantity + "</td>";
+                        row += "<td>" + item.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + "</td>";
+                        row += "<td>" + (item.Quantity * item.Price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + "</td>";
+                        row += "</tr>";
+                        tableBody.append(row);
+                    });
+
+                    $("#totalProductPriceExcludingVAT").text((orderDataTemp.TotalPrice - orderDataTemp.ShippingFee).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    $("#totalProductPriceIncludingVAT").text(((orderDataTemp.TotalPrice - orderDataTemp.ShippingFee) * 1.1).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    $("#shippingFee").text(orderDataTemp.ShippingFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    $("#totalPrice").text(orderDataTemp.TotalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                } else {
+                    alert("Không tìm thấy thông tin đơn hàng.");
+                    window.location.href = "@Url.Action("PlaceOrderView", "Order")";
+                }
+
+                function formatState(state) {
+                    if (!state.id) {
+                        return state.text;
+                    }
+                    var $state = $(
+                        '<div class="payment-option"><img src="' + $(state.element).data('img-src') + '" class="payment-logo" /><span>' + state.text + '</span></div>'
+                    );
+                    return $state;
+                };
+
+                $("#paymentMethod").select2({
+                    templateResult: formatState,
+                    templateSelection: formatState
+                });
+
+                $("#confirmPayment").click(function () {
+                    var paymentMethod = $("#paymentMethod").val();
+
+                    $.ajax({
+                        url: "@Url.Action("SavePaymentMethod", "Payment")",
+                        type: "POST",
+                        data: { paymentMethod: paymentMethod },
+                        success: function (response) {
+                            if (response.redirectUrl) {
+                                window.location.href = response.redirectUrl;
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function () {
+                            alert("Lỗi khi lưu phương thức thanh toán.");
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+</body>
+</html>

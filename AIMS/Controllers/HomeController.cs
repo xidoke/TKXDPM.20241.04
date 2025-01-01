@@ -22,14 +22,12 @@ namespace AIMS.Controllers
             var cds = await _mediaRepository.GetCDsAsync();
             var dvds = await _mediaRepository.GetDVDsAsync();
             var books = await _mediaRepository.GetBooksAsync();
-
             var viewModel = new HomeViewModel
             {
                 CDs = cds,
                 DVDs = dvds,
                 Books = books
             };
-
             return View(viewModel);
         }
 
@@ -38,12 +36,9 @@ namespace AIMS.Controllers
         public async Task<IActionResult> SearchResultView(string searchTerm = null, string category = null, string sortBy = null)
         {
             List<Media> medias = await _mediaRepository.SearchAsync(searchTerm, category);
-
             medias = SortMedias(medias, sortBy);
-
             ViewBag.Category = category;
             ViewBag.SortBy = sortBy;
-
             return View("~/Views/SearchResultView.cshtml", medias);
         }
         private List<Media> SortMedias(List<Media> medias, string sortBy)
@@ -78,10 +73,7 @@ namespace AIMS.Controllers
             {
                 var cds = await _mediaRepository.GetCDsAsync();
                 var cd = cds.FirstOrDefault(c => c.Id == id);
-                if (cd == null)
-                {
-                    return NotFound(); 
-                }
+                if (cd == null) return NotFound();
                 ViewBag.Category = "CD";
                 return View("~/Views/Media/MediaDetailsView.cshtml", cd);
             }
@@ -89,10 +81,7 @@ namespace AIMS.Controllers
             {
                 var books = await _mediaRepository.GetBooksAsync();
                 var book = books.FirstOrDefault(c => c.Id == id);
-                if (book == null)
-                {
-                    return NotFound();
-                }
+                if (book == null) return NotFound();
                 ViewBag.Category = "Book";
                 return View("~/Views/Media/MediaDetailsView.cshtml", book);
             }
@@ -100,17 +89,11 @@ namespace AIMS.Controllers
             {
                 var dvds = await _mediaRepository.GetDVDsAsync();
                 var dvd = dvds.FirstOrDefault(c => c.Id == id);
-                if (dvd == null)
-                {
-                    return NotFound();
-                }
+                if (dvd == null) return NotFound();
                 ViewBag.Category = "DVD";
                 return View("~/Views/Media/MediaDetailsView.cshtml", dvd);
             }
-            else
-            {
-                return BadRequest();
-            }
+            else return BadRequest();
         }
     }
 }

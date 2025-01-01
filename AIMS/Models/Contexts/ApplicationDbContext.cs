@@ -24,10 +24,6 @@ namespace AIMS.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Configure relationships, constraints, etc. here
-
-            // Configure the base entity: Media
             modelBuilder.Entity<Media>(entity =>
             {
                 entity.ToTable("media");
@@ -43,8 +39,6 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Weight).HasColumnName("weight");
                 entity.Property(e => e.Value).HasColumnName("value");
             });
-
-            // Configure derived entity: Book
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.ToTable("book");
@@ -56,8 +50,6 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.NumberOfPages).HasColumnName("number_of_pages");
                 entity.Property(e => e.Language).HasColumnName("language");
             });
-
-            // Configure derived entity: CD
             modelBuilder.Entity<CD>(entity =>
             {
                 entity.ToTable("cd");
@@ -67,8 +59,6 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Tracklist).HasColumnName("tracklist");
                 entity.Property(e => e.ReleaseDate).HasColumnName("release_date");
             });
-
-            // Configure derived entity: DVD
             modelBuilder.Entity<DVD>(entity =>
             {
                 entity.ToTable("dvd");
@@ -80,7 +70,6 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Subtitle).HasColumnName("subtitle");
                 entity.Property(e => e.ReleaseDate).HasColumnName("release_date");
             });
-
             modelBuilder.Entity<Province>(entity =>
             {
                 entity.ToTable("province");
@@ -88,8 +77,6 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Name).HasColumnName("name");
             });
-
-            // Configure District entity
             modelBuilder.Entity<District>(entity =>
             {
                 entity.ToTable("district");
@@ -97,14 +84,8 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Name).HasColumnName("name");
                 entity.Property(e => e.ProvinceId).HasColumnName("province_id");
-
-                // Configure relationship with Province
-                entity.HasOne(d => d.Province)
-                    .WithMany() // Assuming a Province can have many Districts
-                    .HasForeignKey(d => d.ProvinceId);
+                entity.HasOne(d => d.Province).WithMany().HasForeignKey(d => d.ProvinceId);
             });
-
-            // Configure Ward entity
             modelBuilder.Entity<Ward>(entity =>
             {
                 entity.ToTable("ward");
@@ -112,13 +93,8 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Name).HasColumnName("name");
                 entity.Property(e => e.DistrictId).HasColumnName("district_id");
-
-                // Configure relationship with District
-                entity.HasOne(w => w.District)
-                    .WithMany() // Assuming a District can have many Wards
-                    .HasForeignKey(w => w.DistrictId);
+                entity.HasOne(w => w.District).WithMany().HasForeignKey(w => w.DistrictId);
             });
-
             modelBuilder.Entity<OrderData>(entity =>
             {
                 entity.ToTable("orderdata");
@@ -136,8 +112,6 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.Fullname).HasColumnName("fullname");
             });
-
-            // Configure OrderMedia entity
             modelBuilder.Entity<OrderMedia>(entity =>
             {
                 entity.ToTable("ordermedia");

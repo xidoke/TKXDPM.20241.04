@@ -9,81 +9,15 @@ namespace AIMS.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IMediaRepository mediaRepository;
+        private readonly IMediaRepository _mediaRepository;
+
         public CartController(IMediaRepository mediaRepository)
         {
-            this.mediaRepository = mediaRepository;
+            _mediaRepository = mediaRepository;
         }
-        private const string OrderMediaListSessionKey = "OrderMediaList";
-        [HttpPost]
-        public async Task<IActionResult> ProcessOrderFromCart(List<CartItem> SelectedItems)
-        {
-            List<CartItem> selectedProducts = SelectedItems.Where(item => item.isSelected).ToList();
 
-            foreach (var item in selectedProducts)
-            {
-                var media = await mediaRepository.GetByIdAsync(item.ProductId);
-                if (media == null)
-                {
-                    return Json(new { success = false, message = $"Không tìm thấy sản phẩm có ID {item.ProductId}." });
-                }
-
-                if (media.Quantity < item.Quantity)
-                {
-                    return Json(new { success = false, message = $"Không đủ số lượng cho sản phẩm {media.Title}. Số lượng tồn kho: {media.Quantity}" });
-                }
-            }
-
-            // Tạo danh sách OrderMedia
-            List<OrderMedia> Temp = selectedProducts.Select(item => new OrderMedia
-            {
-                MediaId = item.ProductId,
-                Name = item.ProductName,
-                Quantity = item.Quantity,
-                Price = (int)item.Price,
-            }).ToList();
-
-            HttpContext.Session.SetString(OrderMediaListSessionKey, JsonSerializer.Serialize(Temp));
-            return RedirectToAction("PlaceOrderView", "Order");
-        }
-        [HttpPost]
-        public async Task<IActionResult> ProcessOrderDirectly(int mediaID, int mediaQuantity)
-        {
-            try
-            {
-                var media = await mediaRepository.GetByIdAsync(mediaID);
-                if (media == null)
-                {
-                    return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
-                }
-
-                // Kiểm tra số lượng tồn kho
-                if (media.Quantity < mediaQuantity)
-                {
-                    return Json(new { success = false, message = $"Không đủ số lượng cho sản phẩm {media.Title}. Số lượng tồn kho: {media.Quantity}" });
-                }
-
-                var orderMediaList = new List<OrderMedia>
-        {
-            new OrderMedia
-            {
-                MediaId = mediaID,
-                Name = media.Title,
-                Quantity = mediaQuantity,
-                Price = media.Price
-            }
-        };
-
-                HttpContext.Session.SetString(OrderMediaListSessionKey, JsonSerializer.Serialize(orderMediaList));
-
-                return Json(new { success = true, redirectUrl = Url.Action("PlaceOrderView", "Order") });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Lỗi khi đặt hàng: " + ex.Message });
-            }
-        }
         private const string CartSessionKey = "Cart";
+
         public IActionResult CartView()
         {
             var cart = GetCartFromSession();
@@ -96,12 +30,8 @@ namespace AIMS.Controllers
         {
             try
             {
-                var media = await mediaRepository.GetByIdAsync(mediaID);
-                if (media == null)
-                {
-                    return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
-                }
-
+                var media = await _mediaRepository.GetByIdAsync(mediaID);
+                if (media == null) return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
                 var product = new CartItem
                 {
                     ProductId = mediaID,
@@ -110,21 +40,10 @@ namespace AIMS.Controllers
                     ImageUrl = media.ImgUrl,
                     Price = media.Price,
                 };
-
                 var cart = GetCartFromSession();
-
                 var existingItem = cart.FirstOrDefault(i => i.ProductId == mediaID);
-                if (existingItem != null)
-                {
-                    existingItem.Quantity += mediaQuantity;
-                }
-                else
-                {
-                    cart.Add(product);
-                }
-
+                if (existingItem != null) existingItem.Quantity += mediaQuantity; else cart.Add(product);
                 SaveCartToSession(cart);
-
                 return Json(new { success = true, message = "Thêm giỏ hàng thành công" });
             }
             catch (Exception ex)
@@ -137,12 +56,9 @@ namespace AIMS.Controllers
         {
             var cart = GetCartFromSession();
             var itemToRemove = cart.FirstOrDefault(i => i.ProductId == productId);
-            if (itemToRemove != null)
-            {
-                cart.Remove(itemToRemove);
-            }
+            if (itemToRemove != null) cart.Remove(itemToRemove);
             SaveCartToSession(cart);
-            return RedirectToAction("CartView", "Cart");
+            return RedirectToAction("CartView");
         }
 
         [HttpPost]
@@ -150,10 +66,7 @@ namespace AIMS.Controllers
         {
             var cart = GetCartFromSession();
             var itemToUpdate = cart.FirstOrDefault(i => i.ProductId == productId);
-            if (itemToUpdate != null)
-            {
-                itemToUpdate.Quantity = quantity;
-            }
+            if (itemToUpdate != null) itemToUpdate.Quantity = quantity;
             SaveCartToSession(cart);
             decimal grandTotal = cart.Sum(item => item.Price * item.Quantity);
             return Json(new { grandTotal = grandTotal.ToString("N0", new CultureInfo("vi-VN")) });
@@ -162,10 +75,7 @@ namespace AIMS.Controllers
         private List<CartItem> GetCartFromSession()
         {
             var cartJson = HttpContext.Session.GetString(CartSessionKey);
-            if (string.IsNullOrEmpty(cartJson))
-            {
-                return new List<CartItem>();
-            }
+            if (string.IsNullOrEmpty(cartJson)) return new List<CartItem>();
             return JsonSerializer.Deserialize<List<CartItem>>(cartJson);
         }
 
@@ -174,32 +84,13 @@ namespace AIMS.Controllers
             var cartJson = JsonSerializer.Serialize(cart);
             HttpContext.Session.SetString(CartSessionKey, cartJson);
         }
-        [HttpPost]
-        public IActionResult UpdateCart(List<CartItem> SelectedItems)
-        {
-            var cart = GetCartFromSession();
-            decimal grandTotal = cart.Sum(item => item.Price * item.Quantity);
-            return Json(new { grandTotal = grandTotal.ToString("C") });
-        }
 
         [HttpPost]
         public async Task<IActionResult> CheckStock(int productId, int quantity)
         {
-            var product = await mediaRepository.GetByIdAsync(productId);
-
-            if (product == null)
-            {
-                return Json(new { status = "Không tìm thấy sản phẩm" });
-            }
-
-            if (product.Quantity >= quantity)
-            {
-                return Json(new { status = "Đủ số lượng" });
-            }
-            else
-            {
-                return Json(new { status = $"Không đủ số lượng. Hiện có: {product.Quantity}" });
-            }
+            var product = await _mediaRepository.GetByIdAsync(productId);
+            if (product == null) return Json(new { status = "Không tìm thấy sản phẩm" });
+            return (product.Quantity >= quantity ? Json(new { status = "Đủ số lượng" }) : Json(new { status = $"Không đủ số lượng. Hiện có: {product.Quantity}" }));
         }
     }
 }
