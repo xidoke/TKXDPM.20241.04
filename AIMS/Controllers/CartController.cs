@@ -42,7 +42,6 @@ namespace AIMS.Controllers
                     return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
                 }
 
-                // Tạo danh sách OrderMedia tạm thời
                 var orderMediaList = new List<OrderMedia>
                 {
                     new OrderMedia
@@ -54,32 +53,23 @@ namespace AIMS.Controllers
                     }
                 };
 
-                // Lưu danh sách OrderMedia vào Session
                 HttpContext.Session.SetString(OrderMediaListSessionKey, JsonSerializer.Serialize(orderMediaList));
 
-                // Chuyển hướng đến PlaceOrderView
                 return Json(new { success = true, redirectUrl = Url.Action("PlaceOrderView", "Order") });
             }
             catch (Exception ex)
             {
-                // Log lỗi ở đây nếu cần
                 return Json(new { success = false, message = "Lỗi khi đặt hàng: " + ex.Message });
             }
         }
         private const string CartSessionKey = "Cart";
-        private List<CartItem> cartItems = new List<CartItem>
-        {
-           
-        };
-        // Hiển thị giỏ hàng
         public IActionResult CartView()
         {
             var cart = GetCartFromSession();
-            ViewBag.GrandTotal = cart.Sum(item => item.Price * item.Quantity); // Tính tổng tiền và truyền qua ViewBag
-            return View(cart); // Truyền danh sách CartItem trực tiếp sang View
+            ViewBag.GrandTotal = cart.Sum(item => item.Price * item.Quantity); 
+            return View(cart); 
         }
 
-        // Thêm sản phẩm vào giỏ hàng (cần chỉnh sửa lại logic)
         [HttpPost]
         public async Task<IActionResult> AddToCart(int mediaID, int mediaQuantity)
         {
@@ -118,12 +108,10 @@ namespace AIMS.Controllers
             }
             catch (Exception ex)
             {
-                // Log lỗi ở đây nếu cần
                 return Json(new { success = false, message = "Lỗi khi thêm vào giỏ hàng: " + ex.Message });
             }
         }
 
-        // Xóa sản phẩm khỏi giỏ hàng
         public IActionResult RemoveFromCart(int productId)
         {
             var cart = GetCartFromSession();
@@ -150,18 +138,16 @@ namespace AIMS.Controllers
             return Json(new { grandTotal = grandTotal.ToString("N0", new CultureInfo("vi-VN")) });
         }
 
-        // Lấy giỏ hàng từ Session
         private List<CartItem> GetCartFromSession()
         {
             var cartJson = HttpContext.Session.GetString(CartSessionKey);
             if (string.IsNullOrEmpty(cartJson))
             {
-                return new List<CartItem>(); // Trả về danh sách rỗng thay vì CartViewModel mới
+                return new List<CartItem>();
             }
             return JsonSerializer.Deserialize<List<CartItem>>(cartJson);
         }
 
-        // Lưu giỏ hàng vào Session
         private void SaveCartToSession(List<CartItem> cart)
         {
             var cartJson = JsonSerializer.Serialize(cart);
@@ -170,13 +156,8 @@ namespace AIMS.Controllers
         [HttpPost]
         public IActionResult UpdateCart(List<CartItem> SelectedItems)
         {
-            // ... your existing code to update quantities in the session ...
-
-            // Recalculate grand total
             var cart = GetCartFromSession();
             decimal grandTotal = cart.Sum(item => item.Price * item.Quantity);
-
-            // Return the updated grand total as part of the response
             return Json(new { grandTotal = grandTotal.ToString("C") });
         }
 

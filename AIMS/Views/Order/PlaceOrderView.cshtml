@@ -10,15 +10,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt hàng - AIMS</title>
-    <link rel="stylesheet" href="~/css/style.css"> @* Giữ nguyên link đến style.css (nếu có) *@
+    <link rel="stylesheet" href="~/css/style.css"> 
 
     <style>
-        /* CSS cho PlaceOrderView */
         body {
         }
-        /* Basic styling for the Place Order page */
         .container {
-            max-width: 960px; /* Adjust as needed */
+            max-width: 960px;
         }
 
         .form-group label {
@@ -26,7 +24,7 @@
         }
 
         .table-bordered thead th {
-            background-color: grey; /* Light gray background for table header */
+            background-color: grey;
             border-bottom: 2px solid #dee2e6;
         }
 
@@ -34,14 +32,13 @@
             border: 1px solid #dee2e6;
         }
 
-        /* Style the buttons */
-        .btn-danger { /* Example for "Hủy" button */
+        .btn-danger {
             background-color: #dc3545;
             border-color: #dc3545;
             color: white;
         }
 
-        .btn-dark { /* Example for "Lưu thông tin vận chuyển" button */
+        .btn-dark {
             background-color: #343a40;
             border-color: #343a40;
             color: white;
@@ -57,18 +54,18 @@
             border-color: #1d2124;
         }
 
-        /* Style the groupbox */
+       
         .groupbox {
-            background-color: #fff; /* Màu nền trắng */
-            border: 1px solid #ddd; /* Đường viền */
+            background-color: #fff;
+            border: 1px solid #ddd;
             padding: 20px;
-            border-radius: 10px; /* Bo góc */
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng */
-            margin-bottom: 20px; /* Cách nhau giữa 2 groupbox */
+            border-radius: 10px; 
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+            margin-bottom: 20px;
         }
 
             .groupbox h3 {
-                margin-top: 0; /* Bỏ margin top mặc định của h3 */
+                margin-top: 0; 
                 margin-bottom: 10px;
                 font-weight: bold;
             }
@@ -273,7 +270,6 @@
                         success: function (response) {
                             if (response.success) {
                                 console.log("Order data saved successfully.");
-                                // Cập nhật phí vận chuyển và ghi chú
                                 $("#shippingFee").text(response.shippingFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
                                 var totalPriceWithVAT = 0;
                                 $("tbody tr").each(function () {

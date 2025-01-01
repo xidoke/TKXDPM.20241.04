@@ -19,12 +19,10 @@ namespace AIMS.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Get CDs, DVDs, and Books using the repository methods
             var cds = await _mediaRepository.GetCDsAsync();
             var dvds = await _mediaRepository.GetDVDsAsync();
             var books = await _mediaRepository.GetBooksAsync();
 
-            // Create the ViewModel and populate it with the data
             var viewModel = new HomeViewModel
             {
                 CDs = cds,
@@ -39,10 +37,8 @@ namespace AIMS.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchResultView(string searchTerm = null, string category = null, string sortBy = null)
         {
-            // Lấy danh sách media dựa theo từ khóa tìm kiếm và danh mục
             List<Media> medias = await _mediaRepository.SearchAsync(searchTerm, category);
 
-            // Sắp xếp danh sách media
             medias = SortMedias(medias, sortBy);
 
             ViewBag.Category = category;
@@ -84,7 +80,7 @@ namespace AIMS.Controllers
                 var cd = cds.FirstOrDefault(c => c.Id == id);
                 if (cd == null)
                 {
-                    return NotFound(); // Hoặc chuyển hướng đến trang lỗi
+                    return NotFound(); 
                 }
                 ViewBag.Category = "CD";
                 return View("~/Views/Media/MediaDetailsView.cshtml", cd);
@@ -92,10 +88,10 @@ namespace AIMS.Controllers
             else if (category == "Book")
             {
                 var books = await _mediaRepository.GetBooksAsync();
-                var book = books.FirstOrDefault(c => c.Id == id); // Thay Books bằng DbSet tương ứng của bạn
+                var book = books.FirstOrDefault(c => c.Id == id);
                 if (book == null)
                 {
-                    return NotFound(); // Hoặc chuyển hướng đến trang lỗi
+                    return NotFound();
                 }
                 ViewBag.Category = "Book";
                 return View("~/Views/Media/MediaDetailsView.cshtml", book);
@@ -103,17 +99,17 @@ namespace AIMS.Controllers
             else if (category == "DVD")
             {
                 var dvds = await _mediaRepository.GetDVDsAsync();
-                var dvd = dvds.FirstOrDefault(c => c.Id == id);// Thay DVDs bằng DbSet tương ứng của bạn
+                var dvd = dvds.FirstOrDefault(c => c.Id == id);
                 if (dvd == null)
                 {
-                    return NotFound(); // Hoặc chuyển hướng đến trang lỗi
+                    return NotFound();
                 }
                 ViewBag.Category = "DVD";
                 return View("~/Views/Media/MediaDetailsView.cshtml", dvd);
             }
             else
             {
-                return BadRequest(); // Hoặc chuyển hướng đến trang lỗi
+                return BadRequest();
             }
         }
     }

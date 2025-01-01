@@ -48,7 +48,6 @@ namespace AIMS.Controllers
             var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
             var provinces = _provinceRepository.GetAllAsync().Result;
             ViewBag.Provinces = new SelectList(provinces, "Id", "Name");
-            //HttpContext.Session.Remove(OrderMediaListSessionKey);
             return View(orderMediaList);
         }
         [HttpGet]
@@ -101,17 +100,17 @@ namespace AIMS.Controllers
                 var ordatDataSession = JsonSerializer.Deserialize<OrderData>(orderDataTempJson);
                 var orderData = new OrderData
                 {
-                    City = "Hà Nội", // Lấy thông tin thành phố từ orderInfo hoặc session
-                    Address = ordatDataSession.Address, // Lấy thông tin địa chỉ từ orderInfo
+                    City = "Hà Nội", 
+                    Address = ordatDataSession.Address, 
                     Phone = ordatDataSession.Phone,
-                    Email = ordatDataSession.Email, // Lấy thông tin email từ session nếu có
+                    Email = ordatDataSession.Email, 
                     ShippingFee = ordatDataSession.ShippingFee,
                     CreatedAt = ordatDataSession.CreatedAt,
                     Instructions = ordatDataSession.Instructions,
-                    Type = "VnPay", // Hoặc phương thức thanh toán khác
+                    Type = "VnPay", 
                     TotalPrice = ordatDataSession.TotalPrice,
-                    Status = 0, // Trạng thái đơn hàng (0: Chờ xử lý, 1: Đã xác nhận, ...)
-                    Fullname = ordatDataSession.Fullname // Lấy thông tin fullname từ session
+                    Status = 0,
+                    Fullname = ordatDataSession.Fullname 
                 };
 
                 var orderMediaJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
@@ -136,7 +135,6 @@ namespace AIMS.Controllers
                 }
 
                 var orderID_after_added = await _orderRepository.CreateOrderAsync(orderData);
-                // Thêm OrderID cho từng OrderMedia
                 foreach (var orderMedia in orderMedias)
                 {
                     orderMedia.OrderId = orderID_after_added;
@@ -260,16 +258,13 @@ namespace AIMS.Controllers
                 orderData.Type = shippingMethod;
                
 
-                // 6. Tính toán TotalPrice (đã bao gồm phí vận chuyển)
                 var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
-                // Kiểm tra null trước khi deserialize
                 if (string.IsNullOrEmpty(orderMediaListJson))
                 {
                     return Json(new { success = false, message = "OrderMediaList not found in session." });
                 }
 
                 var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
-                // Kiểm tra null sau khi deserialize và các item trong list
                 if (orderMediaList == null)
                 {
                     return Json(new { success = false, message = "Failed to deserialize OrderMediaList." });
@@ -280,7 +275,6 @@ namespace AIMS.Controllers
                     {
                         return Json(new { success = false, message = "An item in OrderMediaList is null." });
                     }
-                    // Kiểm tra các property bắt buộc (non-nullable)
                     if (item.Name == null)
                     {
                         return Json(new { success = false, message = "An item in OrderMediaList has a null Name property." });
@@ -305,14 +299,11 @@ namespace AIMS.Controllers
 
                 orderData.TotalPrice = (float)orderMediaList.Sum(item => item.Quantity * item.Price * 1.1) + orderData.ShippingFee;
 
-                // 7. Lưu OrderDataTemp vào Session
-                // Kiểm tra null trước khi serialize
                 if (orderData == null)
                 {
                     return Json(new { success = false, message = "OrderData is null." });
                 }
 
-                // Kiểm tra null cho các thuộc tính quan trọng của orderData trước khi serialize
                 if (orderData.Fullname == null)
                 {
                     return Json(new { success = false, message = "OrderData.Fullname is null." });
@@ -328,19 +319,14 @@ namespace AIMS.Controllers
                     return Json(new { success = false, message = "OrderData.Address is null." });
                 }
 
-                // Thêm kiểm tra các property khác của orderData nếu cần thiết
-
                 HttpContext.Session.SetString(OrderDataTempSessionKey, JsonSerializer.Serialize(orderData));
 
-                // 8. Trả về kết quả thành công, bao gồm shippingFee đã tính toán
                 return Json(new { success = true, message = "Order data saved successfully.", shippingFee = orderData.ShippingFee });
             }
             catch (Exception ex)
             {
-                // Log lỗi ra console hoặc file log để debug
                 Console.WriteLine(ex.ToString());
 
-                // Trả về thông tin lỗi cho client
                 return Json(new { success = false, message = $"Error saving order data: {ex.Message}" });
             }
         }
@@ -351,7 +337,6 @@ namespace AIMS.Controllers
             var orderDataTempJson = HttpContext.Session.GetString(OrderDataTempSessionKey);
             if (string.IsNullOrEmpty(orderDataTempJson))
             {
-                // Xử lý trường hợp không tìm thấy OrderDataTemp
                 TempData["ErrorMessage"] = "Order information not found.";
                 return RedirectToAction("PlaceOrderView");
             }

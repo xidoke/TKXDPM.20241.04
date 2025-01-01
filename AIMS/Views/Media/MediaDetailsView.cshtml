@@ -72,7 +72,7 @@
             </div>
 
             <div class="product-actions">
-                <form id="addToCartForm" asp-controller="Cart" asp-action="AddToCart" method="post">
+                <form id="mainForm" method="post">
                     <input type="hidden" name="mediaID" value="@product.Id" />
                     <div class="quantity">
                         <span>Số lượng</span>
@@ -80,15 +80,8 @@
                     </div>
                     <br />
 
-                    <button type="submit" class="add-to-cart" id="addToCartBtn">Thêm vào giỏ</button> @* Thêm nút "Thêm vào giỏ" *@
-                </form>
-                <form id="placeOrderForm" method="post">
-                    @* Thay đổi id *@
-                    <input type="hidden" name="mediaID" value="@product.Id" />
-                    <div class="quantity">
-                        <input type="hidden" min="1" value="1" name="quantity" /> @* Ẩn input số lượng *@
-                    </div>
-                    <button type="button" class="place-order" id="placeOrderButton">Đặt hàng</button> @* Thay đổi type và thêm id *@
+                    <button type="button" class="add-to-cart" id="addToCartBtn" data-action="AddToCart">Thêm vào giỏ</button>
+                    <button type="button" class="place-order" id="placeOrderButton" data-action="ProcessOrderDirectly">Đặt hàng</button>
                 </form>
             </div>
 
@@ -99,16 +92,15 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Xử lý sự kiện submit form "Thêm vào giỏ"
-            $("#addToCartForm").submit(function (event) {
+            $("#mainForm button").click(function (event) {
                 event.preventDefault();
 
-                var mediaID = $("input[name=mediaID]", this).val();
-                var quantity = $("input[name=quantity]", this).val();
-                //var messageDiv = $("#add-to-cart-message"); // Không dùng đến
+                var mediaID = $("input[name=mediaID]").val();
+                var quantity = $("input[name=quantity]").val();
+                var formAction = $(this).data("action");
 
                 $.ajax({
-                    url: "@Url.Action("AddToCart", "Cart")",
+                    url: "@Url.Action("", "Cart")".replace(/%2F$/, "") + "/" + formAction, 
                     type: "POST",
                     data: {
                         mediaID: mediaID,
@@ -116,42 +108,18 @@
                     },
                     success: function (data) {
                         if (data.success) {
-                            alert(data.message); // Hiển thị alert thông báo thành công
-                        } else {
-                            alert(data.message); // Hiển thị alert thông báo lỗi
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                        alert("Đã xảy ra lỗi khi thêm vào giỏ hàng."); // Thông báo lỗi
-                    }
-                });
-            });
-
-            // Xử lý sự kiện click nút "Đặt hàng"
-            $("#placeOrderButton").click(function (event) {
-                event.preventDefault();
-
-                var mediaID = $("input[name=mediaID]", "#placeOrderForm").val();
-                var quantity = $("input[name=quantity]", "#placeOrderForm").val();
-
-                $.ajax({
-                    url: "@Url.Action("ProcessOrderDirectly", "Cart")",
-                    type: "POST",
-                    data: {
-                        mediaID: mediaID,
-                        mediaQuantity: quantity
-                    },
-                    success: function (data) {
-                        if (data.success) {
-                            window.location.href = data.redirectUrl; // Chuyển hướng đến PlaceOrderView
+                            if (formAction === "ProcessOrderDirectly") {
+                                window.location.href = data.redirectUrl;
+                            } else {
+                                alert(data.message); 
+                            }
                         } else {
                             alert(data.message);
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error("AJAX Error:", error);
-                        alert("Đã xảy ra lỗi khi đặt hàng.");
+                        alert("Đã xảy ra lỗi.");
                     }
                 });
             });
