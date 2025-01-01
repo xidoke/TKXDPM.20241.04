@@ -85,6 +85,88 @@
       ]
     },
     {
+      "Route": "css/auth.1i8dal9g7k.css",
+      "AssetFile": "css/auth.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2775"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 01 Jan 2025 14:25:47 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1i8dal9g7k"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E="
+        },
+        {
+          "Name": "label",
+          "Value": "css/auth.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/auth.css",
+      "AssetFile": "css/auth.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2775"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 01 Jan 2025 14:25:47 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E="
+        }
+      ]
+    },
+    {
       "Route": "css/cart.5ixfsjbmcp.css",
       "AssetFile": "css/cart.css",
       "Selectors": [],
@@ -509,7 +591,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5773"
+          "Value": "6586"
         },
         {
           "Name": "Content-Type",
@@ -517,22 +599,22 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4=\""
+          "Value": "\"4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 01 Jan 2025 13:31:00 GMT"
+          "Value": "Wed, 01 Jan 2025 14:31:33 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4="
+          "Value": "sha256-4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc="
         }
       ]
     },
     {
-      "Route": "css/style.dnmwjuq4tt.css",
+      "Route": "css/style.i4s61lok5g.css",
       "AssetFile": "css/style.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -546,7 +628,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5773"
+          "Value": "6586"
         },
         {
           "Name": "Content-Type",
@@ -554,21 +636,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4=\""
+          "Value": "\"4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 01 Jan 2025 13:31:00 GMT"
+          "Value": "Wed, 01 Jan 2025 14:31:33 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dnmwjuq4tt"
+          "Value": "i4s61lok5g"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4="
+          "Value": "sha256-4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc="
         },
         {
           "Name": "label",

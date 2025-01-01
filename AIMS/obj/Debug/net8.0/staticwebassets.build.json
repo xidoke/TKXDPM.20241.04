@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3ONW9ks+6YUPZqFq2cRsG7GE/o1czuITTWK1lE02Fuw=",
+  "Hash": "P/mmZoxDryE8C3Ge3S3VeH/d9an5BrDFqPIjPegg4Vw=",
   "Source": "AIMS",
   "BasePath": "_content/AIMS",
   "Mode": "Default",
@@ -57,6 +57,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\TKXDPM.20241.04\\AIMS\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\AIMS.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\auth.css",
+      "SourceId": "AIMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\TKXDPM.20241.04\\AIMS\\wwwroot\\",
+      "BasePath": "_content/AIMS",
+      "RelativePath": "css/auth#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1i8dal9g7k",
+      "Integrity": "Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\auth.css"
     },
     {
       "Identity": "D:\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\cart.css",
@@ -178,8 +199,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "dnmwjuq4tt",
-      "Integrity": "V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4=",
+      "Fingerprint": "i4s61lok5g",
+      "Integrity": "4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css"
@@ -1611,6 +1632,88 @@
       ]
     },
     {
+      "Route": "css/auth.1i8dal9g7k.css",
+      "AssetFile": "D:\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\auth.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2775"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 01 Jan 2025 14:25:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1i8dal9g7k"
+        },
+        {
+          "Name": "label",
+          "Value": "css/auth.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E="
+        }
+      ]
+    },
+    {
+      "Route": "css/auth.css",
+      "AssetFile": "D:\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\auth.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2775"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 01 Jan 2025 14:25:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Sbrb1N+NcF5Yv87AWzv9GJIsZfd20mtodEAKIvETy4E="
+        }
+      ]
+    },
+    {
       "Route": "css/cart.5ixfsjbmcp.css",
       "AssetFile": "D:\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\cart.css",
       "Selectors": [],
@@ -2031,7 +2134,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5773"
+          "Value": "6586"
         },
         {
           "Name": "Content-Type",
@@ -2039,11 +2142,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4=\""
+          "Value": "\"4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 01 Jan 2025 13:31:00 GMT"
+          "Value": "Wed, 01 Jan 2025 14:31:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2053,12 +2156,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4="
+          "Value": "sha256-4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc="
         }
       ]
     },
     {
-      "Route": "css/style.dnmwjuq4tt.css",
+      "Route": "css/style.i4s61lok5g.css",
       "AssetFile": "D:\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\style.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2068,7 +2171,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5773"
+          "Value": "6586"
         },
         {
           "Name": "Content-Type",
@@ -2076,11 +2179,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4=\""
+          "Value": "\"4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 01 Jan 2025 13:31:00 GMT"
+          "Value": "Wed, 01 Jan 2025 14:31:33 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2090,7 +2193,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dnmwjuq4tt"
+          "Value": "i4s61lok5g"
         },
         {
           "Name": "label",
@@ -2098,7 +2201,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-V/pwHcDwCKS+CjF494Re4vN7SDPc658qFEnm8KO9RM4="
+          "Value": "sha256-4mjJrgmDOB0/x9UwdSiNRdQyKlgbCCS9Do/48wqlCrc="
         }
       ]
     },

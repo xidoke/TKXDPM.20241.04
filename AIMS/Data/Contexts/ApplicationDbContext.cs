@@ -149,6 +149,18 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
                 entity.Property(e => e.MediaId).HasColumnName("media_id");
             });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("user");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("id").UseIdentityColumn(); // Tự động tăng ID
+                entity.Property(e => e.Fullname).HasColumnName("fullname").HasMaxLength(100).IsRequired();
+                entity.Property(e => e.Username).HasColumnName("username").HasMaxLength(50).IsRequired();
+                entity.Property(e => e.Email).HasColumnName("email").HasMaxLength(100).IsRequired();
+                entity.Property(e => e.Password).HasColumnName("password").IsRequired();
+                entity.Property(e => e.Phone).HasColumnName("phone").HasMaxLength(15);
+            });
         }
     }
 }
