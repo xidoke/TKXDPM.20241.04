@@ -93,3 +93,4 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\refint\AIMS.dll
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\AIMS.pdb
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\AIMS.genruntimeconfig.cache
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\ref\AIMS.dll
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\net8.0\Newtonsoft.Json.dll

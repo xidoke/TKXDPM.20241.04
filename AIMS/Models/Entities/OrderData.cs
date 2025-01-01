@@ -8,7 +8,7 @@
         private string _phone;
         private string _email;
         private float _shippingFee;
-        private DateTime _createdAt;
+        private string _createdAt;
         private string _instructions;
         private string _type;
         private float _totalPrice;
@@ -46,7 +46,7 @@
             get { return _shippingFee; }
             set { _shippingFee = value; }
         }
-        public DateTime CreatedAt
+        public string CreatedAt
         {
             get { return _createdAt; }
             set { _createdAt = value; }

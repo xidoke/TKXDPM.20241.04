@@ -3,6 +3,7 @@ using AIMS.Models;
 using AIMS.Repositories;
 using AIMS.Service.Interfaces;
 using AIMS.Utils;
+using AIMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,8 +20,9 @@ namespace AIMS.Controllers
         private readonly IMediaRepository _mediaRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly DeliveryInfoValidator _deliveryInforValidator;
+        private readonly IEmailService _emailService;
         public OrderController(IProvinceRepository provinceRepository, IOrderRepository orderRepository, IDistrictRepository districtRepository, 
-            IWardRepository wardRepository, IVnPayService vnPayservice, IMediaRepository mediaRepository, DeliveryInfoValidator deliveryInfoValidator)
+            IWardRepository wardRepository, IVnPayService vnPayservice, IMediaRepository mediaRepository, DeliveryInfoValidator deliveryInfoValidator, IEmailService emailService)
         {
             _provinceRepository = provinceRepository;
             _districtRepository = districtRepository;
@@ -29,6 +31,7 @@ namespace AIMS.Controllers
             _orderRepository = orderRepository;
             _mediaRepository = mediaRepository;
             _deliveryInforValidator = deliveryInfoValidator;
+            _emailService = emailService;
         }
         private List<CartItem> GetCartFromSession()
         {
@@ -71,20 +74,24 @@ namespace AIMS.Controllers
                 TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayResponseCode}";
                 return RedirectToAction("PaymentFail");
             }
+
             var orderInfoJson = HttpContext.Session.GetString(OrderInfoSessionKey);
             if (string.IsNullOrEmpty(orderInfoJson))
             {
                 TempData["ErrorMessage"] = "Order information not found.";
                 return RedirectToAction("Index", "Home");
             }
+
             var orderInfo = JsonSerializer.Deserialize<VnPayRequest>(orderInfoJson);
             var orderId = orderInfo.OrderId;
-            TempData["PaymentResult"] = "Success"; 
+
+            TempData["PaymentResult"] = "Success";
             TempData["OrderId"] = orderId;
             TempData["TransactionId"] = response.TransactionId;
             TempData["Amount"] = orderInfo.Amount.ToString();
-            TempData["PaymentTime"] = DateTime.Now; 
+            TempData["PaymentTime"] = DateTime.Now;
             TempData["Message"] = $"Thanh toán VNPay thành công";
+
             if (TempData["PaymentResult"]?.ToString() == "Success")
             {
                 #region Add OrderData/OrderMedia to Database
@@ -92,18 +99,19 @@ namespace AIMS.Controllers
                 var ordatDataSession = JsonSerializer.Deserialize<OrderData>(orderDataTempJson);
                 var orderData = new OrderData
                 {
-                    City = "Hà Nội", 
-                    Address = ordatDataSession.Address, 
+                    City = "Hà Nội",
+                    Address = ordatDataSession.Address,
                     Phone = ordatDataSession.Phone,
-                    Email = ordatDataSession.Email, 
+                    Email = ordatDataSession.Email,
                     ShippingFee = ordatDataSession.ShippingFee,
-                    CreatedAt = ordatDataSession.CreatedAt,
                     Instructions = ordatDataSession.Instructions,
-                    Type = "VnPay", 
+                    Type = "VnPay",
+                    CreatedAt =ordatDataSession.CreatedAt,
                     TotalPrice = ordatDataSession.TotalPrice,
                     Status = 0,
-                    Fullname = ordatDataSession.Fullname 
+                    Fullname = ordatDataSession.Fullname
                 };
+
                 var orderMediaJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
                 List<OrderMedia> orderMedias = new List<OrderMedia>();
                 if (!string.IsNullOrEmpty(orderMediaJson))
@@ -116,7 +124,7 @@ namespace AIMS.Controllers
                         {
                             orderMedias.Add(new OrderMedia
                             {
-                                MediaId =media.Id,
+                                MediaId = media.Id,
                                 Price = media.Price,
                                 Quantity = orderMedia.Quantity,
                                 Name = media.Title
@@ -131,11 +139,38 @@ namespace AIMS.Controllers
                 }
                 await _orderRepository.AddOrderMediasAsync(orderMedias);
                 #endregion
-                ViewBag.OrderId = TempData["OrderId"]?.ToString();
-                ViewBag.TransactionId = TempData["TransactionId"]?.ToString();
-                if (TempData["Amount"] != null)
-                    ViewBag.Amount = decimal.Parse(TempData["Amount"].ToString());
-                ViewBag.PaymentTime = TempData["PaymentTime"];
+
+                #region Prepare data for email
+                // Calculate total product price excluding VAT
+                decimal totalProductPriceExcludingVAT = orderMedias.Sum(om => om.Price * om.Quantity);
+                var order_after_added = await _orderRepository.GetOrderByIdAsync(orderID_after_added);
+                // Calculate total product price including VAT
+                decimal totalProductPriceIncludingVAT = totalProductPriceExcludingVAT * 1.1m;
+
+                // Create email model
+                var emailModel = new OrderDetailsEmailViewModel
+                {
+                    Order = order_after_added,
+                    OrderMedias = orderMedias,
+                    TotalProductPriceExcludingVAT = totalProductPriceExcludingVAT,
+                    TotalProductPriceIncludingVAT = totalProductPriceIncludingVAT,
+                    TransactionId = response.TransactionId,
+                    TransactionContent = $"Thanh toán đơn hàng {orderID_after_added}",
+                    TransactionDate = DateTime.Now
+                };
+                #endregion
+
+                #region Send Email
+                await _emailService.SendOrderDetailsAsync(emailModel);
+                #endregion
+
+                // Set data to ViewBag
+                ViewBag.OrderId = orderID_after_added;
+                ViewBag.TransactionId = response.TransactionId;
+                ViewBag.Amount = orderInfo.Amount;
+                ViewBag.PaymentTime = DateTime.Now;
+
+                // Remove data from TempData and Session
                 TempData.Remove("PaymentResult");
                 TempData.Remove("OrderId");
                 TempData.Remove("TransactionId");
@@ -144,6 +179,7 @@ namespace AIMS.Controllers
                 HttpContext.Session.Remove(OrderDataTempSessionKey);
                 HttpContext.Session.Remove(OrderInfoSessionKey);
                 HttpContext.Session.Remove(OrderMediaListSessionKey);
+
                 return View("PaymentResult");
             }
             else
@@ -266,7 +302,9 @@ namespace AIMS.Controllers
                 {
                     return Json(new { success = false, message = "OrderData.Address is null." });
                 }
-
+                DateTime vietnamNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+                string formattedDateTime = vietnamNow.ToString("HH:mm:ss dd/MM/yyyy");
+                orderData.CreatedAt = formattedDateTime;
                 HttpContext.Session.SetString(OrderDataTempSessionKey, JsonSerializer.Serialize(orderData));
 
                 return Json(new { success = true, message = "Order data saved successfully.", shippingFee = orderData.ShippingFee });
