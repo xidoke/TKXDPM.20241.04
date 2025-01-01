@@ -1,0 +1,126 @@
+﻿.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Chiều cao đầy đủ của viewport */
+    background-color: #f1f1f1f1; /* Màu nền xám nhạt */
+}
+
+/* Container cụ thể cho trang Đăng nhập và Đăng ký */
+.login-container, .register-container {
+    /* Đã được căn giữa bởi .auth-container */
+}
+
+/* Thiết kế thẻ (card) cho các biểu mẫu xác thực */
+.auth-card {
+    background-color: #fff; /* Màu nền trắng */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Thêm các kiểu dáng bổ sung cho thẻ Đăng nhập và Đăng ký nếu cần */
+.login-card, .register-card {
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: black;
+    
+    /* Có thể thêm các kiểu dáng cụ thể ở đây */
+}
+
+/* Kiểu dáng tiêu đề */
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Kiểu dáng nhóm biểu mẫu */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+    /* Kiểu dáng nhãn (label) */
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #555;
+    }
+
+/* Kiểu dáng ô nhập liệu */
+.form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+    /* Kiểu dáng khi ô nhập liệu được focus */
+    .form-control:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+    }
+
+/* Container cho mật khẩu */
+.password-container {
+    position: relative;
+}
+
+/* Biểu tượng chuyển đổi hiển thị mật khẩu */
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+
+    .toggle-password:hover {
+        color: #555;
+    }
+
+/* Kiểu dáng nút Submit */
+.btn-primary {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+/* Liên kết Quên mật khẩu */
+.forgot-password {
+    display: block;
+    text-align: right;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+/* Kiểu dáng các thông báo (alerts) */
+.alert {
+    margin-top: 1rem;
+}
+
+/* Kiểu dáng cho thông báo lỗi */
+.text-danger {
+    font-size: 0.875rem;
+}

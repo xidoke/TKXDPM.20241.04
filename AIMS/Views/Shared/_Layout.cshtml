@@ -28,8 +28,22 @@
                     <a href="@Url.Action("CartView", "Cart")"><img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Cart Icon" class="cart-icon"></a>
                 </div>
                 <div class="user-actions">
-                    <button class="login-btn">Đăng nhập</button>
-                    <button class="register-btn">Đăng ký</button>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <div class="user-actions d-flex align-items-center">
+                            <a class="btn btn-info text-white mr-2" href="#">
+                                @User.Identity.Name
+                            </a>
+                            <a class="btn btn-danger text-white" href="@Url.Action("Logout", "Account")">
+                                Đăng xuất
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-success login-btn mr-2 text-white">Đăng nhập</a>
+                        <a href="@Url.Action("Register", "Account")" class="btn btn-danger register-btn text-white">Đăng ký</a>
+                    }
                 </div>
             </div>
         </div>

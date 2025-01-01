@@ -1,4 +1,6 @@
-﻿namespace AIMS.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AIMS.Data.Entities
 {
     public class User
     {
@@ -7,9 +9,6 @@
         private string _username;
         private string _email;
         private string _password;
-        private string _salt;
-        private bool _admin;
-        private int _status;
         private string _phone;
 
         public int Id
@@ -38,25 +37,12 @@
             get { return _password; }
             set { _password = value; }
         }
-        public string Salt
-        {
-            get { return _salt; }
-            set { _salt = value; }
-        }
-        public bool Admin
-        {
-            get { return _admin; }
-            set { _admin = value; }
-        }
-        public int Status
-        {
-            get { return _status; }
-            set { _status = value; }
-        }
+        
         public string Phone
         {
             get { return _phone; }
             set { _phone = value; }
         }
+
     }
 }

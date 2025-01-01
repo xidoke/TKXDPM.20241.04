@@ -112,9 +112,43 @@ body {
     font-size: 14px;
 }
 
-    .register-btn:hover {
-        background-color: #cc0000; /* Đỏ đậm hơn khi hover */
+.register-btn:hover {
+    background-color: #cc0000; /* Đỏ đậm hơn khi hover */
+}
+
+
+
+.user-actions .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px; /* Thêm khoảng cách giữa các nút */
+}
+
+    .user-actions .btn:last-child {
+        margin-right: 0; /* Đảm bảo nút cuối không có khoảng cách bên phải */
     }
+
+.user-actions .btn-info {
+    background-color: #17a2b8; /* Màu xanh nhạt cho username */
+    border: none;
+}
+
+    .user-actions .btn-info:hover {
+        background-color: #138496; /* Màu xanh đậm hơn khi hover */
+    }
+
+.user-actions .btn-danger {
+    background-color: #dc3545; /* Màu đỏ cho nút Đăng xuất */
+    border: none;
+}
+
+    .user-actions .btn-danger:hover {
+        background-color: #c82333; /* Màu đỏ đậm hơn khi hover */
+    }
+
+
 
 .product-section {
     margin-top: 20px;
