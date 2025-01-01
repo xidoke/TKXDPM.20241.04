@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh; /* Chiều cao đầy đủ của viewport */
-    background-color: #f5f5f5; /* Màu nền xám nhạt */
+    background-color: #f1f1f1f1; /* Màu nền xám nhạt */
 }
 
 /* Container cụ thể cho trang Đăng nhập và Đăng ký */
@@ -23,6 +23,10 @@
 
 /* Thêm các kiểu dáng bổ sung cho thẻ Đăng nhập và Đăng ký nếu cần */
 .login-card, .register-card {
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: black;
+    
     /* Có thể thêm các kiểu dáng cụ thể ở đây */
 }
 
