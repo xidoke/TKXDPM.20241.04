@@ -39,14 +39,13 @@ namespace AIMS.Controllers
             List<CartItem> selectedProducts = SelectedItems.Where(item => item.isSelected).ToList();
             foreach (var item in selectedProducts)
             {
-                var media = await _mediaRepository.GetByIdAsync(item.ProductId);
-                if (media == null) return Json(new { success = false, message = $"Không tìm thấy sản phẩm có ID {item.ProductId}." });
+                var media = await _mediaRepository.GetByIdAsync(item.MediaID);
                 if (media.Quantity < item.Quantity) return Json(new { success = false, message = $"Không đủ số lượng cho sản phẩm {media.Title}. Số lượng tồn kho: {media.Quantity}" });
             }
             List<OrderMedia> Temp = selectedProducts.Select(item => new OrderMedia
             {
-                MediaId = item.ProductId,
-                Name = item.ProductName,
+                MediaId = item.MediaID,
+                Name = item.MediaName,
                 Quantity = item.Quantity,
                 Price = (int)item.Price,
             }).ToList();

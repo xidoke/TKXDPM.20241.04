@@ -18,13 +18,14 @@ namespace AIMS.Controllers
         private readonly IOrderRepository _orderRepository;
         private readonly IEmailService _emailService;
         private readonly IMediaRepository _mediaRepository;
-
-        public PaymentController(IVnPayService vnPayservice, IOrderRepository orderRepository, IEmailService emailService, IMediaRepository mediaRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public PaymentController(IVnPayService vnPayservice, IOrderRepository orderRepository, IEmailService emailService, IMediaRepository mediaRepository, IHttpContextAccessor httpContextAccessor)
         {
             _vnPayservice = vnPayservice;
             _orderRepository = orderRepository;
             _emailService = emailService;
             _mediaRepository = mediaRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult PaymentInfo()
@@ -167,10 +168,19 @@ namespace AIMS.Controllers
                 TempData.Remove("TransactionId");
                 TempData.Remove("Amount");
                 TempData.Remove("PaymentTime");
+                #region Clear Item Ordered in cart
+                var mediaIdsToRemove = orderMedias.Select(om => om.MediaId).ToList();
+                var cartController = new CartController(_mediaRepository, _httpContextAccessor);
+                var cart = cartController.GetCartFromSession();
+                cart.RemoveAll(item => mediaIdsToRemove.Contains(item.MediaID));
+                cartController.SaveCartToSession(cart);
+                #endregion
+                #region Clear Session of OrderData, OrderInfo, OrderMediaList
                 HttpContext.Session.Remove(OrderDataTempSessionKey);
                 HttpContext.Session.Remove(OrderInfoSessionKey);
                 HttpContext.Session.Remove(OrderMediaListSessionKey);
                 HttpContext.Session.Remove(PaymentMethodSessionKey);
+                #endregion
                 return View("PaymentResult");
             }
             else

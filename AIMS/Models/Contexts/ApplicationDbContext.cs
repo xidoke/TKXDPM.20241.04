@@ -20,6 +20,7 @@ namespace AIMS.Data.Contexts
         public DbSet<Province> Provinces { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Ward> Wards { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -123,6 +124,20 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
                 entity.Property(e => e.MediaId).HasColumnName("media_id");
             });
+           /* modelBuilder.Entity<CartItem>(entity => 
+            {
+                entity.ToTable("usercart");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("id").UseIdentityColumn();
+                entity.Property(e => e.isSelected).HasColumnName("isSelected");
+                entity.Property(e => e.MediaID).HasColumnName("media_id");
+                entity.Property(e => e.MediaName).HasColumnName("media_name");
+                entity.Property(e => e.MediaImgUrl).HasColumnName("media_imgurl");
+                entity.Property(e => e.Price).HasColumnName("price");
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.Email).HasColumnName("email");
+            });*/
         }
     }
 }

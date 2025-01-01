@@ -56,21 +56,21 @@
                                         <td>
                                             <input type="checkbox" name="SelectedItems[@i].IsSelected" value="true" checked class="cart-checkbox" data-price="@Model[i].Price" data-quantity-field="quantity-@i" />
                                             <input type="hidden" name="SelectedItems[@i].IsSelected" value="false" />
-                                            <input type="hidden" name="SelectedItems[@i].ProductId" value="@Model[i].ProductId" />
-                                            <input type="hidden" name="SelectedItems[@i].ProductName" value="@Model[i].ProductName" />
+                                            <input type="hidden" name="SelectedItems[@i].MediaID" value="@Model[i].MediaID" />
+                                            <input type="hidden" name="SelectedItems[@i].MediaName" value="@Model[i].MediaName" />
                                             <input type="hidden" name="SelectedItems[@i].Price" value="@Model[i].Price" />
                                         </td>
-                                        <td>@Model[i].ProductName</td>
+                                        <td>@Model[i].MediaName</td>
                                         <td>
-                                            <img src="@Model[i].ImageUrl" alt="@Model[i].ProductName" style="width: 100px;" />
+                                            <img src="@Model[i].MediaImgUrl" alt="@Model[i].MediaName" style="width: 100px;" />
                                         </td>
                                         <td>@Model[i].Price.ToString("N0") đ</td>
                                         <td>
-                                            <input type="number" id="quantity-@i" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" min="1" class="form-control quantity" style="width: 80px;" data-product-id="@Model[i].ProductId" data-initial-value="@Model[i].Quantity" />
+                                            <input type="number" id="quantity-@i" name="SelectedItems[@i].Quantity" value="@Model[i].Quantity" min="1" class="form-control quantity" style="width: 80px;" data-product-id="@Model[i].MediaID" data-initial-value="@Model[i].Quantity" />
                                         </td>
                                         <td id="status-@i"></td>
                                         <td>
-                                            <a asp-action="RemoveFromCart" asp-route-productId="@Model[i].ProductId" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <a asp-action="RemoveFromCart" asp-route-productId="@Model[i].MediaID" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 }
