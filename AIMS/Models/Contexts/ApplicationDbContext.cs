@@ -149,6 +149,9 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Email).HasColumnName("email");
                 entity.Property(e => e.Password).HasColumnName("password");
                 entity.Property(e => e.Phone).HasColumnName("phone");
+                entity.Property(e => e.Admin).HasColumnName("admin");
+                entity.Property(e => e.Salt).HasColumnName("salt");
+                entity.Property(e => e.Status).HasColumnName("status");
             });
         }
     }
