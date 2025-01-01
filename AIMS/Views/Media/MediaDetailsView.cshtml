@@ -100,7 +100,7 @@
                 var formAction = $(this).data("action");
 
                 $.ajax({
-                    url: "@Url.Action("", "Cart")".replace(/%2F$/, "") + "/" + formAction, 
+                    url: "@Url.Action("", "Cart")".replace(/%2F$/, "") + "/" + formAction,
                     type: "POST",
                     data: {
                         mediaID: mediaID,
@@ -111,10 +111,15 @@
                             if (formAction === "ProcessOrderDirectly") {
                                 window.location.href = data.redirectUrl;
                             } else {
-                                alert(data.message); 
+                                alert(data.message);
                             }
                         } else {
-                            alert(data.message);
+                            // Kiểm tra thông báo lỗi
+                            if (data.message.includes("Không đủ số lượng")) {
+                                alert(data.message); // Hiển thị thông báo lỗi cụ thể
+                            } else {
+                                alert(data.message); // Hiển thị thông báo lỗi chung
+                            }
                         }
                     },
                     error: function (xhr, status, error) {

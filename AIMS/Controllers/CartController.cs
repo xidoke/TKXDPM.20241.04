@@ -16,10 +16,26 @@ namespace AIMS.Controllers
         }
         private const string OrderMediaListSessionKey = "OrderMediaList";
         [HttpPost]
-        public IActionResult ProcessOrderFromCart(List<CartItem> SelectedItems)
+        public async Task<IActionResult> ProcessOrderFromCart(List<CartItem> SelectedItems)
         {
             List<CartItem> selectedProducts = SelectedItems.Where(item => item.isSelected).ToList();
 
+            // Kiểm tra số lượng tồn kho
+            foreach (var item in selectedProducts)
+            {
+                var media = await mediaRepository.GetByIdAsync(item.ProductId);
+                if (media == null)
+                {
+                    return Json(new { success = false, message = $"Không tìm thấy sản phẩm có ID {item.ProductId}." });
+                }
+
+                if (media.Quantity < item.Quantity)
+                {
+                    return Json(new { success = false, message = $"Không đủ số lượng cho sản phẩm {media.Title}. Số lượng tồn kho: {media.Quantity}" });
+                }
+            }
+
+            // Tạo danh sách OrderMedia
             List<OrderMedia> Temp = selectedProducts.Select(item => new OrderMedia
             {
                 MediaId = item.ProductId,
@@ -42,16 +58,22 @@ namespace AIMS.Controllers
                     return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
                 }
 
-                var orderMediaList = new List<OrderMedia>
+                // Kiểm tra số lượng tồn kho
+                if (media.Quantity < mediaQuantity)
                 {
-                    new OrderMedia
-                    {
-                        MediaId = mediaID,
-                        Name = media.Title,
-                        Quantity = mediaQuantity,
-                        Price = media.Price
-                    }
-                };
+                    return Json(new { success = false, message = $"Không đủ số lượng cho sản phẩm {media.Title}. Số lượng tồn kho: {media.Quantity}" });
+                }
+
+                var orderMediaList = new List<OrderMedia>
+        {
+            new OrderMedia
+            {
+                MediaId = mediaID,
+                Name = media.Title,
+                Quantity = mediaQuantity,
+                Price = media.Price
+            }
+        };
 
                 HttpContext.Session.SetString(OrderMediaListSessionKey, JsonSerializer.Serialize(orderMediaList));
 
@@ -66,8 +88,8 @@ namespace AIMS.Controllers
         public IActionResult CartView()
         {
             var cart = GetCartFromSession();
-            ViewBag.GrandTotal = cart.Sum(item => item.Price * item.Quantity); 
-            return View(cart); 
+            ViewBag.GrandTotal = cart.Sum(item => item.Price * item.Quantity);
+            return View(cart);
         }
 
         [HttpPost]
@@ -177,7 +199,7 @@ namespace AIMS.Controllers
             }
             else
             {
-                return Json(new { status = "Không đủ số lượng" });
+                return Json(new { status = $"Không đủ số lượng. Hiện có: {product.Quantity}" });
             }
         }
     }

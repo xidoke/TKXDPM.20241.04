@@ -14,15 +14,15 @@
     <link rel="stylesheet" href="~/css/cart.css" />
     <style>
         .groupbox {
-            background-color: #fff; 
-            border: 1px solid #ddd; 
+            background-color: #fff;
+            border: 1px solid #ddd;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
         }
 
-            .groupbox h2 { 
+            .groupbox h2 {
                 margin-top: 0;
                 margin-bottom: 10px;
                 font-weight: bold;
@@ -94,12 +94,13 @@
                     <a asp-controller="Home" asp-action="Index" class="alert-link">Xem thêm sản phẩm!</a>
                 </div>
             }
-        </div> 
+        </div>
     </div>
 
     @section Scripts {
         <script>
             $(document).ready(function () {
+                // Tính tổng tiền
                 function updateGrandTotal() {
                     let grandTotal = 0;
                     $('.cart-checkbox:checked').each(function () {
@@ -111,20 +112,25 @@
                     $('#grand-total').text(grandTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
                 }
 
+                // Cập nhật tổng tiền khi checkbox thay đổi
                 $('.cart-checkbox').change(function () {
                     updateGrandTotal();
                 });
 
+                // Cập nhật tổng tiền và lưu thay đổi khi số lượng thay đổi
                 $('.quantity').change(function () {
                     const quantity = parseInt($(this).val());
                     const initialQuantity = parseInt($(this).data('initial-value'));
                     const productId = $(this).data('product-id');
-                    const index = $(this).closest('tr').index(); 
+                    const index = $(this).closest('tr').index();
+
+                    // Khôi phục giá trị ban đầu nếu số lượng < 1
                     if (quantity < 1) {
                         $(this).val(initialQuantity);
                     }
                     updateGrandTotal();
 
+                    // Cập nhật số lượng trong giỏ hàng
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("UpdateQuantity", "Cart")',
@@ -140,6 +146,7 @@
                         }
                     });
 
+                    // Kiểm tra số lượng tồn kho
                     $.ajax({
                         type: 'POST',
                         url: '@Url.Action("CheckStock", "Cart")',
@@ -148,7 +155,7 @@
                             quantity: quantity
                         },
                         success: function (response) {
-                            $(`#status-${index}`).text(response.status); 
+                            $(`#status-${index}`).text(response.status);
                         },
                         error: function () {
                             alert('Có lỗi xảy ra khi kiểm tra số lượng tồn kho.');
@@ -156,7 +163,9 @@
                     });
                 });
 
+                // Kiểm tra số lượng tồn kho và hiển thị thông báo khi click "Cập nhật giỏ hàng"
                 $('#updateCartButton').click(function () {
+                    var outOfStock = false;
                     $('.quantity').each(function () {
                         const quantity = parseInt($(this).val());
                         const productId = $(this).data('product-id');
@@ -169,17 +178,57 @@
                                 productId: productId,
                                 quantity: quantity
                             },
+                            async: false, // Đặt async: false để đợi response trước khi kiểm tra
                             success: function (response) {
-                                $(`#status-${index}`).text(response.status); 
+                                $(`#status-${index}`).text(response.status);
+
+                                if (response.status.includes("Không đủ số lượng")) {
+                                    outOfStock = true;
+                                    alert("Không đủ số lượng cho sản phẩm " + $(`#quantity-${index}`).closest("tr").find("td:eq(1)").text() + ". Vui lòng kiểm tra lại.");
+                                }
                             },
                             error: function () {
                                 alert('Có lỗi xảy ra khi kiểm tra số lượng tồn kho.');
                             }
                         });
                     });
-                    alert('Giỏ hàng đã được cập nhật!');
+
+                    if (!outOfStock) {
+                        alert('Giỏ hàng đã được cập nhật!');
+                    }
                 });
 
+                // Kiểm tra trước khi submit form "Đặt hàng"
+                $('#cartForm').submit(function (event) {
+                    var isValid = true;
+                    var errorMessages = [];
+
+                    // Kiểm tra đã chọn sản phẩm chưa
+                    if ($('.cart-checkbox:checked').length === 0) {
+                        errorMessages.push('Vui lòng chọn ít nhất một sản phẩm để đặt hàng.');
+                        isValid = false;
+                    }
+
+                    // Kiểm tra số lượng tồn kho
+                    $('.cart-checkbox:checked').each(function () {
+                        const index = $(this).closest('tr').index();
+                        const status = $(`#status-${index}`).text();
+                        const productName = $(this).closest('tr').find('td:eq(1)').text();
+
+                        if (status.includes("Không đủ số lượng")) {
+                            errorMessages.push(`Không đủ số lượng cho sản phẩm ${productName}. Vui lòng kiểm tra lại.`);
+                            isValid = false;
+                        }
+                    });
+
+                    // Hiển thị thông báo lỗi (nếu có)
+                    if (!isValid) {
+                        event.preventDefault(); // Ngăn chặn submit form
+                        alert(errorMessages.join("\n"));
+                    }
+                });
+
+                // Tính tổng tiền ban đầu khi load trang
                 updateGrandTotal();
             });
         </script>
