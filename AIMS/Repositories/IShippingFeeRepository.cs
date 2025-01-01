@@ -1,4 +1,4 @@
-﻿namespace AIMS.Data.Repositories.Interfaces
+﻿namespace AIMS.Repositories
 {
     public interface IShippingFeeRepository
     {

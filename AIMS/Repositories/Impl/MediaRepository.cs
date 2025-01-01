@@ -1,12 +1,11 @@
 ﻿using AIMS.Data.Contexts;
 using AIMS.Data.Entities;
-using AIMS.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AIMS.Data.Repositories
+namespace AIMS.Repositories.Impl
 {
     public class MediaRepository : IMediaRepository
     {

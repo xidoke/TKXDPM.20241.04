@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AIMS.Data.Repositories.Interfaces
+namespace AIMS.Repositories
 {
     public interface IMediaRepository
     {

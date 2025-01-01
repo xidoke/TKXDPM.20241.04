@@ -1,9 +1,8 @@
 ﻿using AIMS.Data.Contexts;
 using AIMS.Data.Entities.Address;
-using AIMS.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace AIMS.Data.Repositories
+namespace AIMS.Repositories.Impl
 {
     public class DistrictRepository : IDistrictRepository
     {

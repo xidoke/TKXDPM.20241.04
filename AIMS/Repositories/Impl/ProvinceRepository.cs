@@ -1,9 +1,8 @@
 ﻿using AIMS.Data.Contexts;
 using AIMS.Data.Entities.Address;
-using AIMS.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace AIMS.Data.Repositories
+namespace AIMS.Repositories.Impl
 {
     public class ProvinceRepository : IProvinceRepository
     {
@@ -18,7 +17,7 @@ namespace AIMS.Data.Repositories
         {
             return await _context.Provinces.ToListAsync();
         }
-        public async Task<Province> GetById(string id) 
+        public async Task<Province> GetById(string id)
         {
             return await _context.Provinces.FirstOrDefaultAsync(p => p.Id == id);
         }
