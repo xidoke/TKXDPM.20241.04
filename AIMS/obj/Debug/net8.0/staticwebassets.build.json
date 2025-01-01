@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XrIButLAwBl98Uv5RMh/yq/P+Tozx098JzX/ftx5TB0=",
+  "Hash": "mQlYySQ71CLUxcFvYL2eCTjOgyegM+VTDprR7tExY6Y=",
   "Source": "AIMS",
   "BasePath": "_content/AIMS",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\AIMS.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\auth.css",
+      "SourceId": "AIMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\",
+      "BasePath": "_content/AIMS",
+      "RelativePath": "css/auth.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\auth.css"
     },
     {
       "Identity": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\cart.css",

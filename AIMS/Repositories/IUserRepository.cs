@@ -4,10 +4,10 @@ namespace AIMS.Repositories
 {
     public interface IUserRepository
     {
-        User GetById(int id);
-        User GetByUsername(string username);
-        User GetByEmail(string email);
-        void Add(User user);
-        void Update(User user);
+        Task<User> GetById(int id);
+        Task<User> GetByUsername(string username);
+        Task<User> GetByEmail(string email);
+        Task Add(User user);
+        Task Update(User user);
     }
 }

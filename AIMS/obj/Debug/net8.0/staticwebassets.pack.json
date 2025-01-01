@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\AIMS.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\auth.css",
+      "PackagePath": "staticwebassets\\css\\auth.css"
+    },
+    {
       "Id": "C:\\Users\\Msi\\Desktop\\AIMS\\TKXDPM.20241.04\\AIMS\\wwwroot\\css\\cart.css",
       "PackagePath": "staticwebassets\\css\\cart.css"
     },

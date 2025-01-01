@@ -124,7 +124,7 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
                 entity.Property(e => e.MediaId).HasColumnName("media_id");
             });
-           /* modelBuilder.Entity<CartItem>(entity => 
+            modelBuilder.Entity<CartItem>(entity =>
             {
                 entity.ToTable("usercart");
                 entity.HasKey(e => e.Id);
@@ -137,18 +137,18 @@ namespace AIMS.Data.Contexts
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.Email).HasColumnName("email");
-            });*/
+            });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("user");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id").UseIdentityColumn(); // Tự động tăng ID
-                entity.Property(e => e.Fullname).HasColumnName("fullname").HasMaxLength(100).IsRequired();
-                entity.Property(e => e.Username).HasColumnName("username").HasMaxLength(50).IsRequired();
-                entity.Property(e => e.Email).HasColumnName("email").HasMaxLength(100).IsRequired();
-                entity.Property(e => e.Password).HasColumnName("password").IsRequired();
-                entity.Property(e => e.Phone).HasColumnName("phone").HasMaxLength(15);
+                entity.Property(e => e.Fullname).HasColumnName("fullname");
+                entity.Property(e => e.Username).HasColumnName("username");
+                entity.Property(e => e.Email).HasColumnName("email");
+                entity.Property(e => e.Password).HasColumnName("password");
+                entity.Property(e => e.Phone).HasColumnName("phone");
             });
         }
     }

@@ -93,9 +93,6 @@ C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\refint\AIMS.dll
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\AIMS.pdb
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\AIMS.genruntimeconfig.cache
 C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\ref\AIMS.dll
-<<<<<<< HEAD
-C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\net8.0\Newtonsoft.Json.dll
-=======
 D:\TKXDPM.20241.04\AIMS\bin\Debug\net8.0\appsettings.Development.json
 D:\TKXDPM.20241.04\AIMS\bin\Debug\net8.0\appsettings.json
 D:\TKXDPM.20241.04\AIMS\bin\Debug\net8.0\AIMS.staticwebassets.runtime.json
@@ -148,4 +145,4 @@ D:\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\refint\AIMS.dll
 D:\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\AIMS.pdb
 D:\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\AIMS.genruntimeconfig.cache
 D:\TKXDPM.20241.04\AIMS\obj\Debug\net8.0\ref\AIMS.dll
->>>>>>> origin/pqd/auth
+C:\Users\Msi\Desktop\AIMS\TKXDPM.20241.04\AIMS\bin\Debug\net8.0\Newtonsoft.Json.dll

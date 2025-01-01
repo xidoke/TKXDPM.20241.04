@@ -10,7 +10,24 @@ namespace AIMS.Data.Entities
         private string _email;
         private string _password;
         private string _phone;
-
+        private string _salt;
+        private int _admin;
+        private string _status;
+        public string Status
+        {
+            get { return _status; }
+            set { _status = value; }
+        }
+        public string Salt
+        {
+            get { return _salt; }
+            set { _salt = value; }
+        }
+        public int Admin
+        {
+            get { return _admin; }
+            set { _admin = value; }
+        }
         public int Id
         {
             get { return _id; }
@@ -37,7 +54,7 @@ namespace AIMS.Data.Entities
             get { return _password; }
             set { _password = value; }
         }
-        
+
         public string Phone
         {
             get { return _phone; }
