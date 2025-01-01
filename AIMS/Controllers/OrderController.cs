@@ -30,21 +30,15 @@ namespace AIMS.Controllers
         {
             var cartJson = HttpContext.Session.GetString("Cart");
             if (string.IsNullOrEmpty(cartJson))
-            {
                 return new List<CartItem>();
-            }
             return JsonSerializer.Deserialize<List<CartItem>>(cartJson);
         }
         private const string OrderMediaListSessionKey = "OrderMediaList";
         public IActionResult PlaceOrderView()
         {
             var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
-
             if (string.IsNullOrEmpty(orderMediaListJson))
-            {
                 return RedirectToAction("CartView", "Cart");
-            }
-
             var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
             var provinces = _provinceRepository.GetAllAsync().Result;
             ViewBag.Provinces = new SelectList(provinces, "Id", "Name");
@@ -68,30 +62,24 @@ namespace AIMS.Controllers
         public async Task<IActionResult> PaymentCallBack()
         {
             var response = _vnPayservice.PaymentExecute(Request.Query);
-
             if (response == null || response.VnPayResponseCode != "00")
             {
                 TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayResponseCode}";
                 return RedirectToAction("PaymentFail");
             }
-
             var orderInfoJson = HttpContext.Session.GetString(OrderInfoSessionKey);
             if (string.IsNullOrEmpty(orderInfoJson))
             {
                 TempData["ErrorMessage"] = "Order information not found.";
                 return RedirectToAction("Index", "Home");
             }
-
             var orderInfo = JsonSerializer.Deserialize<VnPayRequest>(orderInfoJson);
             var orderId = orderInfo.OrderId;
-
             TempData["PaymentResult"] = "Success"; 
             TempData["OrderId"] = orderId;
             TempData["TransactionId"] = response.TransactionId;
             TempData["Amount"] = orderInfo.Amount.ToString();
             TempData["PaymentTime"] = DateTime.Now; 
-
-
             TempData["Message"] = $"Thanh toán VNPay thành công";
             if (TempData["PaymentResult"]?.ToString() == "Success")
             {
@@ -112,7 +100,6 @@ namespace AIMS.Controllers
                     Status = 0,
                     Fullname = ordatDataSession.Fullname 
                 };
-
                 var orderMediaJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
                 List<OrderMedia> orderMedias = new List<OrderMedia>();
                 if (!string.IsNullOrEmpty(orderMediaJson))
@@ -133,23 +120,17 @@ namespace AIMS.Controllers
                         }
                     }
                 }
-
                 var orderID_after_added = await _orderRepository.CreateOrderAsync(orderData);
                 foreach (var orderMedia in orderMedias)
                 {
                     orderMedia.OrderId = orderID_after_added;
                 }
-
                 await _orderRepository.AddOrderMediasAsync(orderMedias);
-
                 #endregion
-
                 ViewBag.OrderId = TempData["OrderId"]?.ToString();
                 ViewBag.TransactionId = TempData["TransactionId"]?.ToString();
                 if (TempData["Amount"] != null)
-                {
                     ViewBag.Amount = decimal.Parse(TempData["Amount"].ToString());
-                }
                 ViewBag.PaymentTime = TempData["PaymentTime"];
                 TempData.Remove("PaymentResult");
                 TempData.Remove("OrderId");
@@ -166,12 +147,10 @@ namespace AIMS.Controllers
                 TempData["ErrorMessage"] = "Payment information not found or payment failed.";
                 return RedirectToAction("Index", "Home");
             }
-            return View(response);
         }
         public async Task<int> CalculateShippingFee(List<OrderMedia> list, string province, bool isRushOrder)
         {
             bool isInnerCity = province.Contains("Thành phố Hà Nội") || province.Contains("Thành phố Hồ Chí Minh");
-
             int totalItemValue = 0;
             double totalWeight = 0;
             double heaviestItemWeight = 0;
@@ -180,15 +159,10 @@ namespace AIMS.Controllers
             {
                 var media = await _mediaRepository.GetByIdAsync(item.MediaId);
                 double itemWeight = item.Quantity * media.Weight;
-
                 totalWeight += itemWeight;
                 heaviestItemWeight = Math.Max(heaviestItemWeight, itemWeight);
-
                 if (media.RushSupport)
-                {
                     rushOrderFee += 10000 * item.Quantity;
-                }
-
                 totalItemValue += media.Value;
             }
 
@@ -196,24 +170,17 @@ namespace AIMS.Controllers
             double weightLimit = isInnerCity ? 3 : 0.5;
             int initialPrice = isInnerCity ? 22000 : 30000;
             int additionalFeePerUnit = 2500;
-
             if (heaviestItemWeight <= weightLimit)
-            {
                 baseFee = initialPrice;
-            }
             else
             {
                 double excessWeight = heaviestItemWeight - weightLimit;
                 int additionalUnits = (int)Math.Ceiling(excessWeight / 0.5);
                 baseFee = initialPrice + (additionalUnits * additionalFeePerUnit);
             }
-
             int freeShippingDiscount = 0;
             if (totalItemValue > 100000)
-            {
                 freeShippingDiscount = Math.Min(baseFee, 25000);
-            }
-
             return isRushOrder ? Math.Max(0, Math.Abs(baseFee - freeShippingDiscount)) + rushOrderFee : Math.Max(0, baseFee - freeShippingDiscount);
         }
      private const string OrderDataTempSessionKey = "OrderDataTemp";
@@ -263,7 +230,6 @@ namespace AIMS.Controllers
                 {
                     return Json(new { success = false, message = "OrderMediaList not found in session." });
                 }
-
                 var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
                 if (orderMediaList == null)
                 {

@@ -20,7 +20,6 @@ namespace AIMS.Controllers
         {
             List<CartItem> selectedProducts = SelectedItems.Where(item => item.isSelected).ToList();
 
-            // Kiểm tra số lượng tồn kho
             foreach (var item in selectedProducts)
             {
                 var media = await mediaRepository.GetByIdAsync(item.ProductId);
