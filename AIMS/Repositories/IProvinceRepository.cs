@@ -1,6 +1,6 @@
 ﻿using AIMS.Data.Entities.Address;
 
-namespace AIMS.Data.Repositories.Interfaces
+namespace AIMS.Repositories
 {
     public interface IProvinceRepository
     {

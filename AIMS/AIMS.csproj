@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Domains\" />
-    <Folder Include="Models\ViewModels\" />
+    <Folder Include="ViewModels\Domains\" />
+    <Folder Include="ViewModels\ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using AIMS.Data.Entities;
 
-namespace AIMS.Data.Repositories.Interfaces
+namespace AIMS.Repositories
 {
     public interface IUserRepository
     {

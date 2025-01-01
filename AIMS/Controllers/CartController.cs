@@ -1,5 +1,5 @@
 ﻿using AIMS.Data.Entities;
-using AIMS.Data.Repositories.Interfaces;
+using AIMS.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;

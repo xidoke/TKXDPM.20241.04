@@ -51,7 +51,7 @@ namespace AIMS.Libraries
                 signData = signData.Remove(data.Length - 1, 1);
             }
 
-            var vnpSecureHash = Utils.HmacSHA512(vnpHashSecret, signData);
+            var vnpSecureHash = VnPayUtils.HmacSHA512(vnpHashSecret, signData);
             baseUrl += "vnp_SecureHash=" + vnpSecureHash;
 
             return baseUrl;
@@ -62,7 +62,7 @@ namespace AIMS.Libraries
         public bool ValidateSignature(string inputHash, string secretKey)
         {
             var rspRaw = GetResponseData();
-            var myChecksum = Utils.HmacSHA512(secretKey, rspRaw);
+            var myChecksum = VnPayUtils.HmacSHA512(secretKey, rspRaw);
             return myChecksum.Equals(inputHash, StringComparison.InvariantCultureIgnoreCase);
         }
 
@@ -95,7 +95,7 @@ namespace AIMS.Libraries
 
     }
 
-    public class Utils
+    public class VnPayUtils
     {
         public static string HmacSHA512(string key, string inputData)
         {

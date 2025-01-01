@@ -1,7 +1,8 @@
 ﻿using AIMS.Data.Entities;
-using AIMS.Data.Repositories.Interfaces;
 using AIMS.Models;
+using AIMS.Repositories;
 using AIMS.Service.Interfaces;
+using AIMS.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,7 +18,9 @@ namespace AIMS.Controllers
         private readonly IVnPayService _vnPayservice;
         private readonly IMediaRepository _mediaRepository;
         private readonly IOrderRepository _orderRepository;
-        public OrderController(IProvinceRepository provinceRepository, IOrderRepository orderRepository, IDistrictRepository districtRepository, IWardRepository wardRepository, IVnPayService vnPayservice, IMediaRepository mediaRepository)
+        private readonly DeliveryInfoValidator _deliveryInforValidator;
+        public OrderController(IProvinceRepository provinceRepository, IOrderRepository orderRepository, IDistrictRepository districtRepository, 
+            IWardRepository wardRepository, IVnPayService vnPayservice, IMediaRepository mediaRepository, DeliveryInfoValidator deliveryInfoValidator)
         {
             _provinceRepository = provinceRepository;
             _districtRepository = districtRepository;
@@ -25,6 +28,7 @@ namespace AIMS.Controllers
             _vnPayservice = vnPayservice;
             _orderRepository = orderRepository;
             _mediaRepository = mediaRepository;
+            _deliveryInforValidator = deliveryInfoValidator;
         }
         private List<CartItem> GetCartFromSession()
         {
@@ -187,33 +191,11 @@ namespace AIMS.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveOrderData(OrderData orderData, string province, string district, string ward, string shippingMethod)
         {
-            if (string.IsNullOrEmpty(orderData.Fullname))
+            string validationResult = _deliveryInforValidator.Validate(orderData.Fullname, orderData.Phone, orderData.Address, province, district, ward, orderData.Email, shippingMethod);
+
+            if (validationResult.Contains("Vui lòng"))
             {
-                return Json(new { success = false, message = "Vui lòng nhập họ tên người nhận." });
-            }
-            if (string.IsNullOrEmpty(orderData.Phone))
-            {
-                return Json(new { success = false, message = "Vui lòng nhập số điện thoại người nhận." });
-            }
-            if (string.IsNullOrEmpty(orderData.Address))
-            {
-                return Json(new { success = false, message = "Vui lòng nhập địa chỉ." });
-            }
-            if (string.IsNullOrEmpty(province))
-            {
-                return Json(new { success = false, message = "Vui lòng chọn tỉnh/thành." });
-            }
-            if (string.IsNullOrEmpty(district))
-            {
-                return Json(new { success = false, message = "Vui lòng chọn quận/huyện." });
-            }
-            if (string.IsNullOrEmpty(ward))
-            {
-                return Json(new { success = false, message = "Vui lòng chọn phường/xã." });
-            }
-            if (string.IsNullOrEmpty(shippingMethod))
-            {
-                return Json(new { success = false, message = "Vui lòng chọn phương thức vận chuyển." });
+                return Json(new { success = false, message = validationResult });
             }
 
             try
@@ -293,7 +275,7 @@ namespace AIMS.Controllers
             {
                 Console.WriteLine(ex.ToString());
 
-                return Json(new { success = false, message = $"Error saving order data: {ex.Message}" });
+                return Json(new { success = false, message = $"{ex.Message}" });
             }
         }
 
