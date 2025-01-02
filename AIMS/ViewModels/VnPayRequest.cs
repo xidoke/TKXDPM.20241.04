@@ -1,4 +1,4 @@
-﻿namespace AIMS.Models
+﻿namespace AIMS.ViewModels
 {
     public class VnPayRequest
     {

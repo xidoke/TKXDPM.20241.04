@@ -1,4 +1,5 @@
 ﻿using AIMS.Models;
+using AIMS.ViewModels;
 
 namespace AIMS.Service.Interfaces
 {

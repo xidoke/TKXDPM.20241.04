@@ -1,5 +1,5 @@
 ﻿using AIMS.Libraries;
-using AIMS.Models;
+using AIMS.ViewModels;
 using AIMS.Service.Interfaces;
 
 namespace AIMS.Service
