@@ -1,6 +1,7 @@
 ﻿using AIMS.Data.Contexts;
 using AIMS.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace AIMS.Repositories.Impl
 {
@@ -8,10 +9,17 @@ namespace AIMS.Repositories.Impl
     {
         private readonly ApplicationDbContext _context;
 
-        public UserRepository(ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UserRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
+        public string GetCurrentUserEmail()
+        {
+            return _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+        }
+
         public async Task<User> GetById(int id)
         {
             return await _context.Users.FindAsync(id);

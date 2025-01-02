@@ -1,26 +1,33 @@
 ﻿using AIMS.Data.Contexts;
 using AIMS.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace AIMS.Repositories.Impl
 {
     public class OrderRepository : IOrderRepository
     {
         private readonly ApplicationDbContext _context;
-
-        public OrderRepository(ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public OrderRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
-
+        public string GetCurrentUserEmail()
+        {
+            return _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+        }
         public async Task<OrderData> GetOrderByIdAsync(int orderId)
         {
-            return await _context.OrderDatas.FindAsync(orderId);
+            string currentUserEmail = GetCurrentUserEmail();
+            return await _context.OrderDatas.Where(o => o.Id == orderId && o.Email == currentUserEmail).FirstOrDefaultAsync();
         }
 
         public async Task<List<OrderData>> GetAllOrdersAsync()
         {
-            return await _context.OrderDatas.ToListAsync();
+            string currentUserEmail = GetCurrentUserEmail();
+            return await _context.OrderDatas.Where(o => o.Email == currentUserEmail).ToListAsync();
         }
 
         public async Task<int> CreateOrderAsync(OrderData orderData)
@@ -38,7 +45,8 @@ namespace AIMS.Repositories.Impl
 
         public async Task DeleteOrderAsync(int orderId)
         {
-            var order = await _context.OrderDatas.FindAsync(orderId);
+            string currentUserEmail = GetCurrentUserEmail();
+            var order = await _context.OrderDatas.Where(o => o.Id == orderId && o.Email == currentUserEmail).FirstOrDefaultAsync();
             if (order != null)
             {
                 _context.OrderDatas.Remove(order);
@@ -48,6 +56,9 @@ namespace AIMS.Repositories.Impl
 
         public async Task<List<OrderMedia>> GetOrderMediasByOrderIdAsync(int orderId)
         {
+            string currentUserEmail = GetCurrentUserEmail();
+            var order = await _context.OrderDatas.Where(o => o.Id == orderId && o.Email == currentUserEmail).FirstOrDefaultAsync();
+            if (order == null) return new List<OrderMedia>();
             return await _context.OrderMedias.Where(om => om.OrderId == orderId).ToListAsync();
         }
 
@@ -70,7 +81,7 @@ namespace AIMS.Repositories.Impl
 
         public async Task DeleteOrderMediaAsync(int orderMediaId)
         {
-            var orderMedia = await _context.OrderMedias.FindAsync(orderMediaId);
+            var orderMedia = await _context.OrderMedias.Where(om => om.Id == orderMediaId).FirstOrDefaultAsync();
             if (orderMedia != null)
             {
                 _context.OrderMedias.Remove(orderMedia);

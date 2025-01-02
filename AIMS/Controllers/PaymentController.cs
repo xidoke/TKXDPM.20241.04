@@ -6,6 +6,7 @@ using System.Text.Json;
 using AIMS.Repositories;
 using AIMS.Models;
 using AIMS.Utils;
+using AIMS.Data.Repositories.Interfaces;
 namespace AIMS.Controllers
 {
     public class PaymentController : Controller
@@ -19,13 +20,17 @@ namespace AIMS.Controllers
         private readonly IEmailService _emailService;
         private readonly IMediaRepository _mediaRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public PaymentController(IVnPayService vnPayservice, IOrderRepository orderRepository, IEmailService emailService, IMediaRepository mediaRepository, IHttpContextAccessor httpContextAccessor)
+        private readonly ICartRepository _cartRepository;
+        private readonly IUserRepository _userRepository;
+        public PaymentController(IUserRepository userRepository, ICartRepository cartRepository, IVnPayService vnPayservice, IOrderRepository orderRepository, IEmailService emailService, IMediaRepository mediaRepository, IHttpContextAccessor httpContextAccessor)
         {
             _vnPayservice = vnPayservice;
             _orderRepository = orderRepository;
             _emailService = emailService;
             _mediaRepository = mediaRepository;
             _httpContextAccessor = httpContextAccessor;
+            _cartRepository = cartRepository;
+            _userRepository = userRepository;   
         }
 
         public IActionResult PaymentInfo()
@@ -78,7 +83,7 @@ namespace AIMS.Controllers
             if (response == null || response.VnPayResponseCode != "00")
             {
                 TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayResponseCode}";
-                return RedirectToAction("PaymentFail"); 
+                return RedirectToAction("PaymentFail");
             }
             var orderInfoJson = HttpContext.Session.GetString(OrderInfoSessionKey);
             if (string.IsNullOrEmpty(orderInfoJson))
@@ -111,7 +116,7 @@ namespace AIMS.Controllers
                     Type = paymentMethod,
                     CreatedAt = ordatDataSession.CreatedAt,
                     TotalPrice = ordatDataSession.TotalPrice,
-                    Status = 0,
+                    Status = "0",
                     Fullname = ordatDataSession.Fullname
                 };
                 var orderMediaJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
@@ -170,10 +175,20 @@ namespace AIMS.Controllers
                 TempData.Remove("PaymentTime");
                 #region Clear Item Ordered in cart
                 var mediaIdsToRemove = orderMedias.Select(om => om.MediaId).ToList();
-                var cartController = new CartController(_mediaRepository, _httpContextAccessor);
-                var cart = cartController.GetCartFromSession();
-                cart.RemoveAll(item => mediaIdsToRemove.Contains(item.MediaID));
-                cartController.SaveCartToSession(cart);
+                if (User.Identity.IsAuthenticated)
+                {
+                    foreach (var mediaId in mediaIdsToRemove)
+                    {
+                        await _cartRepository.DeleteCartItemAsync(mediaId);
+                    }
+                }
+                else
+                {
+                    var cartController = new CartController(_mediaRepository, _httpContextAccessor, _cartRepository, _userRepository);
+                    var cart = cartController.GetCartFromSession();
+                    cart.RemoveAll(item => mediaIdsToRemove.Contains(item.MediaID));
+                    cartController.SaveCartToSession(cart);
+                }
                 #endregion
                 #region Clear Session of OrderData, OrderInfo, OrderMediaList
                 HttpContext.Session.Remove(OrderDataTempSessionKey);

@@ -1,0 +1,115 @@
+﻿@model List<AIMS.Data.Entities.OrderData>
+
+@{
+    ViewData["Title"] = "Lịch sử đặt hàng";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        .order-history-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+        }
+        .order-details-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; 
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<br />
+<div class="order-history-container">
+    <h2>Lịch sử đặt hàng</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <form asp-action="PlaceOrderHistoryView" method="get">
+                <div class="input-group">
+                    <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm..." value="@ViewBag.CurrentSearch" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Tìm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="PlaceOrderHistoryView" asp-route-sortOrder="@ViewBag.IdSortParm" asp-route-currentFilter="@ViewBag.CurrentSearch">
+                            Mã đơn hàng
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="PlaceOrderHistoryView" asp-route-sortOrder="@ViewBag.CreatedAtSortParm" asp-route-currentFilter="@ViewBag.CurrentSearch">
+                            Ngày đặt
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="PlaceOrderHistoryView" asp-route-sortOrder="@ViewBag.TotalPriceSortParm" asp-route-currentFilter="@ViewBag.CurrentSearch">
+                            Tổng tiền
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="PlaceOrderHistoryView" asp-route-sortOrder="@ViewBag.StatusSortParm" asp-route-currentFilter="@ViewBag.CurrentSearch">
+                            Trạng thái
+                        </a>
+                    </th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.CreatedAt</td>
+                        <td>@order.TotalPrice.ToString("N0") đ</td>
+                        <td>
+                            @if (order.Status == "0")
+                            {
+                                <span>Chờ xử lý</span>
+                            }
+                            else if (order.Status == "1")
+                            {
+                                <span>Đang giao</span>
+                            }
+                            else if (order.Status == "2")
+                            {
+                                <span>Đã giao</span>
+                            }
+                            else
+                            {
+                                <span>Đã hủy</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="OrderDetails" asp-route-orderId="@order.Id" class="btn btn-success">Xem chi tiết</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Bạn chưa có đơn hàng nào.</p>
+    }
+</div>

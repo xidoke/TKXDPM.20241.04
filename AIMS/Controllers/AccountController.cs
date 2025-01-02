@@ -42,6 +42,7 @@ namespace AIMS.Controllers
                         {
                             new Claim(ClaimTypes.Name, user_checkName.Username),
                             new Claim(ClaimTypes.NameIdentifier, user_checkName.Id.ToString()),
+                            new Claim(ClaimTypes.Email, user_checkName.Email.ToString()),
                         };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

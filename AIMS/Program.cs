@@ -6,6 +6,9 @@ using AIMS.Service;
 using AIMS.Repositories.Impl;
 using AIMS.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using AIMS.Data.Repositories.Interfaces;
+using AIMS.Data.Repositories;
+using AIMS.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -34,6 +37,9 @@ builder.Services.AddScoped<IWardRepository, WardRepository>();
 builder.Services.AddScoped<IMediaRepository, MediaRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IVnPayService, VnPayService>();
+builder.Services.AddScoped<DeliveryInfoValidator>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 var connectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1vsmClOd;Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Pooling=true;Timeout=60;CommandTimeout=60;Connection Lifetime=60;Multiplexing=true";
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

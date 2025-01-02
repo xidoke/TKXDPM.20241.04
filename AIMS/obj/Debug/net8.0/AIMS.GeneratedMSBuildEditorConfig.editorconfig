@@ -38,6 +38,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWFcTWVkaWFEZXRhaWxzVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/Order/OrderDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcT3JkZXJEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/Order/PlaceOrderHistoryView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcUGxhY2VPcmRlckhpc3RvcnlWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Msi/Desktop/AIMS/TKXDPM.20241.04/AIMS/Views/Order/PlaceOrderView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcUGxhY2VPcmRlclZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

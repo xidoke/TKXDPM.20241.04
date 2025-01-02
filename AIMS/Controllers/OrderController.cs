@@ -7,6 +7,7 @@ using AIMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 using System.Text.Json;
 
 namespace AIMS.Controllers
@@ -166,7 +167,7 @@ namespace AIMS.Controllers
                     if (item.Price <= 0) return Json(new { success = false, message = "An item in OrderMediaList has a non-positive Price." });
                 }
                 orderData.ShippingFee = await CalculateShippingFee(orderMediaList, provinceName, shippingMethod.Contains("rush"));
-                orderData.TotalPrice = (float)orderMediaList.Sum(item => item.Quantity * item.Price * 1.1) + orderData.ShippingFee;
+                orderData.TotalPrice = int.Parse(orderMediaList.Sum(item => item.Quantity * item.Price * 1.1).ToString()) + orderData.ShippingFee;
                 if (orderData == null) return Json(new { success = false, message = "OrderData is null." });
                 if (orderData.Fullname == null) return Json(new { success = false, message = "OrderData.Fullname is null." });
                 if (orderData.Phone == null) return Json(new { success = false, message = "OrderData.Phone is null." });
@@ -181,6 +182,69 @@ namespace AIMS.Controllers
             {
                 return Json(new { success = false, message = $"{ex.Message}" });
             }
+        }
+
+        [Authorize] 
+        public async Task<IActionResult> PlaceOrderHistoryView(string sortOrder, string currentFilter, string searchTerm)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.CreatedAtSortParm = sortOrder == "CreatedAt" ? "createdat_desc" : "CreatedAt";
+            ViewBag.TotalPriceSortParm = sortOrder == "TotalPrice" ? "totalprice_desc" : "TotalPrice";
+            ViewBag.StatusSortParm = sortOrder == "Status" ? "status_desc" : "Status";
+            if (searchTerm != null)
+            {
+            }
+            else
+                searchTerm = currentFilter;
+            ViewBag.CurrentSearch = searchTerm;
+            var userOrders = await _orderRepository.GetAllOrdersAsync();
+            if (!String.IsNullOrEmpty(searchTerm))
+                userOrders = userOrders.Where(s => s.Id.ToString().Contains(searchTerm)
+                                               || s.CreatedAt.Contains(searchTerm)
+                                               || s.TotalPrice.ToString().Contains(searchTerm)
+                                               || s.Status.ToString().Contains(searchTerm)).ToList();
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    userOrders = userOrders.OrderByDescending(s => s.Id).ToList();
+                    break;
+                case "CreatedAt":
+                    userOrders = userOrders.OrderBy(s => DateTime.ParseExact(s.CreatedAt, "HH:mm:ss dd/MM/yyyy", CultureInfo.InvariantCulture)).ToList();
+                    break;
+                case "createdat_desc":
+                    userOrders = userOrders.OrderByDescending(s => DateTime.ParseExact(s.CreatedAt, "HH:mm:ss dd/MM/yyyy", CultureInfo.InvariantCulture)).ToList();
+                    break;
+                case "TotalPrice":
+                    userOrders = userOrders.OrderBy(s => s.TotalPrice).ToList();
+                    break;
+                case "totalprice_desc":
+                    userOrders = userOrders.OrderByDescending(s => s.TotalPrice).ToList();
+                    break;
+                case "Status":
+                    userOrders = userOrders.OrderBy(s => s.Status).ToList();
+                    break;
+                case "status_desc":
+                    userOrders = userOrders.OrderByDescending(s => s.Status).ToList();
+                    break;
+                default:
+                    userOrders = userOrders.OrderBy(s => s.Id).ToList();
+                    break;
+            }
+            return View(userOrders);
+        }
+
+        public async Task<IActionResult> OrderDetails(int orderId)
+        {
+            var order = await _orderRepository.GetOrderByIdAsync(orderId);
+            if (order == null) return NotFound();
+            var orderMedias = await _orderRepository.GetOrderMediasByOrderIdAsync(orderId);
+            var viewModel = new OrderDetailsViewModel
+            {
+                Order = order,
+                OrderMedias = orderMedias
+            };
+            return View(viewModel);
         }
     }
 }

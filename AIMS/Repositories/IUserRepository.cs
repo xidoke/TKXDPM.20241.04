@@ -9,5 +9,6 @@ namespace AIMS.Repositories
         Task<User> GetByEmail(string email);
         Task Add(User user);
         Task Update(User user);
+        string GetCurrentUserEmail();
     }
 }

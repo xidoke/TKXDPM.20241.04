@@ -1,0 +1,235 @@
+﻿@model AIMS.ViewModels.OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storefront</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        .order-details-container {
+            display: flex;
+            flex-direction: column; 
+            gap: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .order-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .order-products {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .order-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .order-info hr {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-info .row {
+            margin-bottom: 10px;
+        }
+
+        .order-info dt {
+            font-weight: bold;
+        }
+
+        .order-products h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .back-to-list {
+            margin-top: 20px; 
+        }
+
+            .back-to-list a {
+                padding: 8px 15px;
+                background-color: #007bff; 
+                color: #fff;
+                border-radius: 5px;
+                text-decoration: none;
+            }
+
+                .back-to-list a:hover {
+                    background-color: #0056b3; 
+                }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            border-collapse: collapse;
+        }
+
+            .table th,
+            .table td {
+                padding: 0.75rem;
+                vertical-align: top;
+                border-top: 1px solid #dee2e6;
+            }
+
+            .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+                background-color: #e9ecef;
+                font-weight: bold;
+            }
+
+            .table tbody + tbody {
+                border-top: 2px solid #dee2e6;
+            }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<br />
+<div class="order-details-container">
+    <div class="order-info">
+        <h2>Chi tiết đơn hàng #@Model.Order.Id</h2>
+        <hr />
+        <dl class="row">
+
+            <dt class="col-sm-4">
+                Mã đơn hàng
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Order.Id)
+            </dd>
+
+            <dt class="col-sm-4">
+                Ngày đặt hàng
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Order.CreatedAt)
+            </dd>
+
+            <dt class="col-sm-4">
+                Số tiền đã thanh toán
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Order.TotalPrice.ToString("N0") đ
+            </dd>
+
+            <dt class="col-sm-4">
+                Phí vận chuyển
+            </dt>
+            <dd class="col-sm-8">
+                @Model.Order.ShippingFee.ToString("N0") đ
+            </dd>
+
+            <dt class="col-sm-4">
+                Trạng thái
+            </dt>
+            <dd class="col-sm-8">
+                @if (Model.Order.Status == "0")
+                {
+                    <span>Chờ xử lý</span>
+                }
+                else if (Model.Order.Status == "1")
+                {
+                    <span>Đang giao</span>
+                }
+                else if (Model.Order.Status == "2")
+                {
+                    <span>Đã giao</span>
+                }
+                else
+                {
+                    <span>Đã hủy</span>
+                }
+            </dd>
+            <dt class="col-sm-4">
+                Họ và tên
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Order.Fullname)
+            </dd>
+            <dt class="col-sm-4">
+                Email
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Order.Email)
+            </dd>
+            <dt class="col-sm-4">
+                Số điện thoại
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Order.Phone)
+            </dd>
+            <dt class="col-sm-4">
+                Địa chỉ
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Order.Address)
+            </dd>
+            <dt class="col-sm-4">
+                Hình thức thanh toán
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Order.Type)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="order-products">
+        <h4>Sản phẩm đã đặt</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Tên sản phẩm
+                    </th>
+                    <th>
+                        Giá
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderMedias)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @item.Price.ToString("N0") đ
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="back-to-list">
+        <a asp-action="PlaceOrderHistoryView">Quay lại danh sách đơn hàng</a>
+    </div>
+</div>
