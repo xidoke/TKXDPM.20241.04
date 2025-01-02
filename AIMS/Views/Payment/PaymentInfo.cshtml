@@ -135,9 +135,9 @@
                     <h3>Chọn phương thức thanh toán</h3>
                     <div class="form-group select-wrapper">
                         <select class="form-control" id="paymentMethod">
+                            <option value="vnpay" data-img-src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR.png">Thanh toán qua cổng VNPay</option>
                             <option value="momo" data-img-src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png">Thanh toán qua ví MOMO</option>
                             <option value="domesticCard" data-img-src="https://minisiteb.qltns.mediacdn.vn/minisite/napasen/image/card-napas.png">Thanh toán qua Thẻ nội địa</option>
-                            <option value="vnpay" data-img-src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR.png">Thanh toán qua cổng VNPay</option>
                         </select>
                     </div>
                     <br />
@@ -159,6 +159,8 @@
                     var orderDataTemp = JSON.parse(orderDataTempJson);
 
                     var tableBody = $("#orderTable tbody");
+                    var totalProductPriceExcludingVAT = 0; 
+
                     orderMediaList.forEach(function (item) {
                         var row = "<tr>";
                         row += "<td>" + item.Name + "</td>";
@@ -167,12 +169,18 @@
                         row += "<td>" + (item.Quantity * item.Price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + "</td>";
                         row += "</tr>";
                         tableBody.append(row);
+
+                        totalProductPriceExcludingVAT += item.Quantity * item.Price; 
                     });
 
-                    $("#totalProductPriceExcludingVAT").text((orderDataTemp.TotalPrice - orderDataTemp.ShippingFee).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-                    $("#totalProductPriceIncludingVAT").text(((orderDataTemp.TotalPrice - orderDataTemp.ShippingFee) * 1.1).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    var vat = totalProductPriceExcludingVAT * 0.1;
+                    var totalPrice = totalProductPriceExcludingVAT + vat + orderDataTemp.ShippingFee;
+
+                    $("#totalProductPriceExcludingVAT").text(totalProductPriceExcludingVAT.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    $("#totalProductPriceIncludingVAT").text((totalProductPriceExcludingVAT + vat).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })); 
                     $("#shippingFee").text(orderDataTemp.ShippingFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-                    $("#totalPrice").text(orderDataTemp.TotalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    $("#totalPrice").text(totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    alert(orderDataTemp.ShippingFee + "|" + totalPrice);
                 } else {
                     alert("Không tìm thấy thông tin đơn hàng.");
                     window.location.href = "@Url.Action("PlaceOrderView", "Order")";
