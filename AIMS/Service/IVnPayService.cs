@@ -1,7 +1,7 @@
 ﻿using AIMS.Models;
 using AIMS.ViewModels;
 
-namespace AIMS.Service.Interfaces
+namespace AIMS.Service
 {
     public interface IVnPayService
     {

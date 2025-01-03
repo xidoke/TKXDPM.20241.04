@@ -1,14 +1,12 @@
 ﻿using AIMS.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor;
-using AIMS.Service.Interfaces;
-using AIMS.Service;
-using AIMS.Repositories.Impl;
-using AIMS.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using AIMS.Data.Repositories.Interfaces;
-using AIMS.Data.Repositories;
 using AIMS.Utils;
+using AIMS.Repositories;
+using AIMS.Repositories.Impl;
+using AIMS.Service.Impl;
+using AIMS.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -29,6 +27,7 @@ builder.Services.AddSession(options =>
 });
 
 // Cấu hình các dịch vụ khác
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IProvinceRepository, ProvinceRepository>();
@@ -40,8 +39,7 @@ builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<DeliveryInfoValidator>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-var connectionString = "User ID=postgres.dwsijitgwefuomejoime;Password=9Tb9eeaw1vsmClOd;Host=aws-0-ap-southeast-1.pooler.supabase.com;Port=6543;Database=postgres;Pooling=true;Timeout=60;CommandTimeout=60;Connection Lifetime=60;Multiplexing=true";
-builder.Services.AddHttpContextAccessor();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 

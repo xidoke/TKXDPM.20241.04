@@ -1,4 +1,4 @@
-﻿namespace AIMS.Data.Entities
+﻿namespace AIMS.Models.Entities
 {
     public class DVD : Media
     {

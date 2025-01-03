@@ -18,7 +18,7 @@ namespace AIMS.Utils
             return "Thông tin giao hàng hợp lệ.";
         }
 
-        private string? ValidateName(string name)
+        public string? ValidateName(string name)
         {
             if (string.IsNullOrEmpty(name)) return "Vui lòng nhập tên người nhận hàng.";
             if (name.Length > 30)  return "Tên không hợp lệ. Vui lòng nhập tên không quá 30 ký tự.";
@@ -29,7 +29,7 @@ namespace AIMS.Utils
             return null;
         }
 
-        private string? ValidatePhoneNumber(string phoneNumber)
+        public string? ValidatePhoneNumber(string phoneNumber)
         {
             if (string.IsNullOrEmpty(phoneNumber)) return "Vui lòng nhập số điện thoại.";
             if (!phoneNumber.StartsWith("0")) return "Số điện thoại không hợp lệ. Vui lòng nhập số bắt đầu bằng số '0'.";
@@ -38,23 +38,30 @@ namespace AIMS.Utils
             return null;
         }
 
-        private string? ValidateAddress(string address, string selectedCity, string selectedDistrict, string selectedWard)
+        public string? ValidateAddress(string address, string selectedCity, string selectedDistrict, string selectedWard)
         {
             if (string.IsNullOrEmpty(address) || address.Length > 100) return "Vui lòng nhập địa chỉ, trong khoảng 100 ký tự.";
+            foreach (char ch in address)
+            {
+                if (!(char.IsLetter(ch) || char.IsDigit(ch) || ch == ' ' || ch == '/' || ch == ','))
+                {
+                    return "Địa chỉ không hợp lệ. Vui lòng chỉ nhập chữ cái, dấu cách, dấu gạch chéo (/) và dấu phẩy (,).";
+                }
+            }
             if (string.IsNullOrEmpty(selectedCity)) return "Vui lòng chọn Tỉnh/Thành phố!";
             if (string.IsNullOrEmpty(selectedDistrict)) return "Vui lòng chọn Quận/Huyện!";
             if (string.IsNullOrEmpty(selectedWard)) return "Vui lòng chọn Phường/Xã!";
             return null;
         }
 
-        private string? ValidateEmail(string email)
+        public string? ValidateEmail(string email)
         {
             if (string.IsNullOrEmpty(email)) return "Vui lòng nhập địa chỉ email.";
             if (!Regex.IsMatch(email, Constants.EMAIL_REGEX)) return "Địa chỉ email không hợp lệ. Vui lòng cung cấp email hợp lệ.";
             return null;
         }
 
-        private bool ValidateShippingMethod(string shippingMethod)
+        public bool ValidateShippingMethod(string shippingMethod)
         {
             return !string.IsNullOrEmpty(shippingMethod);
         }
