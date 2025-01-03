@@ -167,7 +167,7 @@ namespace AIMS.Controllers
                     if (item.Price <= 0) return Json(new { success = false, message = "An item in OrderMediaList has a non-positive Price." });
                 }
                 orderData.ShippingFee = await CalculateShippingFee(orderMediaList, provinceName, shippingMethod.Contains("rush"));
-                orderData.TotalPrice = int.Parse(orderMediaList.Sum(item => item.Quantity * item.Price * 1.1).ToString()) + orderData.ShippingFee;
+                orderData.TotalPrice = (float)orderMediaList.Sum(item => item.Quantity * item.Price * 1.1)+ orderData.ShippingFee;
                 if (orderData == null) return Json(new { success = false, message = "OrderData is null." });
                 if (orderData.Fullname == null) return Json(new { success = false, message = "OrderData.Fullname is null." });
                 if (orderData.Phone == null) return Json(new { success = false, message = "OrderData.Phone is null." });

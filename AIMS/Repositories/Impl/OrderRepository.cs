@@ -20,8 +20,12 @@ namespace AIMS.Repositories.Impl
         }
         public async Task<OrderData> GetOrderByIdAsync(int orderId)
         {
-            string currentUserEmail = GetCurrentUserEmail();
-            return await _context.OrderDatas.Where(o => o.Id == orderId && o.Email == currentUserEmail).FirstOrDefaultAsync();
+            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                string currentUserEmail = GetCurrentUserEmail();
+                return await _context.OrderDatas.Where(o => o.Id == orderId && o.Email == currentUserEmail).FirstOrDefaultAsync();
+            }
+            return await _context.OrderDatas.Where(o => o.Id == orderId).FirstOrDefaultAsync();
         }
 
         public async Task<List<OrderData>> GetAllOrdersAsync()

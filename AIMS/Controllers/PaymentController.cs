@@ -112,7 +112,7 @@ namespace AIMS.Controllers
                     Phone = ordatDataSession.Phone,
                     Email = ordatDataSession.Email,
                     ShippingFee = ordatDataSession.ShippingFee,
-                    Instructions = ordatDataSession.Instructions,
+                    Instructions = !string.IsNullOrEmpty(ordatDataSession.Instructions) ? ordatDataSession.Instructions : "Không có",
                     Type = paymentMethod,
                     CreatedAt = ordatDataSession.CreatedAt,
                     TotalPrice = ordatDataSession.TotalPrice,
@@ -147,9 +147,9 @@ namespace AIMS.Controllers
                 await _orderRepository.AddOrderMediasAsync(orderMedias);
                 #endregion
                 #region Prepare data for email
-                decimal totalProductPriceExcludingVAT = orderMedias.Sum(om => om.Price * om.Quantity);
+                float totalProductPriceExcludingVAT = orderMedias.Sum(om => om.Price * om.Quantity);
                 var order_after_added = await _orderRepository.GetOrderByIdAsync(orderID_after_added);
-                decimal totalProductPriceIncludingVAT = totalProductPriceExcludingVAT * 1.1m;
+                float totalProductPriceIncludingVAT = (float)(totalProductPriceExcludingVAT * 1.1);
                 var emailModel = new OrderDetailsEmailViewModel
                 {
                     Order = order_after_added,

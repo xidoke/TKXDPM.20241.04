@@ -284,9 +284,7 @@
                                     totalPriceWithVAT += quantity * price;
                                 });
                                 totalPriceWithVAT = totalPriceWithVAT * 1.1;
-
                                 $("#totalPriceWithVAT").text(totalPriceWithVAT.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-
                                 var shippingFee = parseFloat(response.shippingFee);
                                 var totalPrice = totalPriceWithVAT + shippingFee;
                                 $("#totalPrice").text(totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));

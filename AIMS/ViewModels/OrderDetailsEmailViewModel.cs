@@ -6,8 +6,8 @@ namespace AIMS.ViewModels
     {
         public OrderData Order { get; set; }
         public List<OrderMedia> OrderMedias { get; set; }
-        public decimal TotalProductPriceExcludingVAT { get; set; }
-        public decimal TotalProductPriceIncludingVAT { get; set; }
+        public float TotalProductPriceExcludingVAT { get; set; }
+        public float TotalProductPriceIncludingVAT { get; set; }
         public string TransactionId { get; set; }
         public string TransactionContent { get; set; }
         public DateTime TransactionDate { get; set; }

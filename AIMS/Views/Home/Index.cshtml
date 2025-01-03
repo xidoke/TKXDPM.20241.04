@@ -28,7 +28,7 @@
                 @foreach (var cd in Model.CDs.Take(7)) 
                 {
                     <div class="product-card">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@cd.Title" class="product-image">
+                        <img src="@cd.ImgUrl" alt="@cd.Title" class="product-image">
                         <div class="product-info">
                             <h3 class="product-title">@cd.Title</h3>
                             <div class="price-container">
@@ -50,7 +50,7 @@
                 @foreach (var book in Model.Books.Take(7)) 
                 {
                     <div class="product-card">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@book.Title" class="product-image">
+                        <img src="@book.ImgUrl" alt="@book.Title" class="product-image">
                         <div class="product-info">
                             <h3 class="product-title">@book.Title</h3>
                             <div class="price-container">
@@ -73,7 +73,7 @@
                 @foreach (var dvd in Model.DVDs.Take(7))
                 {
                     <div class="product-card">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgz96szuoHZK4QCSVYZvCFaa2nDTxEtxkbVA&s" alt="@dvd.Title" class="product-image">
+                        <img src="@dvd.ImgUrl" alt="@dvd.Title" class="product-image">
                         <div class="product-info">
                             <h3 class="product-title">@dvd.Title</h3>
                             <div class="price-container">

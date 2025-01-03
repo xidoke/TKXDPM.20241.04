@@ -7,11 +7,11 @@
         private string _address;
         private string _phone;
         private string _email;
-        private int _shippingFee;
+        private float _shippingFee;
         private string _createdAt;
-        private string _instructions;
+        private string _instructions = "Trống";
         private string _type;
-        private int _totalPrice;
+        private float _totalPrice;
         private string _status;
         private string _fullname;
 
@@ -41,7 +41,7 @@
             set { _email = value; }
         }
 
-        public int ShippingFee
+        public float ShippingFee
         {
             get { return _shippingFee; }
             set { _shippingFee = value; }
@@ -64,7 +64,7 @@
             set { _type = value; }
         }
 
-        public int TotalPrice
+        public float TotalPrice
         {
             get { return _totalPrice; }
             set { _totalPrice = value; }
