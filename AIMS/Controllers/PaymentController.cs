@@ -1,12 +1,9 @@
-﻿using AIMS.Data.Entities;
-using AIMS.Service.Interfaces;
-using AIMS.ViewModels;
+﻿using AIMS.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using AIMS.Repositories;
-using AIMS.Models;
-using AIMS.Utils;
-using AIMS.Data.Repositories.Interfaces;
+using AIMS.Service;
+using AIMS.Models.Entities;
 namespace AIMS.Controllers
 {
     public class PaymentController : Controller

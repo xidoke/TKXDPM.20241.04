@@ -1,5 +1,5 @@
 ﻿using AIMS.Data.Contexts;
-using AIMS.Data.Entities;
+using AIMS.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 

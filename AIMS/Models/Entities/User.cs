@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AIMS.Data.Entities
+namespace AIMS.Models.Entities
 {
     public class User
     {

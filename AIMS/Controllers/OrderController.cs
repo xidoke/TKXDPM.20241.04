@@ -1,7 +1,5 @@
-﻿using AIMS.Data.Entities;
-using AIMS.Models;
+﻿using AIMS.Models.Entities;
 using AIMS.Repositories;
-using AIMS.Service.Interfaces;
 using AIMS.Utils;
 using AIMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
