@@ -60,7 +60,7 @@ namespace AIMS.Controllers
                 case "vnpay":
                     var orderInfo = new VnPayRequest
                     {
-                        Amount = orderDataTemp.TotalPrice,
+                        Amount = (int)orderDataTemp.TotalPrice,
                         CreatedDate = DateTime.Now,
                         OrderId = DateTime.Now.Ticks.ToString()
                     };
