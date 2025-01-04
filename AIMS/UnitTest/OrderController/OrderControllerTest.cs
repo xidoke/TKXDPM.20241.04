@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace AIMS.UnitTest.PlaceOrderController
 {
-    public class PlaceOrderControllerTest
+    public class OrderControllerTest
     {
         [TestFixture]
         public class OrderControllerTests
