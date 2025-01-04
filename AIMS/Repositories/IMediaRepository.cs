@@ -1,4 +1,4 @@
-﻿using AIMS.Data.Entities;
+﻿using AIMS.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

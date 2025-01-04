@@ -1,15 +1,8 @@
 ﻿using AIMS.Data.Contexts;
-using AIMS.Data.Entities;
-using AIMS.Data.Repositories.Interfaces;
+using AIMS.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using AIMS.Repositories;
 
-namespace AIMS.Data.Repositories
+namespace AIMS.Repositories.Impl
 {
     public class CartRepository : ICartRepository
     {

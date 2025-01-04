@@ -1,8 +1,8 @@
-﻿using AIMS.Data.Entities;
+﻿using AIMS.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AIMS.Data.Repositories.Interfaces
+namespace AIMS.Repositories
 {
     public interface ICartRepository
     {

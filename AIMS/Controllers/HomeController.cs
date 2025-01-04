@@ -1,8 +1,7 @@
-﻿using AIMS.Data.Entities;
-using AIMS.Models;
+﻿using AIMS.Models;
+using AIMS.Models.Entities;
 using AIMS.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace AIMS.Controllers

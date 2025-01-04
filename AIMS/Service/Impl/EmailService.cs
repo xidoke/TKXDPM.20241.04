@@ -10,11 +10,10 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using AIMS.Service.Interfaces;
 using AIMS.ViewModels;
 
 
-namespace AIMS.Service
+namespace AIMS.Service.Impl
 {
     public class EmailService : IEmailService
     {
@@ -109,4 +108,4 @@ namespace AIMS.Service
             }
         }
     }
-    }
+}

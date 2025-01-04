@@ -1,5 +1,5 @@
-﻿using AIMS.Data.Entities;
-using AIMS.Data.Entities.Address;
+﻿using AIMS.Data.Entities.Address;
+using AIMS.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AIMS.Data.Contexts

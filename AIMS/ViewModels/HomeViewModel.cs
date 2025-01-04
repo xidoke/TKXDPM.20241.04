@@ -1,4 +1,4 @@
-﻿using AIMS.Data.Entities;
+﻿using AIMS.Models.Entities;
 
 namespace AIMS.Models
 {

@@ -1,15 +1,10 @@
-﻿using AIMS.Data.Contexts;
-using AIMS.Data.Entities;
-using AIMS.Repositories;
+﻿using AIMS.Repositories;
 using AIMS.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using AIMS.Models.Entities;
 
 namespace AIMS.Controllers
 {

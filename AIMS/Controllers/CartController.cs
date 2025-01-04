@@ -1,10 +1,7 @@
-﻿using AIMS.Data.Entities;
-using AIMS.Data.Repositories.Interfaces;
+﻿using AIMS.Models.Entities;
 using AIMS.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using System.Security.Claims;
 using System.Text.Json;
 
 namespace AIMS.Controllers
