@@ -82,24 +82,20 @@ namespace AIMS.UnitTest.AccountControllerTests
             _userRepositoryMock
                 .Setup(repo => repo.GetByUsername(It.IsAny<string>()))
                 .ReturnsAsync(user);
-
-            // Act
+            
             var result = await _controller.Login(model);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<RedirectToActionResult>());
             var redirectResult = result as RedirectToActionResult;
             Assert.That(redirectResult.ActionName, Is.EqualTo("Index"));
             Assert.That(redirectResult.ControllerName, Is.EqualTo("Home"));
 
-            // Check TempData
             _tempDataMock.VerifySet(tempData => tempData["SuccessMessage"] = "Đăng nhập thành công!", Times.Once);
         }
 
         [Test]
         public async Task Login_InvalidUsername_ReturnsViewWithErrorMessage()
         {
-            // Arrange
             var model = new LoginViewModel
             {
                 Username = "wronguser",
@@ -111,23 +107,19 @@ namespace AIMS.UnitTest.AccountControllerTests
                 .Setup(repo => repo.GetByUsername(It.IsAny<string>()))
                 .ReturnsAsync((User)null);
 
-            // Act
             var result = await _controller.Login(model);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ViewResult>());
             var viewResult = result as ViewResult;
             Assert.That(viewResult.ViewData.ModelState.ErrorCount, Is.EqualTo(1));
             Assert.That(viewResult.ViewData.ModelState[""].Errors[0].ErrorMessage, Is.EqualTo("Tên đăng nhập hoặc mật khẩu không đúng."));
 
-            // Check TempData
             _tempDataMock.VerifySet(tempData => tempData["ErrorMessage"] = "Tên đăng nhập hoặc mật khẩu không đúng.", Times.Once);
         }
 
         [Test]
         public async Task Login_InvalidPassword_ReturnsViewWithErrorMessage()
         {
-            // Arrange
             var model = new LoginViewModel
             {
                 Username = "testuser",
@@ -138,7 +130,7 @@ namespace AIMS.UnitTest.AccountControllerTests
             var user = new User
             {
                 Username = "testuser",
-                Password = "password123", // Correct password
+                Password = "password123", 
                 Email = "testuser@example.com",
                 Id = 1
             };
@@ -147,23 +139,19 @@ namespace AIMS.UnitTest.AccountControllerTests
                 .Setup(repo => repo.GetByUsername(It.IsAny<string>()))
                 .ReturnsAsync(user);
 
-            // Act
             var result = await _controller.Login(model);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ViewResult>());
             var viewResult = result as ViewResult;
             Assert.That(viewResult.ViewData.ModelState.ErrorCount, Is.EqualTo(1));
             Assert.That(viewResult.ViewData.ModelState[""].Errors[0].ErrorMessage, Is.EqualTo("Tên đăng nhập hoặc mật khẩu không đúng."));
 
-            // Check TempData
             _tempDataMock.VerifySet(tempData => tempData["ErrorMessage"] = "Tên đăng nhập hoặc mật khẩu không đúng.", Times.Once);
         }
 
         [Test]
         public async Task Login_EmptyUsername_ReturnsViewWithErrorMessage()
         {
-            // Arrange
             var model = new LoginViewModel
             {
                 Username = "",
@@ -173,22 +161,18 @@ namespace AIMS.UnitTest.AccountControllerTests
 
             _controller.ModelState.AddModelError("Username", "Tên đăng nhập là bắt buộc.");
 
-            // Act
             var result = await _controller.Login(model);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ViewResult>());
             var viewResult = result as ViewResult;
             Assert.That(viewResult.ViewData.ModelState.ContainsKey("Username"));
 
-            // Check TempData
             _tempDataMock.VerifySet(tempData => tempData["ErrorMessage"] = "Tên đăng nhập là bắt buộc.", Times.Once);
         }
 
         [Test]
         public async Task Login_EmptyPassword_ReturnsViewWithErrorMessage()
         {
-            // Arrange
             var model = new LoginViewModel
             {
                 Username = "testuser",
@@ -198,15 +182,12 @@ namespace AIMS.UnitTest.AccountControllerTests
 
             _controller.ModelState.AddModelError("Password", "Mật khẩu là bắt buộc.");
 
-            // Act
             var result = await _controller.Login(model);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ViewResult>());
             var viewResult = result as ViewResult;
             Assert.That(viewResult.ViewData.ModelState.ContainsKey("Password"));
 
-            // Check TempData
             _tempDataMock.VerifySet(tempData => tempData["ErrorMessage"] = "Mật khẩu là bắt buộc.", Times.Once);
         }
     }
