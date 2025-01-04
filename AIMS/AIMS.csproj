@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="UnitTest\RepositoryTest\" />
     <Folder Include="ViewModels\Domains\" />
     <Folder Include="ViewModels\ViewModels\" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using AIMS.Models.Entities;
 using AIMS.Repositories;
+using AIMS.Service;
 using AIMS.Utils;
 using AIMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -18,9 +19,10 @@ namespace AIMS.Controllers
         private readonly IMediaRepository _mediaRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly DeliveryInfoValidator _deliveryInforValidator;
+        private readonly IShippingFeeService _shippingFeeService;
 
         public OrderController(IProvinceRepository provinceRepository, IOrderRepository orderRepository, IDistrictRepository districtRepository,
-            IWardRepository wardRepository, IMediaRepository mediaRepository, DeliveryInfoValidator deliveryInfoValidator)
+            IWardRepository wardRepository, IMediaRepository mediaRepository, DeliveryInfoValidator deliveryInfoValidator, IShippingFeeService shippingFeeService)
         {
             _provinceRepository = provinceRepository;
             _districtRepository = districtRepository;
@@ -28,6 +30,7 @@ namespace AIMS.Controllers
             _orderRepository = orderRepository;
             _mediaRepository = mediaRepository;
             _deliveryInforValidator = deliveryInfoValidator;
+            _shippingFeeService = shippingFeeService;
         }
 
         private const string OrderMediaListSessionKey = "OrderMediaList";
@@ -87,6 +90,7 @@ namespace AIMS.Controllers
             var orderMediaList = JsonSerializer.Deserialize<List<OrderMedia>>(orderMediaListJson);
             var provinces = _provinceRepository.GetAllAsync().Result;
             ViewBag.Provinces = new SelectList(provinces, "Id", "Name");
+            ViewBag.UserEmail = _orderRepository.GetCurrentUserEmail();
             return View(orderMediaList);
         }
 
@@ -104,41 +108,6 @@ namespace AIMS.Controllers
             return Json(wards);
         }
 
-        public async Task<int> CalculateShippingFee(List<OrderMedia> list, string province, bool isRushOrder)
-        {
-            bool isInnerCity = province.Contains("Thành phố Hà Nội") || province.Contains("Thành phố Hồ Chí Minh");
-            int totalItemValue = 0;
-            double totalWeight = 0;
-            double heaviestItemWeight = 0;
-            int rushOrderFee = 0;
-            foreach (var item in list)
-            {
-                var media = await _mediaRepository.GetByIdAsync(item.MediaId);
-                double itemWeight = item.Quantity * media.Weight;
-                totalWeight += itemWeight;
-                heaviestItemWeight = Math.Max(heaviestItemWeight, itemWeight);
-                if (media.RushSupport)
-                    rushOrderFee += 10000 * item.Quantity;
-                totalItemValue += media.Value;
-            }
-            int baseFee;
-            double weightLimit = isInnerCity ? 3 : 0.5;
-            int initialPrice = isInnerCity ? 22000 : 30000;
-            int additionalFeePerUnit = 2500;
-            if (heaviestItemWeight <= weightLimit)
-                baseFee = initialPrice;
-            else
-            {
-                double excessWeight = heaviestItemWeight - weightLimit;
-                int additionalUnits = (int)Math.Ceiling(excessWeight / 0.5);
-                baseFee = initialPrice + (additionalUnits * additionalFeePerUnit);
-            }
-            int freeShippingDiscount = 0;
-            if (totalItemValue > 100000)
-                freeShippingDiscount = Math.Min(baseFee, 25000);
-            return isRushOrder ? Math.Max(0, Math.Abs(baseFee - freeShippingDiscount)) + rushOrderFee : Math.Max(0, baseFee - freeShippingDiscount);
-        }
-
         private const string OrderDataTempSessionKey = "OrderDataTemp";
 
         [HttpPost]
@@ -151,6 +120,7 @@ namespace AIMS.Controllers
                 var provinceName = (await _provinceRepository.GetById(province))?.Name;
                 var districtName = (await _districtRepository.GetById(district))?.Name;
                 var wardName = (await _wardRepository.GetById(ward))?.Name;
+                orderData.City = provinceName;
                 orderData.Address = $"{orderData.Address}, {wardName}, {districtName}, {provinceName}";
                 orderData.Type = shippingMethod;
                 var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
@@ -164,7 +134,7 @@ namespace AIMS.Controllers
                     if (item.Quantity <= 0) return Json(new { success = false, message = "An item in OrderMediaList has a non-positive Quantity." });
                     if (item.Price <= 0) return Json(new { success = false, message = "An item in OrderMediaList has a non-positive Price." });
                 }
-                orderData.ShippingFee = await CalculateShippingFee(orderMediaList, provinceName, shippingMethod.Contains("rush"));
+                orderData.ShippingFee = await _shippingFeeService.CalculateShippingFee(orderMediaList, provinceName, shippingMethod.Contains("rush"));
                 orderData.TotalPrice = (float)orderMediaList.Sum(item => item.Quantity * item.Price * 1.1)+ orderData.ShippingFee;
                 if (orderData == null) return Json(new { success = false, message = "OrderData is null." });
                 if (orderData.Fullname == null) return Json(new { success = false, message = "OrderData.Fullname is null." });

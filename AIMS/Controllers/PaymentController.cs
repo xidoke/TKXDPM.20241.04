@@ -19,7 +19,8 @@ namespace AIMS.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ICartRepository _cartRepository;
         private readonly IUserRepository _userRepository;
-        public PaymentController(IUserRepository userRepository, ICartRepository cartRepository, IVnPayService vnPayservice, IOrderRepository orderRepository, IEmailService emailService, IMediaRepository mediaRepository, IHttpContextAccessor httpContextAccessor)
+        private readonly CartController cartController;
+        public PaymentController(IUserRepository userRepository, ICartRepository cartRepository, IVnPayService vnPayservice, IOrderRepository orderRepository, IEmailService emailService, IMediaRepository mediaRepository, IHttpContextAccessor httpContextAccessor, CartController cartController)
         {
             _vnPayservice = vnPayservice;
             _orderRepository = orderRepository;
@@ -27,7 +28,8 @@ namespace AIMS.Controllers
             _mediaRepository = mediaRepository;
             _httpContextAccessor = httpContextAccessor;
             _cartRepository = cartRepository;
-            _userRepository = userRepository;   
+            _userRepository = userRepository;
+            this.cartController = cartController;
         }
 
         public IActionResult PaymentInfo()
@@ -100,21 +102,21 @@ namespace AIMS.Controllers
             {
                 #region Add OrderData/OrderMedia to Database
                 var orderDataTempJson = HttpContext.Session.GetString(OrderDataTempSessionKey);
-                var ordatDataSession = JsonSerializer.Deserialize<OrderData>(orderDataTempJson);
+                var orderDataSession = JsonSerializer.Deserialize<OrderData>(orderDataTempJson);
                 var paymentMethod = HttpContext.Session.GetString(PaymentMethodSessionKey);
                 var orderData = new OrderData
                 {
-                    City = "Hà Nội",
-                    Address = ordatDataSession.Address,
-                    Phone = ordatDataSession.Phone,
-                    Email = ordatDataSession.Email,
-                    ShippingFee = ordatDataSession.ShippingFee,
-                    Instructions = !string.IsNullOrEmpty(ordatDataSession.Instructions) ? ordatDataSession.Instructions : "Không có",
+                    City = orderDataSession.City,
+                    Address = orderDataSession.Address,
+                    Phone = orderDataSession.Phone,
+                    Email = orderDataSession.Email,
+                    ShippingFee = orderDataSession.ShippingFee,
+                    Instructions = !string.IsNullOrEmpty(orderDataSession.Instructions) ? orderDataSession.Instructions : "Không có",
                     Type = paymentMethod,
-                    CreatedAt = ordatDataSession.CreatedAt,
-                    TotalPrice = ordatDataSession.TotalPrice,
+                    CreatedAt = orderDataSession.CreatedAt,
+                    TotalPrice = orderDataSession.TotalPrice,
                     Status = "0",
-                    Fullname = ordatDataSession.Fullname
+                    Fullname = orderDataSession.Fullname
                 };
                 var orderMediaJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
                 List<OrderMedia> orderMedias = new List<OrderMedia>();
@@ -181,7 +183,6 @@ namespace AIMS.Controllers
                 }
                 else
                 {
-                    var cartController = new CartController(_mediaRepository, _httpContextAccessor, _cartRepository, _userRepository);
                     var cart = cartController.GetCartFromSession();
                     cart.RemoveAll(item => mediaIdsToRemove.Contains(item.MediaID));
                     cartController.SaveCartToSession(cart);

@@ -7,6 +7,7 @@ using AIMS.Repositories;
 using AIMS.Repositories.Impl;
 using AIMS.Service.Impl;
 using AIMS.Service;
+using AIMS.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -39,6 +40,10 @@ builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddScoped<DeliveryInfoValidator>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IShippingFeeCalculationStrategy, ShippingFeeByWeightStrategy>();
+builder.Services.AddScoped<IShippingFeeService, ShippingFeeService>();
+builder.Services.AddScoped<CartController, CartController>();
+builder.Services.AddScoped<OrderController, OrderController>();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
