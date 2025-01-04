@@ -84,6 +84,7 @@ namespace AIMS.Controllers
 
         public IActionResult PlaceOrderView()
         {
+            // Check if there is any order media in session
             var orderMediaListJson = HttpContext.Session.GetString(OrderMediaListSessionKey);
             if (string.IsNullOrEmpty(orderMediaListJson))
                 return RedirectToAction("CartView", "Cart");
