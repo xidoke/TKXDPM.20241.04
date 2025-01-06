@@ -76,7 +76,14 @@
                     <input type="hidden" name="mediaID" value="@product.Id" />
                     <div class="quantity">
                         <span>Số lượng</span>
-                        <input type="number" min="1" value="1" name="quantity" />
+                        @if (product.Quantity == 0)
+                        {
+                            <span class="out-of-stock">Hết hàng</span>
+                        }
+                        else
+                        {
+                            <input type="number" min="1" max="@product.Quantity" value="1" name="quantity" />
+                        }
                     </div>
                     <br />
 
@@ -91,6 +98,17 @@
 
 @section Scripts {
     <script>
+        $(document).ready(function () {
+            if (@product.Quantity == 0) {
+                $("#addToCartBtn").prop("disabled", true);
+                $("#placeOrderButton").prop("disabled", true);
+
+                $("#addToCartBtn, #placeOrderButton").click(function () {
+                    alert("Sản phẩm này đã hết hàng, vui lòng chọn sản phẩm khác.");
+                });
+            }
+        });
+
         $(document).ready(function () {
             $("#addToCartBtn").click(function (event) {
                 event.preventDefault();

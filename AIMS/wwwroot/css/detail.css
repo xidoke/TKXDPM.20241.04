@@ -79,12 +79,23 @@
     gap: 10px;
 }
 
-    .quantity input {
-        width: 50px;
-        padding: 5px;
-        border: 1px solid #ddd;
-        text-align: center;
-    }
+.quantity input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.quantity .out-of-stock {
+    color: red;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.quantity .in-stock {
+    color: green;
+    font-weight: bold;
+}
 
 .add-to-cart, .place-order {
     padding: 10px 20px;
