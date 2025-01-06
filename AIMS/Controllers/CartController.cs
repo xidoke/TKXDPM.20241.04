@@ -187,6 +187,7 @@ namespace AIMS.Controllers
         }
         public List<CartItem> GetCartFromSession()
         {
+            // Lấy Items từ Session
             var cartJson = _httpContextAccessor.HttpContext?.Session.GetString(CartSessionKey);
             if (string.IsNullOrEmpty(cartJson)) return new List<CartItem>();
             return JsonSerializer.Deserialize<List<CartItem>>(cartJson);
