@@ -14,5 +14,6 @@ namespace AIMS.Repositories
         Task AddOrderMediasAsync(List<OrderMedia> orderMedias);
         Task UpdateOrderMediaAsync(OrderMedia orderMedia);
         Task DeleteOrderMediaAsync(int orderMediaId);
+        string GetCurrentUserEmail();
     }
 }

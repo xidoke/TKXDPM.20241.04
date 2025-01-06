@@ -3,6 +3,7 @@ using AIMS.Controllers;
 using AIMS.Data.Entities.Address;
 using AIMS.Models.Entities;
 using AIMS.Repositories;
+using AIMS.Service;
 using AIMS.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -23,6 +24,7 @@ namespace AIMS.UnitTest.PlaceOrderController
             private Mock<DeliveryInfoValidator> _deliveryInfoValidatorMock;
             private OrderController _controller;
             private Mock<ISession> _sessionMock;
+            private Mock<IShippingFeeService> _shippingFeeServiceMock;
 
             [SetUp]
             public void SetUp()
@@ -33,6 +35,7 @@ namespace AIMS.UnitTest.PlaceOrderController
                 _mediaRepositoryMock = new Mock<IMediaRepository>();
                 _orderRepositoryMock = new Mock<IOrderRepository>();
                 _deliveryInfoValidatorMock = new Mock<DeliveryInfoValidator>();
+                _shippingFeeServiceMock = new Mock<IShippingFeeService>();
 
                 _sessionMock = new Mock<ISession>();
                 var httpContext = new DefaultHttpContext
@@ -46,7 +49,8 @@ namespace AIMS.UnitTest.PlaceOrderController
                     _districtRepositoryMock.Object,
                     _wardRepositoryMock.Object,
                     _mediaRepositoryMock.Object,
-                    _deliveryInfoValidatorMock.Object
+                    _deliveryInfoValidatorMock.Object,
+                    _shippingFeeServiceMock.Object
                 )
                 {
                     ControllerContext = new ControllerContext { HttpContext = httpContext }
